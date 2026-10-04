@@ -1,7 +1,7 @@
 ---
 import Base from '../../layouts/Base.astro';
 ---
-<Base title="Family Account · Serena Zhang" description="Case study: China's first family account system for elders and kids at Tencent Video.">
+<Base title="Family Account · Serena Zhang" description="Case study: designing China's first family account system for elders and kids at Tencent Video, from account logic to pricing.">
 <style is:global>
 /* Same light editorial system as case 02, with a teal accent taken from the product's own action buttons. Dark band for the interaction boards so the original dark-canvas deliverables sit naturally. */
 :root{
@@ -253,6 +253,12 @@ figure{margin:0}
 }
 @media (max-width:560px){.pay,.rules,.mods{grid-template-columns:1fr}.pay .phone{max-width:240px;margin-inline:auto}.lb img{width:260vw}}
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
+/* design scope strip */
+.scope{margin-top:20px;display:flex;flex-wrap:wrap;align-items:center;gap:8px}
+.scope .sl{font:500 11px var(--mono);letter-spacing:.12em;text-transform:uppercase;opacity:.75;margin-right:4px}
+.scope .p{font:600 12.5px var(--body);padding:6px 12px;border-radius:99px;border:1px dashed currentColor;opacity:.4}
+.scope .p.on{opacity:1;border:1px solid transparent;background:var(--scope-bg);color:var(--scope-ink)}
+.hero .scope{color:var(--muted);--scope-bg:var(--fill);--scope-ink:#0C110F}
 </style>
 
 <header class="bar">
@@ -265,13 +271,14 @@ figure{margin:0}
     <div>
       <div class="eyebrow">Case study · Tencent Video · Membership</div>
       <h1>One membership, <em>a whole family</em></h1>
-      <p class="lede">I led China's first family account system built for elders and kids. Adult children invite their parents and children, pay for them, and look after them, turning account sharing into a product people pay for.</p>
+      <p class="lede">I designed and led China's first family account system built for elders and kids. Adult children invite their parents and children, pay for them, and look after them, turning account sharing into a product people pay for.</p>
       <div class="tags"><span class="tag">Product strategy</span><span class="tag">Account system</span><span class="tag">Pricing</span><span class="tag">Interaction design</span></div>
+      <div class="scope" aria-label="My design scope: Product logic, UI / UX, Data, Monetization"><span class="sl">My design scope</span><span class="p on">Product logic</span><span class="p on">UI / UX</span><span class="p on">Data</span><span class="p on">Monetization</span></div>
       <dl class="meta">
-        <div><dt>Role</dt><dd>Product Leader</dd></div>
+        <div><dt>Role</dt><dd>Product lead, end-to-end design</dd></div>
         <div><dt>Partner</dt><dd>Membership team</dd></div>
         <div><dt>Users</dt><dd>Payers, elders, kids</dd></div>
-        <div><dt>Scope</dt><dd>Strategy to interaction design</dd></div>
+        <div><dt>Scope</dt><dd>Logic, pricing, interaction design</dd></div>
       </dl>
     </div>
     <div class="fan" aria-label="Three app screens: the recommendation feed, My Family, and the pay-for-family sheet">

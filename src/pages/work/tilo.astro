@@ -335,6 +335,12 @@ figure{margin:0}
   .stop .media.two{grid-template-columns:1fr}
 }
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
+/* design scope strip */
+.scope{margin-top:20px;display:flex;flex-wrap:wrap;align-items:center;gap:8px}
+.scope .sl{font:500 11px var(--mono);letter-spacing:.12em;text-transform:uppercase;opacity:.75;margin-right:4px}
+.scope .p{font:600 12.5px var(--body);padding:6px 12px;border-radius:99px;border:1px dashed currentColor;opacity:.4}
+.scope .p.on{opacity:1;border:1px solid transparent;background:var(--scope-bg);color:var(--scope-ink)}
+.hero .scope{color:var(--muted);--scope-bg:var(--fill);--scope-ink:#1C1C1C}
 </style>
 
 <header class="bar">
@@ -349,6 +355,7 @@ figure{margin:0}
       <h1>TILO: a name and a face for <em>Canada's first tile AI</em></h1>
       <p class="lede">A Toronto tile retailer hired me to name and brand its new AI assistant. I carried the brand all the way through: how TILO greets shoppers on the website, how its results read, and how the team measures it.</p>
       <div class="tags"><span class="tag">Brand identity</span><span class="tag">UI / UX</span><span class="tag">Product advisory</span><span class="tag">Data dashboard</span></div>
+      <div class="scope" aria-label="My design scope: Product logic, UI / UX, Data"><span class="sl">My design scope</span><span class="p on">Product logic</span><span class="p on">UI / UX</span><span class="p on">Data</span><span class="p">Monetization</span></div>
       <dl class="meta">
         <div><dt>Role</dt><dd>Brand + UI/UX designer, product advisor</dd></div>
         <div><dt>Team</dt><dd>1 developer, 1 ops lead, client manager</dd></div>

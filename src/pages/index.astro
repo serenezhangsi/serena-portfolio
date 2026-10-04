@@ -1,7 +1,7 @@
 ---
 import Base from '../layouts/Base.astro';
 ---
-<Base title="Serena Zhang · Product Manager & UX Designer" description="Senior product manager and UX designer. 10+ years at Tencent; MS in UX Design at Wilfrid Laurier University.">
+<Base title="Serena Zhang · Product Designer" description="Product designer with 10+ years at Tencent: product logic, UI/UX, data and monetization. MS in UX Design at Wilfrid Laurier University.">
 <style is:global>
 /* Portfolio home: the editorial system of the case studies, in a dark theme. Each case keeps its own accent (blue, orange, teal) so the cards preview the pages they open. */
 :root{
@@ -221,19 +221,38 @@ figure{margin:0}
 }
 @media (max-width:520px){.case .ms{grid-template-columns:1fr 1fr}.mos{height:280px}}
 @media (prefers-reduced-motion:reduce){*{transition:none!important}.badge{animation:none}html{scroll-behavior:auto}}
+
+/* approach: the design loop */
+.loop4{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;position:relative}
+.loop4 > *{min-width:0}
+.st{position:relative;background:var(--surface);border-radius:22px;box-shadow:0 0 0 1px var(--line);padding:24px 22px 22px;display:grid;gap:10px;align-content:start}
+.st .n{display:flex;align-items:center;justify-content:space-between;font:600 12px var(--mono);letter-spacing:.12em;color:var(--k)}
+.st .n i{font-style:normal;width:34px;height:34px;border-radius:50%;display:grid;place-items:center;background:color-mix(in srgb,var(--k) 18%,transparent);color:var(--k);font:700 15px var(--display);letter-spacing:0}
+.st h3{font-size:22px}
+.st p{font-size:14.5px;color:var(--muted)}
+.st .ex{margin-top:6px;padding-top:12px;border-top:1px dashed var(--line);font-size:13.5px;color:var(--ink);line-height:1.45}
+.st .ex small{display:block;font:500 11px var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:4px}
+.st .ex a{color:var(--k);text-decoration:none;font-weight:600}
+.st .ex a:hover{text-decoration:underline}
+.st:not(:last-child)::after{content:"→";position:absolute;right:-13px;top:50%;transform:translateY(-50%);z-index:1;width:22px;height:22px;border-radius:50%;display:grid;place-items:center;font:600 12px var(--mono);color:var(--paper);background:var(--muted)}
+.back{margin-top:16px;display:flex;align-items:center;gap:14px;font:500 13px var(--mono);color:var(--muted)}
+.back::before,.back::after{content:"";flex:1;height:1px;background:repeating-linear-gradient(90deg,var(--line) 0 6px,transparent 6px 12px)}
+.back b{color:var(--ink);font-weight:600}
+@media (max-width:900px){.loop4{grid-template-columns:1fr 1fr}.st:nth-child(2)::after{display:none}}
+@media (max-width:560px){.loop4{grid-template-columns:1fr}.loop4 .st::after{display:none!important}}
 </style>
 
 <header class="bar">
-  <div class="wrap"><a href="#top" class="me">Serena Zhang</a><nav><a href="#work">Work</a><a href="#competitions" class="opt">Competitions</a><a href="#campus" class="opt">Campus</a><a href="#about">About</a><a href="#resume">Resume</a><a href="#contact">Contact</a></nav></div>
+  <div class="wrap"><a href="#top" class="me">Serena Zhang</a><nav><a href="#work">Work</a><a href="#approach" class="opt">Approach</a><a href="#competitions" class="opt">Competitions</a><a href="#campus" class="opt">Campus</a><a href="#about">About</a><a href="#resume">Resume</a><a href="#contact">Contact</a></nav></div>
 </header>
 
 <!-- HERO -->
 <section class="hero" id="top">
   <div class="wrap">
     <div>
-      <p class="hi">Hi, I'm <b>Zhang Si (Serena)</b> 👋</p>
+      <p class="hi">Hi, I'm <b>Zhang Si (Serena)</b>, a product designer 👋</p>
       <h1>I build products people come back to, <em>and pay for.</em></h1>
-      <p class="lede">Senior product manager with 10+ years at Tencent and Dewmobile, working across recommendation, AI and membership. Now completing an MS in User Experience Design at Wilfrid Laurier University, and designing for both business results and the people behind them.</p>
+      <p class="lede">I design products end to end: the product logic, the interaction and UI, the data that steers them and the model that makes them pay. 10+ years shipping at Tencent and Dewmobile; now completing an MS in User Experience Design at Wilfrid Laurier University.</p>
       <div class="ctas"><a class="btn" href="#work">See my work ↓</a><a class="btn ghost" href="mailto:serene.zhangsi@gmail.com">Email me</a></div>
       <div class="stats">
         <div><b>10+</b><span>years in product</span></div>
@@ -250,6 +269,20 @@ figure{margin:0}
   </div>
 </section>
 
+<!-- APPROACH -->
+<section id="approach" style="padding-top:0">
+  <div class="wrap">
+    <div class="head"><div class="eyebrow">How I design</div><h2>One loop, from logic to revenue</h2><p class="lede">I don't stop at the screen. I design how a product works, how it feels, how we measure it and how it earns, then feed what we learn into the next version.</p></div>
+    <div class="loop4">
+      <article class="st" style="--k:#B49BFF"><div class="n">PRODUCT LOGIC<i>1</i></div><h3>Shape the system</h3><p>Account models, rules, states and flows, so the experience holds together underneath.</p><div class="ex"><small>Example</small><a href="/work/family-account">Family Account</a>: a bind-not-switch account model with caps that stop discount abuse.</div></article>
+      <article class="st" style="--k:var(--c2)"><div class="n">UI / UX<i>2</i></div><h3>Design what people touch</h3><p>Interaction flows, interfaces and brand, tested with real users and tuned to the detail.</p><div class="ex"><small>Example</small><a href="/work/tilo">TILO</a>: brand, search-bar camera entry and redesigned result cards, now live.</div></article>
+      <article class="st" style="--k:var(--c1)"><div class="n">DATA<i>3</i></div><h3>Let numbers steer</h3><p>Define the metrics, run A/B tests and read the results before deciding what to design next.</p><div class="ex"><small>Example</small><a href="/work/ip-ai-stories">IP + AI</a>: every sprint judged on turns per user and retention; 37.5 turns vs. ~30 industry.</div></article>
+      <article class="st" style="--k:var(--c3)"><div class="n">MONETIZATION<i>4</i></div><h3>Design how it earns</h3><p>Pricing, offers and conversion paths that turn real needs into sustainable revenue.</p><div class="ex"><small>Example</small><a href="/work/family-account">Family Account</a>: tilting discounts to long-term plans lifted order value 2.6×.</div></article>
+    </div>
+    <div class="back"><span>Results <b>feed the next iteration</b> ↺</span></div>
+  </div>
+</section>
+
 <!-- WORK -->
 <section id="work" style="padding-top:0">
   <div class="wrap">
@@ -260,7 +293,7 @@ figure{margin:0}
         <div class="txt">
           <span class="no">01 · TENCENT VIDEO · 2024</span>
           <h3>IP + AI: stepping inside the story</h3>
-          <div class="meta">Lead PM · 0-to-1 AI product · team of 14</div>
+          <div class="meta">Product lead, end-to-end design · 0-to-1 AI product · team of 14</div>
           <p>Fans keep living inside the shows they love: chatting with characters, unlocking new chapters and shaping their own endings.</p>
           <div class="tags"><span class="tag">AI agents</span><span class="tag">LLM</span><span class="tag">Interactive story</span></div>
           <div class="ms"><div><b>800K</b><span>users</span></div><div><b>30M+</b><span>conversation turns</span></div><div><b>16</b><span>AI characters, 5 IPs</span></div></div>
@@ -286,7 +319,7 @@ figure{margin:0}
         <div class="txt">
           <span class="no">03 · TENCENT VIDEO · MEMBERSHIP</span>
           <h3>Family Account: one membership, a whole family</h3>
-          <div class="meta">Product Leader · with the membership team</div>
+          <div class="meta">Product lead, end-to-end design · with the membership team</div>
           <p>China's first family account system built for elders and kids: adult children invite, pay for and look after their family.</p>
           <div class="tags"><span class="tag">Account system</span><span class="tag">Pricing</span><span class="tag">Interaction design</span></div>
           <div class="ms"><div><b>321,577</b><span>daily active users</span></div><div><b>¥35,102</b><span>daily family recharge</span></div><div><b>4.16M</b><span>families created</span></div></div>
@@ -399,7 +432,7 @@ figure{margin:0}
 <!-- RESUME -->
 <section id="resume" style="padding-top:0">
   <div class="wrap">
-    <div class="head"><div class="eyebrow">Resume</div><h2>10+ years of product, now with a UX lens</h2></div>
+    <div class="head"><div class="eyebrow">Resume</div><h2>10+ years designing products end to end</h2></div>
     <div class="cv">
       <div>
         <div class="job">
@@ -414,7 +447,7 @@ figure{margin:0}
         </div>
         <div class="job">
           <div class="when"><b>Mar 2018 – Aug 2025</b>Beijing, China</div>
-          <div><h3>Senior Product Manager</h3><div class="co">Tencent Technology (Beijing) Co., Ltd.</div>
+          <div><h3>Senior Product Manager</h3><div class="co">Tencent Technology (Beijing) Co., Ltd. · hands-on across product logic, interaction design, data and monetization</div>
             <div class="prod">Tencent Video · China's leading streaming platform</div>
             <ul>
               <li>Pioneered a <b>Family Account</b> system for elders and children: within 6 months, <b>321,577 DAU</b>, <b>RMB 35,102</b> daily family payments and <b>4.16M</b> families created.</li>
@@ -427,7 +460,7 @@ figure{margin:0}
         </div>
         <div class="job">
           <div class="when"><b>Jul 2013 – Aug 2017</b>Beijing, China</div>
-          <div><h3>Product Manager</h3><div class="co">Dewmobile Technology (Beijing) Co., Ltd.</div>
+          <div><h3>Product Manager</h3><div class="co">Dewmobile Technology (Beijing) Co., Ltd. · owned the iOS product experience</div>
             <div class="prod">ZAPYA · Global file-sharing app</div>
             <ul><li>Led product experience on ZAPYA iOS, with a sustained App Store rating of <b>4.7 / 5</b>.</li></ul></div>
         </div>
@@ -457,7 +490,7 @@ figure{margin:0}
 <!-- CONTACT -->
 <section class="contact" id="contact">
   <div class="wrap">
-    <div><div class="eyebrow">Contact</div><h2 style="margin-top:18px">Let's build something people <em>keep coming back to.</em></h2><p style="color:#ffffffaa;margin-top:20px">Open to product manager and UI/UX designer roles.</p></div>
+    <div><div class="eyebrow">Contact</div><h2 style="margin-top:18px">Let's build something people <em>keep coming back to.</em></h2><p style="color:#ffffffaa;margin-top:20px">Open to product designer and UI/UX designer roles.</p></div>
     <div class="links">
       <a href="mailto:serene.zhangsi@gmail.com"><span>Email</span>serene.zhangsi@gmail.com</a>
       <a href="https://www.linkedin.com/in/si-zhang-769211393" target="_blank" rel="noopener"><span>LinkedIn</span>si-zhang-769211393 ↗</a>

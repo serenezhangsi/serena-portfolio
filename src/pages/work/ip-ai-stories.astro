@@ -1,7 +1,7 @@
 ---
 import Base from '../../layouts/Base.astro';
 ---
-<Base title="IP + AI Interactive Stories · Serena Zhang" description="Case study: a 0-to-1 AI product at Tencent Video that lets fans talk with characters and shape their own endings.">
+<Base title="IP + AI Interactive Stories · Serena Zhang" description="Case study: designing a 0-to-1 AI product at Tencent Video that lets fans talk with characters and shape their own endings.">
 <style is:global>
 /* Layout: light reading pages for argument + diagrams, dark "stage" bands where the product's own (dark) screens live. */
 :root{
@@ -271,6 +271,12 @@ svg text{font-family:var(--body)}
   .duo .phone{margin-inline:auto}
 }
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
+/* design scope strip */
+.scope{margin-top:20px;display:flex;flex-wrap:wrap;align-items:center;gap:8px}
+.scope .sl{font:500 11px var(--mono);letter-spacing:.12em;text-transform:uppercase;opacity:.75;margin-right:4px}
+.scope .p{font:600 12.5px var(--body);padding:6px 12px;border-radius:99px;border:1px dashed currentColor;opacity:.4}
+.scope .p.on{opacity:1;border:1px solid transparent;background:var(--scope-bg);color:var(--scope-ink)}
+.hero .scope{color:#C9CDDA;--scope-bg:#8FA8FF;--scope-ink:#0D0E13}
 </style>
 
 <header class="bar">
@@ -283,10 +289,11 @@ svg text{font-family:var(--body)}
     <div>
       <div class="eyebrow">Case study · Tencent Video · 2024</div>
       <h1>IP + AI: stepping <em>inside</em> the story</h1>
-      <p class="lede">I led a 0-to-1 AI product that lets fans keep living inside the shows they love: talking with the characters, unlocking new chapters and shaping their own endings.</p>
+      <p class="lede">I designed and led a 0-to-1 AI product that lets fans keep living inside the shows they love: talking with the characters, unlocking new chapters and shaping their own endings.</p>
       <div class="tags"><span class="tag">AI product</span><span class="tag">0 → 1</span><span class="tag">Interactive storytelling</span><span class="tag">Creator tools</span></div>
+      <div class="scope" aria-label="My design scope: Product logic, UI / UX, Data"><span class="sl">My design scope</span><span class="p on">Product logic</span><span class="p on">UI / UX</span><span class="p on">Data</span><span class="p">Monetization</span></div>
       <dl class="meta">
-        <div><dt>Role</dt><dd>Lead PM</dd></div>
+        <div><dt>Role</dt><dd>Product lead, end-to-end design</dd></div>
         <div><dt>Team</dt><dd>14 people</dd></div>
         <div><dt>Cadence</dt><dd>2-week sprints</dd></div>
         <div><dt>Shipped on</dt><dd>Tencent Video, QQ, Yuanbao</dd></div>
