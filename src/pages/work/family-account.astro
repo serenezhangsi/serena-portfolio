@@ -1,0 +1,610 @@
+---
+import Base from '../../layouts/Base.astro';
+---
+<Base title="Family Account · Serena Zhang" description="Case study: China's first family account system for elders and kids at Tencent Video.">
+<style is:global>
+/* Same light editorial system as case 02, with a teal accent taken from the product's own action buttons. Dark band for the interaction boards so the original dark-canvas deliverables sit naturally. */
+:root{
+  --paper:#F7F8F6; --surface:#FFFFFF; --ink:#1A1D1C; --muted:#5F6664; --line:#E1E5E2;
+  --signal:#0B6E66; --fill:#16B3A6; --soft:#E5F5F2; --gold:#F5C451; --cream:#FFF6E2;
+  --stage:#1F2F2C; --stage-2:#283A37; --stage-ink:#EEF2F0; --stage-muted:#9AA5A1;
+  --display:"Bricolage Grotesque","Avenir Next","Segoe UI",sans-serif;
+  --body:"IBM Plex Sans","PingFang SC","Helvetica Neue",Arial,sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+  --wrap:1120px; color-scheme:light;
+}
+*{box-sizing:border-box}
+body{background:var(--paper);color:var(--ink);font:400 16px/1.65 var(--body);margin:0}
+.wrap{max-width:var(--wrap);margin-inline:auto;padding-inline:24px}
+img{max-width:100%;display:block}
+h1,h2,h3{font-family:var(--display);font-weight:700;letter-spacing:-.02em;line-height:1.06;margin:0;text-wrap:balance}
+h2{font-size:clamp(30px,4.2vw,48px)}
+h3{font-size:22px;letter-spacing:-.01em}
+p{margin:0;max-width:62ch}
+.eyebrow{font:500 12px/1 var(--mono);letter-spacing:.16em;text-transform:uppercase;color:var(--signal)}
+.lede{font-size:18.5px;color:var(--muted)}
+section{padding-block:112px}
+.head{display:grid;gap:18px;margin-bottom:56px;max-width:780px}
+.cap{font:400 12px/1.5 var(--mono);color:var(--muted);margin-top:12px}
+figure{margin:0}
+:focus-visible{outline:2px solid var(--fill);outline-offset:3px}
+
+.bar{position:sticky;top:0;z-index:5;background:color-mix(in srgb,var(--paper) 88%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.bar .wrap{display:flex;justify-content:space-between;align-items:center;padding-block:14px;font:500 13px var(--mono);color:var(--muted)}
+.bar a{color:var(--ink);text-decoration:none}
+
+/* hero */
+.hero{padding-block:88px 80px}
+.hero .wrap{display:grid;grid-template-columns:1fr 1.05fr;gap:56px;align-items:center}
+.hero h1{font-size:clamp(40px,5.8vw,74px);font-weight:800;margin-block:22px 26px;letter-spacing:-.035em}
+.hero h1 em{font-style:normal;color:var(--fill)}
+.tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:28px}
+.tag{font:500 11.5px var(--mono);letter-spacing:.08em;text-transform:uppercase;border:1px solid var(--line);background:var(--surface);border-radius:99px;padding:6px 12px;color:var(--muted)}
+.meta{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:20px;margin-top:40px;padding-top:22px;border-top:1px solid var(--line)}
+.meta dt{font:500 11px var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.meta dd{margin:6px 0 0;font-weight:500;font-size:14.5px;line-height:1.4}
+.fan{position:relative;aspect-ratio:1/1.02;background:radial-gradient(circle at 50% 55%,#DDF3EF 0,#EEF7F5 45%,transparent 70%)}
+.ph{position:absolute;border-radius:26px;overflow:hidden;background:#fff;box-shadow:0 0 0 6px #fff,0 0 0 7px var(--line),0 40px 70px -30px #0d3b3666}
+.ph img{width:100%}
+.ph.a{width:36%;left:2%;top:16%;transform:rotate(-7deg)}
+.ph.b{width:40%;left:30%;top:4%;z-index:2}
+.ph.c{width:36%;right:2%;top:16%;transform:rotate(7deg)}
+.chip{position:absolute;z-index:3;font:600 12px var(--mono);letter-spacing:.04em;background:var(--ink);color:#fff;border-radius:99px;padding:8px 14px;box-shadow:0 12px 24px -12px #0006}
+.chip.l{left:0;bottom:12%}.chip.r{right:0;bottom:6%;background:var(--fill);color:var(--ink)}
+
+/* numbers */
+.nums{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));border-block:1px solid var(--line)}
+.num{padding:32px 24px 32px 0;border-right:1px solid var(--line);display:grid;gap:10px;align-content:start}
+.num + .num{padding-left:28px}
+.num:last-child{border-right:0}
+.num b{font:800 clamp(36px,4.8vw,60px)/.95 var(--display);letter-spacing:-.04em;font-variant-numeric:tabular-nums}
+.num b small{font-size:.45em;letter-spacing:-.01em;font-weight:700}
+.num span{color:var(--muted);font-size:14px;max-width:26ch;line-height:1.45}
+.num.hi{background:var(--soft);margin-right:-24px;padding-right:24px}
+.num.hi b{color:var(--signal)}
+.num-note{font:400 11.5px var(--mono);color:var(--muted);margin-top:12px}
+
+/* system map */
+.map-wrap{display:grid;grid-template-columns:minmax(0,.7fr) minmax(0,1.3fr);gap:48px;align-items:center}
+.map-wrap > *{min-width:0}
+.map-card{background:var(--surface);border-radius:24px;box-shadow:0 0 0 1px var(--line);padding:clamp(14px,2.6vw,28px) clamp(14px,2.6vw,28px) 18px}
+.svg-scroll{overflow-x:auto}
+.map{width:100%;height:auto;min-width:0}
+.legend{display:flex;gap:18px;flex-wrap:wrap;justify-content:center;font:500 12px var(--mono);color:var(--muted);margin-top:8px;padding-top:16px;border-top:1px solid var(--line)}
+.legend span{display:flex;align-items:center;gap:8px}
+.legend i{width:14px;height:14px;border-radius:5px;display:inline-block}
+.layers{display:grid;gap:10px;margin-top:26px}
+.layers div{display:grid;grid-template-columns:24px 1fr;gap:10px;font-size:14.5px;color:var(--muted)}
+.layers b{color:var(--ink);font-weight:600}
+.layers em{font-style:normal;font:600 12px var(--mono);color:var(--signal);padding-top:2px}
+
+/* personas */
+.cards3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
+.card{background:var(--surface);border-radius:20px;box-shadow:0 0 0 1px var(--line);padding:26px;display:grid;gap:12px;align-content:start}
+.card .who{display:flex;align-items:center;gap:12px}
+.av{width:44px;height:44px;border-radius:50%;display:grid;place-items:center;font:700 15px var(--display)}
+.av.p{background:var(--ink);color:#fff}.av.e{background:var(--cream);color:#8A5A00}.av.k{background:var(--soft);color:var(--signal)}
+.card h3{font-size:20px}
+.card .sub{font:500 11px var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.card p{color:var(--muted);font-size:15px}
+.card .impact{margin-top:6px;padding-top:12px;border-top:1px dashed var(--line);font-size:14px;color:var(--ink)}
+.card .impact b{font:600 11px var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--signal);display:block;margin-bottom:4px}
+.goal{margin-top:22px;display:grid;grid-template-columns:auto 1fr;gap:20px;align-items:center;background:var(--ink);color:#fff;border-radius:20px;padding:22px 26px}
+.goal b{font:800 30px/1 var(--display);color:var(--fill);letter-spacing:-.02em}
+.goal p{color:#C9D2CF;font-size:15px;max-width:none}
+
+
+/* relationship triangle */
+.tri-card{background:var(--surface);border-radius:24px;box-shadow:0 0 0 1px var(--line);padding:clamp(16px,3vw,36px) clamp(12px,3vw,36px) 20px;margin-bottom:22px;display:grid;grid-template-columns:minmax(0,.62fr) minmax(0,1.38fr);gap:32px;align-items:center}
+.tri-card > *{min-width:0}
+.tri-txt{display:grid;gap:14px}
+.tri-txt h3{font-size:26px}
+.tri-txt p{color:var(--muted);font-size:15.5px}
+.tri-key{display:grid;gap:8px;font:500 12px var(--mono);color:var(--muted);margin-top:6px}
+.tri-key span{display:flex;align-items:center;gap:10px}
+.tri-key i{display:inline-block;width:28px;height:0;border-top:3px solid #16B3A6}
+.tri-key i.t{border-top:2.5px dashed #E2725B}
+.tri-key i.h{border-top:1.5px dotted #9AA5A1}
+.tri{width:100%;height:auto;display:block}
+.tri-i{font:700 28px var(--display);fill:#1A1D1C}.tri-i.w{fill:#fff}
+.tri-n{font:700 17px var(--display);fill:#1A1D1C}
+.tri-s{font:400 13px var(--body);fill:#5F6664}
+.tri-h{font:700 16px var(--display);fill:#1A1D1C}
+.tri-l{font:500 15px var(--body);fill:#1A1D1C}
+.tri-k{font:600 11.5px var(--mono);letter-spacing:.08em}
+
+/* insights */
+.ins{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
+.ins .card{gap:14px}
+.ins .n{font:800 15px var(--mono);color:var(--fill)}
+.q{border-left:3px solid var(--fill);padding:2px 0 2px 14px;font-size:14.5px;color:var(--ink)}
+.q small{display:block;font:500 11px var(--mono);color:var(--muted);letter-spacing:.06em;margin-top:4px}
+.stack{display:flex;height:12px;border-radius:99px;overflow:hidden;background:var(--line)}
+.stack i{display:block;height:100%}
+.stack-l{display:flex;justify-content:space-between;font:500 11px var(--mono);color:var(--muted);margin-top:6px}
+.big{font:800 46px/1 var(--display);letter-spacing:-.03em}
+.big small{display:block;font-size:14px;font-weight:500;color:var(--muted);letter-spacing:0;margin-top:6px;font-family:var(--body)}
+.principles{margin-top:22px;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
+.principles div{border-top:2px solid var(--ink);padding-top:14px;font-size:15px;color:var(--muted)}
+.principles b{display:block;color:var(--ink);font:700 18px var(--display);margin-bottom:6px}
+
+/* decisions */
+.spine{border-top:1px solid var(--line)}
+.dec{display:grid;grid-template-columns:90px minmax(0,.85fr) minmax(0,1.15fr);gap:40px;padding-block:52px;border-bottom:1px solid var(--line);align-items:start}
+.dec > *{min-width:0}
+.dec.wide > .art,.dec.wide > .txt{grid-column:2 / -1}
+.dec.wide .txt ul{grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
+.dec .no{font:800 44px/1 var(--display);color:var(--fill);letter-spacing:-.03em;position:sticky;top:80px}
+.dec .txt{display:grid;gap:12px;align-content:start}
+.dec .txt p,.dec li{color:var(--muted);font-size:15.5px}
+.dec ul{margin:0;padding-left:18px;display:grid;gap:6px}
+.dec li b{color:var(--ink);font-weight:600}
+.pill{justify-self:start;font:600 11px var(--mono);letter-spacing:.1em;text-transform:uppercase;padding:5px 10px;border-radius:99px;background:var(--soft);color:var(--signal)}
+.zoom{display:block;padding:0;border:0;background:none;cursor:zoom-in;width:100%;text-align:left;border-radius:16px;overflow:hidden;box-shadow:0 0 0 1px var(--line),0 30px 60px -40px #0d3b3655}
+.zoom img{width:100%}
+.zh{font:500 11.5px var(--mono);color:var(--muted);margin-top:10px;display:flex;justify-content:space-between;gap:12px}
+.pay{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:18px;align-items:center}
+.phone{border-radius:24px;overflow:hidden;box-shadow:0 0 0 5px #fff,0 0 0 6px var(--line),0 30px 60px -30px #0d3b3666}
+.fvip{background:var(--surface);border-radius:18px;box-shadow:0 0 0 1px var(--line);padding:20px;display:grid;gap:12px}
+.fvip .t{font:600 11px var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.tiers{display:flex;gap:8px;flex-wrap:wrap}
+.tiers span{font:600 13px var(--mono);padding:7px 12px;border-radius:10px;background:var(--paper);box-shadow:0 0 0 1px var(--line)}
+.tiers span.on{background:var(--fill);box-shadow:none}
+.flow{display:grid;gap:6px;font-size:13.5px;color:var(--muted)}
+.flow .ar{text-align:center}
+.flow .box{border-radius:12px;padding:10px 12px;background:var(--paper);box-shadow:0 0 0 1px var(--line)}
+.flow .box b{display:block;font:700 14px var(--display)}
+.flow .ar{font:600 16px var(--mono);color:var(--fill)}
+.seats{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.seats span{border-radius:10px;padding:10px 6px;text-align:center;font:600 12px var(--mono);background:var(--soft);color:var(--signal)}
+.seats span.h{background:var(--cream);color:#8A5A00}
+.rules{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.rule{background:var(--surface);border-radius:18px;box-shadow:0 0 0 1px var(--line);padding:20px;display:grid;gap:6px}
+.rule b{font:800 36px/1 var(--display);letter-spacing:-.03em}
+.rule b small{font-size:15px;font-weight:600;color:var(--muted);letter-spacing:0;margin-left:4px}
+.rule span{font-size:14px;color:var(--muted)}
+.road{display:grid;gap:12px}
+.lane{display:grid;grid-template-columns:110px 1fr;gap:14px;align-items:start}
+.lane .ph-l{font:600 11.5px/1.4 var(--mono);letter-spacing:.08em;text-transform:uppercase;padding-top:12px}
+.lane .ph-l small{display:block;font-weight:400;color:var(--muted);letter-spacing:.04em;text-transform:none;margin-top:2px}
+.mods{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.mods.one{display:flex;flex-wrap:wrap;gap:8px}
+.mod{border-radius:14px;padding:12px 14px;font-size:13.5px;line-height:1.4;color:var(--muted);background:var(--surface);box-shadow:0 0 0 1px var(--line)}
+.mod b{display:block;color:var(--ink);font:700 15px var(--display);margin-bottom:3px}
+.mods.one .mod{background:var(--fill);box-shadow:none;color:var(--ink);font:600 13px var(--body);padding:9px 14px;border-radius:99px}
+.road .down{font:600 14px var(--mono);color:var(--fill);padding-left:124px}
+
+/* stage (interaction design) */
+.stage{padding:0 12px;color:var(--stage-ink)}
+.stage > .wrap{max-width:1272px;background:var(--stage);border-radius:40px;padding:104px clamp(20px,6vw,100px)}
+.stage .eyebrow{color:var(--fill)}
+.stage .lede{color:var(--stage-muted)}
+.boards{display:grid;gap:72px}
+.bd{display:grid;gap:20px}
+.bd-h{display:grid;grid-template-columns:auto minmax(0,1fr);gap:10px 20px;align-items:center}
+.bd-h .k{width:56px;height:56px;border-radius:16px;display:grid;place-items:center;font:800 30px/1 var(--display);color:#0C110F;background:var(--fill);letter-spacing:-.02em}
+.bd-h h3{font-size:clamp(22px,2.4vw,28px)}
+.bd-h p{grid-column:2;color:var(--stage-muted);font-size:15.5px}
+.stage .zoom{box-shadow:0 0 0 1px #34484450,0 40px 80px -40px #0008}
+.stage .zh{color:var(--stage-muted)}
+.callouts{display:flex;flex-wrap:wrap;gap:8px}
+.callouts span{font:500 12px var(--mono);color:var(--stage-ink);background:var(--stage-2);border:1px solid #3A4E4A;border-radius:99px;padding:6px 12px}
+.callouts span b{color:var(--fill);font-weight:600;margin-right:6px}
+.screens{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:22px;align-items:start}
+.screens figure{display:grid;gap:12px}
+.screens .phone{box-shadow:0 0 0 5px #2E423F,0 30px 60px -30px #0008}
+.screens figcaption{font-size:13.5px;color:var(--stage-muted);line-height:1.45}
+.screens figcaption b{display:block;color:var(--stage-ink);font:700 15px var(--display);margin-bottom:2px}
+
+/* results */
+.res{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,.5fr);gap:40px;align-items:start}
+.res > *{min-width:0}
+.chart-card{background:var(--surface);border-radius:24px;box-shadow:0 0 0 1px var(--line);padding:24px 24px 14px}
+.chart-card h3{font-size:20px}
+.chart-card .sub{color:var(--muted);font-size:14px;margin-top:6px}
+.chart{width:100%;height:auto;margin-top:12px}
+.side{display:grid;gap:22px}
+.side div{border-top:2px solid var(--ink);padding-top:14px}
+.side b{font:800 34px/1 var(--display);letter-spacing:-.03em;display:block}
+.side span{font-size:14px;color:var(--muted)}
+.why{margin-top:40px;display:flex;flex-wrap:wrap;align-items:center;gap:10px}
+.why span{font:600 14px var(--body);padding:10px 16px;border-radius:12px;background:var(--surface);box-shadow:0 0 0 1px var(--line)}
+.why span em{font-style:normal;font:500 12px var(--mono);color:var(--signal);margin-left:8px}
+.why i{font-style:normal;color:var(--muted)}
+
+.refl{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:44px}
+.refl div{border-top:2px solid var(--ink);padding-top:18px;display:grid;gap:10px;align-content:start}
+.refl p{color:var(--muted);font-size:15px}
+.learn{margin-top:64px;font:500 clamp(22px,2.6vw,32px)/1.35 var(--display);letter-spacing:-.015em;max-width:30em}
+.learn em{font-style:normal;background:linear-gradient(transparent 62%,#BDEBE4 62%)}
+.next{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.next a{display:grid;gap:8px;padding:28px;border-radius:20px;background:var(--surface);box-shadow:0 0 0 1px var(--line);color:var(--ink);text-decoration:none;transition:box-shadow .2s}
+.next a:hover{box-shadow:0 0 0 2px var(--fill)}
+.next small{font:500 12px var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.next b{font:700 24px var(--display)}
+
+/* lightbox */
+.lb{position:fixed;inset:0;z-index:20;background:#0B0D0CF2;display:none;overflow:auto;padding:56px 16px 24px}
+.lb.on{display:block}
+.lb img{max-width:none;width:min(2800px,220vw);margin-inline:auto;border-radius:8px}
+.lb button{position:fixed;top:12px;right:16px;font:600 13px var(--mono);border:0;border-radius:99px;padding:9px 16px;background:#fff;color:var(--ink);cursor:pointer}
+.lb .hint{position:fixed;top:18px;left:18px;font:500 12px var(--mono);color:#9AA5A1}
+
+@media (max-width:900px){
+  section{padding-block:72px}
+  .hero .wrap,.map-wrap,.res{grid-template-columns:1fr}
+  .meta,.nums{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .num{border-right:0;border-bottom:1px solid var(--line);padding-left:0!important}
+  .num.hi{margin-right:0;padding-left:16px!important}
+  .cards3,.ins,.principles,.refl,.next{grid-template-columns:1fr}
+  .dec{grid-template-columns:1fr;gap:16px;padding-block:40px}
+  .dec.wide > .art,.dec.wide > .txt{grid-column:auto}
+  .dec.wide .txt ul{grid-template-columns:1fr;gap:6px}
+.dec .no{position:static;font-size:32px}
+  .map{min-width:640px}
+  .screens{grid-template-columns:1fr 1fr}
+  
+  .lane{grid-template-columns:1fr}.road .down{padding-left:0}
+  .goal{grid-template-columns:1fr}
+  .tri-card{grid-template-columns:1fr}
+  .tri{min-width:600px}
+  .side{grid-template-columns:1fr 1fr}
+  .chart-card{overflow-x:auto}.chart{min-width:620px}
+}
+@media (max-width:560px){.pay,.rules,.mods{grid-template-columns:1fr}.pay .phone{max-width:240px;margin-inline:auto}.lb img{width:260vw}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+
+<header class="bar">
+  <div class="wrap"><a href="/">Serena Zhang</a><span>Case study 03 / 03</span></div>
+</header>
+
+<!-- HERO -->
+<section class="hero" id="top">
+  <div class="wrap">
+    <div>
+      <div class="eyebrow">Case study · Tencent Video · Membership</div>
+      <h1>One membership, <em>a whole family</em></h1>
+      <p class="lede">I led China's first family account system built for elders and kids. Adult children invite their parents and children, pay for them, and look after them, turning account sharing into a product people pay for.</p>
+      <div class="tags"><span class="tag">Product strategy</span><span class="tag">Account system</span><span class="tag">Pricing</span><span class="tag">Interaction design</span></div>
+      <dl class="meta">
+        <div><dt>Role</dt><dd>Product Leader</dd></div>
+        <div><dt>Partner</dt><dd>Membership team</dd></div>
+        <div><dt>Users</dt><dd>Payers, elders, kids</dd></div>
+        <div><dt>Scope</dt><dd>Strategy to interaction design</dd></div>
+      </dl>
+    </div>
+    <div class="fan" aria-label="Three app screens: the recommendation feed, My Family, and the pay-for-family sheet">
+      <figure class="ph a"><img src="/media/family-account/s-feed.jpg" alt="Home feed with a 'Recommended by ALEX' section from a family member"></figure>
+      <figure class="ph b"><img src="/media/family-account/s-family.jpg" alt="My Family page: the owner's profile, one member card with a Manage button and an invite slot"></figure>
+      <figure class="ph c"><img src="/media/family-account/s-pay.jpg" alt="Pay for a family member sheet: pick a member, pick SVIP or VIP, family-only prices"></figure>
+      <span class="chip l">Invite → Bind → Pay</span>
+      <span class="chip r">Family-only discount</span>
+    </div>
+  </div>
+</section>
+
+<!-- NUMBERS -->
+<section style="padding-block:0">
+  <div class="wrap">
+    <div class="nums">
+      <div class="num"><b>321,577</b><span>daily active users within 6 months of launch</span></div>
+      <div class="num"><b><small>¥</small>35,102</b><span>family recharge in a single day</span></div>
+      <div class="num"><b>4.16<small>M</small></b><span>families created</span></div>
+      <div class="num hi"><b>First</b><span>family account system in China built for elders and kids</span></div>
+    </div>
+    <p class="num-note">Figures from the 6 months after launch. Grey-launch revenue data is in Results below.</p>
+  </div>
+</section>
+
+<!-- SYSTEM MAP -->
+<section>
+  <div class="wrap map-wrap">
+    <div>
+      <div class="head" style="margin:0">
+        <div class="eyebrow">The whole picture</div>
+        <h2>Not a feature. A system.</h2>
+        <p class="lede">A family account touches login, payments, risk and three very different users at once. I planned it as one system, then shipped it in layers.</p>
+      </div>
+      <div class="layers">
+        <div><em>01</em><span><b>Account model:</b> who owns what, and how people join</span></div>
+        <div><em>02</em><span><b>Business loop:</b> why a family pays more, not less</span></div>
+        <div><em>03</em><span><b>Risk rules:</b> stop carpooling and discount abuse</span></div>
+        <div><em>04</em><span><b>Experiences:</b> elders, kids and the connection between them</span></div>
+      </div>
+    </div>
+    <figure class="map-card">
+      <div class="svg-scroll"><svg class="map" id="map" viewBox="0 0 760 540" role="img" aria-label="System map: Family Account at the centre, branching into Account model, Business loop, Risk rules, Elders, Kids and Connection. Phase 1 shipped items are filled teal, Phase 2 designed items are light."></svg></div>
+      <figcaption class="legend"><span><i style="background:var(--fill)"></i>Phase 1 · shipped</span><span><i style="background:var(--soft);box-shadow:0 0 0 1px #A9DDD5"></i>Phase 2 · designed</span><span><i style="background:var(--ink)"></i>Layer</span></figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- PROBLEM -->
+<section style="padding-top:0">
+  <div class="wrap">
+    <div class="head">
+      <div class="eyebrow">01 · Problem</div>
+      <h2>One login, a whole family behind it</h2>
+      <p class="lede">Memberships are sold to one person. But people watch as families: adult children pay for parents, parents choose cartoons for kids, everyone shares one password.</p>
+    </div>
+    <div class="tri-card">
+      <div class="tri-txt">
+        <div class="eyebrow">Three roles, one tangle</div>
+        <h3>They care for each other, and get in each other's way</h3>
+        <p>Every side of the triangle carries both. The adult child wants to look after everyone, but can't be there. The elder wants company without being a burden. The kid just wants to keep watching. The family account had to keep the care and take the friction out.</p>
+        <div class="tri-key"><span><i></i>Care · bond</span><span><i class="t"></i>Tension</span><span><i class="h"></i>The family account connects all three</span></div>
+      </div>
+      <div class="svg-scroll"><svg class="tri" viewBox="0 0 760 590" role="img" aria-label="Triangle of the three roles. Adult child and elder: care, buying a membership and sending shows; tension, the elder can't log in and fears being a burden. Adult child and kid: care, picking good shows; tension, setting limits without being the bad guy. Elder and kid: care, grandparents babysit and watch together; tension, they can't stop the screen time. The family account sits at the centre, connecting all three.">
+<g><line x1="338.0" y1="190.6" x2="151.1" y2="420.6" stroke="#16B3A6" stroke-width="3" stroke-linecap="round"/><line x1="348.9" y1="199.4" x2="162.0" y2="429.4" stroke="#E2725B" stroke-width="2.25" stroke-dasharray="7 7" stroke-linecap="round"/><line x1="422.0" y1="190.6" x2="608.9" y2="420.6" stroke="#16B3A6" stroke-width="3" stroke-linecap="round"/><line x1="411.1" y1="199.4" x2="598.0" y2="429.4" stroke="#E2725B" stroke-width="2.25" stroke-dasharray="7 7" stroke-linecap="round"/><line x1="178.0" y1="477.0" x2="582.0" y2="477.0" stroke="#16B3A6" stroke-width="3" stroke-linecap="round"/><line x1="178.0" y1="463.0" x2="582.0" y2="463.0" stroke="#E2725B" stroke-width="2.25" stroke-dasharray="7 7" stroke-linecap="round"/></g>
+<g><line x1="380.0" y1="289.3" x2="380.0" y2="204.0" stroke="#B9C3BF" stroke-width="1.5" stroke-dasharray="2 5"/><line x1="311.5" y1="391.4" x2="170.0" y2="449.5" stroke="#B9C3BF" stroke-width="1.5" stroke-dasharray="2 5"/><line x1="448.5" y1="391.4" x2="590.0" y2="449.5" stroke="#B9C3BF" stroke-width="1.5" stroke-dasharray="2 5"/></g>
+<circle cx="380.0" cy="363.3333333333333" r="72" fill="#E5F5F2" stroke="#16B3A6" stroke-width="2"/>
+<circle cx="380.0" cy="363.3333333333333" r="88" fill="none" stroke="#16B3A6" stroke-opacity=".25" stroke-width="1"/>
+<text x="380.0" y="361.3333333333333" text-anchor="middle" class="tri-h">Family Account</text>
+<text x="380.0" y="381.3333333333333" text-anchor="middle" class="tri-s">turns the ties into</text>
+<text x="380.0" y="397.3333333333333" text-anchor="middle" class="tri-s">one product</text>
+<g><circle cx="380" cy="150" r="48" fill="#1A1D1C" stroke="#fff" stroke-width="4"/><text x="380" y="159" text-anchor="middle" class="tri-i w">P</text><text x="380" y="72" text-anchor="middle" class="tri-n">Adult child</text><text x="380" y="90" text-anchor="middle" class="tri-s">the payer</text></g>
+<g><circle cx="120" cy="470" r="48" fill="#FFF0CC" stroke="#fff" stroke-width="4"/><text x="120" y="479" text-anchor="middle" class="tri-i">E</text><text x="120" y="546" text-anchor="middle" class="tri-n">Elder</text><text x="120" y="564" text-anchor="middle" class="tri-s">60+</text></g>
+<g><circle cx="640" cy="470" r="48" fill="#D6F1EC" stroke="#fff" stroke-width="4"/><text x="640" y="479" text-anchor="middle" class="tri-i">K</text><text x="640" y="546" text-anchor="middle" class="tri-n">Kid</text><text x="640" y="564" text-anchor="middle" class="tri-s">under 12</text></g>
+<text x="236" y="256" text-anchor="end" class="tri-l"><tspan class="tri-k" fill="#16B3A6">CARE</tspan><tspan dx="8">Buys VIP, sends shows</tspan></text><text x="236" y="280" text-anchor="end" class="tri-l"><tspan class="tri-k" fill="#E2725B">TENSION</tspan><tspan dx="8">Can’t log in alone</tspan></text>
+<text x="524" y="256" text-anchor="start" class="tri-l"><tspan class="tri-k" fill="#16B3A6">CARE</tspan><tspan dx="8">Picks good shows</tspan></text><text x="524" y="280" text-anchor="start" class="tri-l"><tspan class="tri-k" fill="#E2725B">TENSION</tspan><tspan dx="8">Limits without nagging</tspan></text>
+<text x="380" y="532" text-anchor="middle" class="tri-l"><tspan class="tri-k" fill="#16B3A6">CARE</tspan><tspan dx="8">Grandparents babysit, watch together</tspan></text><text x="380" y="558" text-anchor="middle" class="tri-l"><tspan class="tri-k" fill="#E2725B">TENSION</tspan><tspan dx="8">They can’t stop the screen time</tspan></text>
+</svg></div>
+    </div>
+    <div class="cards3">
+      <article class="card"><div class="who"><span class="av p">P</span><div><h3>The payer</h3><div class="sub">Adult child / parent</div></div></div><p>Wants to buy for family but can only lend their account. History gets mixed, recommendations skew, renewals are forgotten.</p><p class="impact"><b>Business impact</b>Willingness to pay, with nothing to buy</p></article>
+      <article class="card"><div class="who"><span class="av e">E</span><div><h3>The elder</h3><div class="sub">60+</div></div></div><p>No account, or can't log in. When the 30-day session expires, the shows are gone. Search is hard with voice and pinyin.</p><p class="impact"><b>Business impact</b>Quiet, low-activity, easy to lose</p></article>
+      <article class="card"><div class="who"><span class="av k">K</span><div><h3>The kid</h3><div class="sub">Under 12</div></div></div><p>Watches for hours when parents are out, with no control over what plays next. Parents don't want to be the one who says stop.</p><p class="impact"><b>Business impact</b>Parents don't trust the platform</p></article>
+    </div>
+    <div class="goal"><b>≥1,000 orders · ¥20k / day</b><p>Phase 1 goal agreed with the membership team: close the loop of create family → invite → pay, without cannibalizing individual memberships, compromising security, or asking elders and kids to learn anything new.</p></div>
+  </div>
+</section>
+
+<!-- INSIGHTS -->
+<section style="padding-top:0">
+  <div class="wrap">
+    <div class="head">
+      <div class="eyebrow">02 · Insights</div>
+      <h2>Three people, three needs</h2>
+      <p class="lede">From senior-user research, kids' audience insights, parent interviews and grey-launch data.</p>
+    </div>
+    <div class="ins">
+      <article class="card"><span class="n">01 · ELDERS</span><h3>Want company, fear being a burden</h3><p>A shrinking social circle makes online products a source of company. Ease beats efficiency: most scroll the home feed rather than search.</p><p class="q">"Retirement deflated me. I'm afraid of being left behind, so I keep learning new tech."<small>BEIJING · 60 · FEMALE</small></p></article>
+      <article class="card"><span class="n">02 · PARENTS</span><h3>Want control, not the bad-guy role</h3><div><div class="big">53%<small>of 30 parents found it attractive</small></div><div class="stack" style="margin-top:14px" aria-label="Ratings: 5 points 33 percent, 4 points 20 percent, 3 points 23 percent, 1 to 2 points 24 percent"><i style="width:33%;background:var(--signal)"></i><i style="width:20%;background:var(--fill)"></i><i style="width:23%;background:#A9DDD5"></i><i style="width:24%;background:#D5DAD8"></i></div><div class="stack-l"><span>5 pts 33%</span><span>4 pts 20%</span><span>3 pts 23%</span><span>1–2 pts 24%</span></div></div><p class="q">"I don't want to be the bad guy. Let the platform say they've watched enough."<small>JIANGMEN · PARENT OF A 9-YEAR-OLD</small></p></article>
+      <article class="card"><span class="n">03 · DATA</span><h3>Family is a reason to pay</h3><div class="big">36%<small>of 190k families had a member join</small></div><p>The "pay for family" entry drew <b style="color:var(--ink)">5,690 UV</b> and <b style="color:var(--ink)">¥6,700 GMV</b> a day in grey launch, with no negative feedback. People will pay once more for someone they love.</p></article>
+    </div>
+    <div class="principles">
+      <div><b>The payer drives</b>The people being cared for should never have to set anything up.</div>
+      <div><b>Separate, but visible</b>Each person keeps their own history and assets; the relationship stays in view.</div>
+      <div><b>The platform says no</b>Limits come from the product, so parents don't have to be the bad guy.</div>
+    </div>
+  </div>
+</section>
+
+<!-- DECISIONS -->
+<section style="padding-top:0">
+  <div class="wrap">
+    <div class="head">
+      <div class="eyebrow">03 · Key decisions</div>
+      <h2>Four decisions, each guarding a business risk</h2>
+    </div>
+    <div class="spine">
+
+      <article class="dec wide">
+        <div class="no">01</div>
+        <div class="txt">
+          <span class="pill">Account model</span>
+          <h3>Bind accounts, don't switch profiles</h3>
+          <p>We designed two directions side by side: Netflix-style profiles inside one account, or a main account that invites and binds others. Phase 1 chose binding.</p>
+          <ul><li><b>No learning cost:</b> existing WeChat and QQ login and sharing.</li><li><b>Clean data:</b> each person's history and recommendations stay their own.</li><li><b>Protects revenue:</b> every member still holds a real membership.</li></ul>
+        </div>
+        <div class="art"><button class="zoom" data-src="/media/family-account/board-directions.jpg"><img src="/media/family-account/board-directions.jpg" alt="Interaction study comparing Direction 1, multi-profile switch and manage, with Direction 2, multi-account bind and manage, from admin and member views"></button><div class="zh"><span>Direction 1 vs Direction 2 · my interaction study</span><span>Click to zoom</span></div></div>
+      </article>
+
+      <article class="dec">
+        <div class="no">02</div>
+        <div class="txt">
+          <span class="pill">Business loop</span>
+          <h3>Pay for family, with family-only prices</h3>
+          <p>With the membership team I designed discounts that only work when buying for a family member: VIP monthly at 52% off, SVIP at 54% off, once per member per plan.</p>
+          <p>After launch, we moved the discount weight toward quarterly, annual and SVIP plans. That one change lifted order value about 2.6×.</p>
+          <p>I also scoped a standalone family SKU, <b style="color:var(--ink)">FVIP</b>: one purchase, 2 to 4 seats, mixed tiers.</p>
+        </div>
+        <div class="pay">
+          <figure class="phone"><img src="/media/family-account/s-pay.jpg" alt="Pay for family sheet with family-only prices: 16, 73 and 248 yuan"></figure>
+          <div class="fvip" aria-label="FVIP purchase logic">
+            <div class="t">FVIP · new family SKU</div>
+            <div class="tiers"><span>HVIP</span><span>SVIP</span><span class="on">FVIP</span></div>
+            <div class="flow"><div class="box"><b>Main account buys</b>Picks 2 / 3 / 4 seats and SVIP or HVIP</div><span class="ar">↓</span><div class="box"><b>Seats assigned</b>Each family member gets one</div></div>
+            <div class="seats"><span>SVIP 1</span><span>SVIP 2</span><span class="h">HVIP 3</span><span class="h">HVIP 4</span></div>
+          </div>
+        </div>
+      </article>
+
+      <article class="dec">
+        <div class="no">03</div>
+        <div class="txt">
+          <span class="pill">Risk rules</span>
+          <h3>Friction where it protects the product</h3>
+          <p>Family discounts are an invitation to "carpool" strangers. A few limits keep the family a family, while normal users never notice them.</p>
+        </div>
+        <div class="rules">
+          <div class="rule"><b>4<small>members</small></b><span>Maximum family size</span></div>
+          <div class="rule"><b>1×<small>/ year</small></b><span>The main account can dissolve the family</span></div>
+          <div class="rule"><b>1×<small>/ year</small></b><span>A member can leave</span></div>
+          <div class="rule"><b>Approve</b><span>New-device logins for no-account members ask the main account first</span></div>
+        </div>
+      </article>
+
+      <article class="dec">
+        <div class="no">04</div>
+        <div class="txt">
+          <span class="pill">Roadmap</span>
+          <h3>Close the loop first, then layer by audience</h3>
+          <p>Phase 1 did five things and proved families would pay. That data earned Phase 2, which splits into four lines, one for each unmet need.</p>
+        </div>
+        <div class="road">
+          <div class="lane"><div class="ph-l">Phase 1<small>MVP · shipped</small></div><div class="mods one"><div class="mod">Create family</div><div class="mod">Invite</div><div class="mod">Pay for family</div><div class="mod">Recommend</div><div class="mod">Status</div></div></div>
+          <div class="down">↓ data earns the next phase</div>
+          <div class="lane"><div class="ph-l">Phase 2<small>designed</small></div><div class="mods">
+            <div class="mod"><b>No-account profiles</b>Shared seats, link or passcode login, sessions 3–6 months</div>
+            <div class="mod"><b>Elder-friendly</b>"Send to Mom" from any title, family picks pinned on home</div>
+            <div class="mod"><b>Connection</b>Online now, watching now, watch together, shared clips</div>
+            <div class="mod"><b>Parental control</b>Time windows and limits, age rating, blocking, eye care</div>
+          </div></div>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<!-- INTERACTION DESIGN -->
+<section class="stage">
+  <div class="wrap">
+    <div class="head">
+      <div class="eyebrow">04 · Interaction design</div>
+      <h2>Every state, from both sides of the invite</h2>
+      <p class="lede">I led the interaction framework for every key flow, mapping each screen from the main account's view and the joiner's view. Click any board to see it at full size.</p>
+    </div>
+    <div class="boards">
+
+      <div class="bd">
+        <div class="bd-h"><span class="k">A</span><h3>Phase 1: bind first, buy later</h3><p>Buying and binding started as one step, so parents had to pay before deciding who for. I split them: build the relationship first, then suggest "Not a member yet · get it for them" right on the member card.</p></div>
+        <button class="zoom" data-src="/media/family-account/board-phase1.jpg"><img src="/media/family-account/board-phase1.jpg" alt="Phase 1 interaction board: main account invite and member management flows on the left, joiner states on the right"></button>
+        <div class="callouts"><span><b>01</b>Invite via WeChat, QQ or link</span><span><b>02</b>Member card with pay prompt</span><span><b>03</b>5 joiner states, incl. expired invite</span><span><b>04</b>Watch time and history for the payer</span></div>
+      </div>
+
+      <div class="bd">
+        <div class="bd-h"><span class="k">B</span><h3>No account? Three ways in</h3><p>For elders and kids without accounts: log in with the main account and pick a profile, open an invite link, or type a temporary passcode. Repeat logins ask the main account to approve.</p></div>
+        <button class="zoom" data-src="/media/family-account/board-multiprofile.jpg"><img src="/media/family-account/board-multiprofile.jpg" alt="Paid multi-profile board: main account creates members and shares login by link or passcode; three login methods for the member"></button>
+        <button class="zoom" data-src="/media/family-account/board-passcode.jpg"><img src="/media/family-account/board-passcode.jpg" alt="Board: existing multi-account model plus link with passcode login, including second-login approval on the main account's lock screen"></button>
+      </div>
+
+      <div class="bd">
+        <div class="bd-h"><span class="k">C</span><h3>FVIP: one purchase, a seat for everyone</h3><p>Where the family SKU lives: a buy entry in the membership center, two layouts for the post-purchase profile, and a seat and device manager.</p></div>
+        <button class="zoom" data-src="/media/family-account/board-fvip.jpg"><img src="/media/family-account/board-fvip.jpg" alt="FVIP flow board: purchase entry, two profile layouts, identity switching and shared device management"></button>
+      </div>
+
+      <div class="bd">
+        <div class="bd-h"><span class="k">D</span><h3>One page for care and control</h3><p>The member page carries both connection and parental control. Empty, kid and elder states share one framework, which kept build cost low.</p></div>
+        <div class="screens">
+          <figure><div class="phone"><img src="/media/family-account/s-kidctl.jpg" alt="Kid profile: online on the living-room TV, remote play button, pending pay request, history and daily watch time"></div><figcaption><b>Kid, configured</b>Online device, remote play, watch time, then limits</figcaption></figure>
+          <figure><div class="phone"><img src="/media/family-account/s-remote-a.jpg" alt="Shared account management for Mom: now watching an episode played remotely, plus limits"></div><figcaption><b>Elder, now watching</b>See what Mom is watching; queue the next episode</figcaption></figure>
+          <figure><div class="phone"><img src="/media/family-account/s-remote-b.jpg" alt="Player More menu: play this for a family member, recommend it, share a clip to the family room"></div><figcaption><b>From any title</b>Play for family, recommend, share a clip</figcaption></figure>
+          <figure><div class="phone"><img src="/media/family-account/s-member.jpg" alt="Family member page: not a member yet, get it for them; recommended list"></div><figcaption><b>Member card</b>"Not a member yet" turns care into a purchase</figcaption></figure>
+        </div>
+        <p class="cap" style="color:var(--stage-muted)">When the time limit is reached, the player says it, not the parent, with an option to finish the current episode first so kids aren't cut off mid-show.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- RESULTS -->
+<section>
+  <div class="wrap">
+    <div class="head">
+      <div class="eyebrow">05 · Results</div>
+      <h2>From an emotional need to new revenue</h2>
+      <p class="lede">Grey launch proved families would pay. Once discounts shifted toward long-term and SVIP plans, daily revenue cleared the Phase 1 goal within days.</p>
+    </div>
+    <div class="res">
+      <figure class="chart-card">
+        <h3>Daily family-membership GMV passed the ¥20k goal 3.5× over</h3>
+        <p class="sub" id="chartSub"></p>
+        <svg class="chart" id="chart" viewBox="0 0 760 360" role="img" aria-label="Bar chart of daily family-membership GMV from 1 December 2023 to 8 January 2024. Bars stay below 20 thousand yuan until 3 January, when discounts shift to long-term plans, then rise to a peak of 71.6 thousand yuan on 6 January."></svg>
+        <figcaption class="cap">Source: family account activation report, 2023-12-01 to 2024-01-08 · total GMV of memberships opened for family.</figcaption>
+      </figure>
+      <div class="side">
+        <div><b>2.6×</b><span>order value after tilting discounts to quarterly, annual and SVIP</span></div>
+        <div><b>1,284</b><span>orders on the peak day, past the 1,000 goal</span></div>
+        <div><b>1,138</b><span>UV a day using "recommend to family"</span></div>
+        <div><b>0</b><span>negative user feedback</span></div>
+      </div>
+    </div>
+    <div class="why" aria-label="Why it matters"><span>Payers buy one more membership<em>revenue</em></span><i>+</i><span>Elders and kids become actives<em>DAU</em></span><i>+</i><span>Family ties raise switching cost<em>retention</em></span></div>
+  </div>
+</section>
+
+<!-- REFLECTION -->
+<section style="padding-top:0">
+  <div class="wrap">
+    <div class="head"><div class="eyebrow">06 · Reflection</div><h2>What I'd carry forward</h2></div>
+    <div class="refl">
+      <div><h3>Close the loop, then layer</h3><p>Phase 1 only had to prove that family ties lead to payment. That proof bought the resources for Phase 2.</p></div>
+      <div><h3>Pricing is product design</h3><p>The discount structure, not a new screen, was the turning point in the revenue curve.</p></div>
+      <div><h3>Fix the biggest drop-off sooner</h3><p>Only 36% of families got a member to join. No-account profiles answer that directly and should have shipped earlier. The parent study (N=30) still needs a larger sample.</p></div>
+    </div>
+    <p class="learn">In a family product, the user isn't a person but <em>a relationship</em>. The one who pays, the one who watches and the one being protected each need their own design.</p>
+  </div>
+</section>
+
+<section style="padding-top:0">
+  <div class="wrap next">
+    <a href="/work/tilo"><small>Previous case study</small><b>← TILO</b><span class="cap" style="margin:0">Brand and product design for a tile AI</span></a>
+    <a href="/#work"><small>Back to</small><b>All work →</b><span class="cap" style="margin:0">Serena Zhang · portfolio home</span></a>
+  </div>
+</section>
+
+<div class="lb" id="lb" role="dialog" aria-modal="true" aria-label="Full-size board"><span class="hint">Scroll to explore</span><button type="button" id="lbx">Close ✕</button><img id="lbimg" alt=""></div>
+
+<script is:inline>
+(function(){
+  var NS='http://www.w3.org/2000/svg';
+  function el(svg,t,a,p){var e=document.createElementNS(NS,t);for(var k in a)e.setAttribute(k,a[k]);(p||svg).appendChild(e);return e}
+
+  /* system map */
+  var svg=document.getElementById('map'), C={x:380,y:270};
+  var B=[
+    {n:'Account model',h:[230,120],l:[['Invite & bind',1,[86,52]],['Own history & assets',1,[96,102]],['No-account profiles',0,[96,152]]]},
+    {n:'Business loop',h:[540,110],l:[['Pay for family',1,[676,42]],['Family-only prices',1,[676,92]],['FVIP seats',0,[676,142]]]},
+    {n:'Risk rules',h:[600,270],l:[['Max 4 members',1,[700,232]],['1× / year leave',1,[700,282]],['Login approval',0,[700,332]]]},
+    {n:'Kids',h:[520,430],l:[['Time limits',0,[660,402]],['Age rating',0,[660,452]],['Eye care',0,[660,502]]]},
+    {n:'Connection',h:[250,440],l:[['Recommend',1,[90,392]],['Online status',1,[90,442]],['Watch together',0,[90,492]]]},
+    {n:'Elders',h:[160,270],l:[['Send to Mom',0,[60,222]],['Pinned picks',0,[60,322]]]}
+  ];
+  var gl=el(svg,'g',{}), gn=el(svg,'g',{});
+  function pill(x,y,t,k){
+    var w=t.length*7.1+26,h=30,g=el(svg,'g',{},gn);
+    el(svg,'rect',{x:x-w/2,y:y-h/2,width:w,height:h,rx:15,fill:k===1?'#16B3A6':k===2?'#1A1D1C':'#E5F5F2',stroke:k===0?'#A9DDD5':'none'},g);
+    var s=el(svg,'text',{x:x,y:y+4.5,'text-anchor':'middle','font-size':12.5,'font-weight':k===0?500:600,fill:k===2?'#FFFFFF':'#1A1D1C','font-family':'IBM Plex Sans, Arial, sans-serif'},g); s.textContent=t;
+  }
+  B.forEach(function(b){
+    var hx=b.h[0],hy=b.h[1];
+    el(svg,'line',{x1:C.x,y1:C.y,x2:hx,y2:hy,stroke:'#16B3A6','stroke-width':2},gl);
+    b.l.forEach(function(l){var lx=l[2][0],ly=l[2][1];el(svg,'path',{d:'M'+hx+' '+hy+' C '+((hx+lx)/2)+' '+hy+', '+((hx+lx)/2)+' '+ly+', '+lx+' '+ly,fill:'none',stroke:'#CBD5D2','stroke-width':1.25},gl);pill(lx,ly,l[0],l[1]);});
+    pill(hx,hy,b.n,2);
+  });
+  el(svg,'circle',{cx:C.x,cy:C.y,r:64,fill:'#FFFFFF',stroke:'#16B3A6','stroke-width':2},gn);
+  [[-18,-14,'#1A1D1C',13],[16,-12,'#16B3A6',11],[0,10,'#F5C451',9]].forEach(function(p){el(svg,'circle',{cx:C.x+p[0],cy:C.y+p[1],r:p[3],fill:p[2]},gn)});
+  var t=el(svg,'text',{x:C.x,y:C.y+42,'text-anchor':'middle','font-size':13,'font-weight':700,fill:'#1A1D1C','font-family':'Bricolage Grotesque, Arial, sans-serif'},gn); t.textContent='Family Account';
+
+  document.querySelectorAll('.svg-scroll').forEach(function(sc){if(sc.scrollWidth>sc.clientWidth) sc.scrollLeft=(sc.scrollWidth-sc.clientWidth)/2;});
+  /* revenue chart */
+  var D=[["12-01",3,36],["12-02",6,274],["12-03",1,12],["12-04",9,516],["12-05",34,580],["12-06",62,1264],["12-07",74,1532],["12-08",60,1428],["12-09",67,977],["12-10",139,3408],["12-11",110,2288],["12-12",115,1908],["12-13",274,5117],["12-14",315,6081],["12-15",347,7430],["12-16",371,8092],["12-17",357,7275],["12-18",266,5766],["12-19",265,6068],["12-20",231,5108],["12-21",221,4797],["12-22",249,4748],["12-23",303,6000],["12-24",295,7504],["12-25",271,5333],["12-26",272,6167],["12-27",323,7503],["12-28",471,9374],["12-29",562,11579],["12-30",675,15562],["12-31",571,12608],["01-01",684,14151],["01-02",726,16751],["01-03",832,33972],["01-04",904,52016],["01-05",1137,68526],["01-06",1284,71615],["01-07",1166,64139],["01-08",1104,63084]];
+  var c=document.getElementById('chart'), L=56, R=744, T=40, Bt=320, cap=80000, bw=(R-L)/D.length, piv=D.findIndex(function(d){return d[0]==='01-03'});
+  function y(v){return Bt-v/cap*(Bt-T)}
+  [0,20000,40000,60000,80000].forEach(function(v){el(c,'line',{x1:L,x2:R,y1:y(v),y2:y(v),stroke:'#E8ECEA'});var s=el(c,'text',{x:L-8,y:y(v)+4,'text-anchor':'end','font-size':11.5,fill:'#5F6664','font-family':'IBM Plex Mono, monospace'});s.textContent=v?'¥'+v/1000+'k':'0';});
+  var peak=D.reduce(function(m,d){return d[2]>m[2]?d:m},D[0]);
+  D.forEach(function(d,i){var r=el(c,'rect',{x:L+i*bw+2,y:y(d[2]),width:bw-4,height:Bt-y(d[2]),rx:2,fill:i>=piv?'#16B3A6':'#C9D1CE'});var ti=el(c,'title',{},r);ti.textContent=d[0]+': ¥'+d[2].toLocaleString('en-US')+' · '+d[1]+' orders';
+    if(i%7===0||i===D.length-1){var s=el(c,'text',{x:L+i*bw+bw/2,y:Bt+18,'text-anchor':'middle','font-size':11,fill:'#5F6664','font-family':'IBM Plex Mono, monospace'});s.textContent=d[0];}});
+  el(c,'line',{x1:L,x2:R,y1:y(20000),y2:y(20000),stroke:'#1A1D1C','stroke-dasharray':'5 4','stroke-opacity':.55});
+  var g1=el(c,'text',{x:L+6,y:y(20000)-7,'font-size':12,fill:'#1A1D1C','font-family':'IBM Plex Sans, sans-serif'});g1.textContent='Phase 1 goal · ¥20k / day';
+  var px=L+piv*bw; el(c,'line',{x1:px,x2:px,y1:T-8,y2:Bt,stroke:'#0B6E66','stroke-dasharray':'2 3'});
+  function aov(a){var g=0,o=0;a.forEach(function(d){g+=d[2];o+=d[1]});return g/o}
+  var n1=el(c,'text',{x:px-8,y:T+4,'text-anchor':'end','font-size':12.5,'font-weight':600,fill:'#0B6E66','font-family':'IBM Plex Sans, sans-serif'});n1.textContent='Discounts tilt to long-term & SVIP';
+  var n2=el(c,'text',{x:px-8,y:T+21,'text-anchor':'end','font-size':12,fill:'#5F6664','font-family':'IBM Plex Sans, sans-serif'});n2.textContent='Order value ¥'+Math.round(aov(D.slice(0,piv)))+' → ¥'+Math.round(aov(D.slice(piv)));
+  var pi=D.indexOf(peak), pk=el(c,'text',{x:L+pi*bw+bw/2,y:y(peak[2])-8,'text-anchor':'middle','font-size':12.5,'font-weight':700,fill:'#1A1D1C','font-family':'IBM Plex Mono, monospace'});pk.textContent='¥'+(peak[2]/1000).toFixed(1)+'k';
+  document.getElementById('chartSub').textContent='Dec 1, 2023 ¥'+D[0][2]+' → Jan 6, 2024 ¥'+peak[2].toLocaleString('en-US')+' ('+peak[1].toLocaleString('en-US')+' orders)';
+
+  /* lightbox */
+  var lb=document.getElementById('lb'), im=document.getElementById('lbimg'), last=null;
+  document.querySelectorAll('.zoom').forEach(function(b){b.addEventListener('click',function(){last=b;im.src=b.getAttribute('data-src');im.alt=b.querySelector('img').alt;lb.classList.add('on');document.body.style.overflow='hidden';lb.scrollTop=0;lb.scrollLeft=0;document.getElementById('lbx').focus();})});
+  function close(){lb.classList.remove('on');document.body.style.overflow='';if(last)last.focus();}
+  document.getElementById('lbx').addEventListener('click',close);
+  lb.addEventListener('click',function(e){if(e.target===lb)close()});
+  document.addEventListener('keydown',function(e){if(e.key==='Escape'&&lb.classList.contains('on'))close()});
+})();
+</script>
+</Base>

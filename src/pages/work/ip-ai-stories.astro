@@ -1,0 +1,661 @@
+---
+import Base from '../../layouts/Base.astro';
+---
+<Base title="IP + AI Interactive Stories · Serena Zhang" description="Case study: a 0-to-1 AI product at Tencent Video that lets fans talk with characters and shape their own endings.">
+<style is:global>
+/* Layout: light reading pages for argument + diagrams, dark "stage" bands where the product's own (dark) screens live. */
+:root{
+  --paper:#F1F2F6; --surface:#FFFFFF; --ink:#13151B; --muted:#596074; --line:#D8DBE5;
+  --signal:#2B5CFF; --signal-soft:#E3E9FF; --stage:#0D0E13; --stage-2:#191B23; --stage-ink:#F1F2F6; --stage-muted:#9AA0B4;
+  --display:"Bricolage Grotesque", "Avenir Next", "Segoe UI", sans-serif;
+  --body:"IBM Plex Sans", "Helvetica Neue", Arial, sans-serif;
+  --mono:"IBM Plex Mono", ui-monospace, Menlo, monospace;
+  --wrap:1120px;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --paper:#111318; --surface:#1A1D25; --ink:#ECEEF4; --muted:#A1A7BA; --line:#2C303B;
+  --signal:#7A97FF; --signal-soft:#1E2747; --stage:#08090C; --stage-2:#15171E; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --paper:#111318; --surface:#1A1D25; --ink:#ECEEF4; --muted:#A1A7BA; --line:#2C303B;
+  --signal:#7A97FF; --signal-soft:#1E2747; --stage:#08090C; --stage-2:#15171E; color-scheme:dark}
+
+*{box-sizing:border-box}
+body{background:var(--paper);color:var(--ink);font:400 16px/1.6 var(--body);margin:0}
+.wrap{max-width:var(--wrap);margin-inline:auto;padding-inline:24px}
+img,video{max-width:100%;display:block}
+h1,h2,h3{font-family:var(--display);font-weight:700;letter-spacing:-.02em;line-height:1.08;margin:0;text-wrap:balance}
+h2{font-size:clamp(28px,4vw,44px)}
+h3{font-size:20px;letter-spacing:-.01em}
+p{margin:0;max-width:62ch}
+.eyebrow{font:500 12px/1 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--signal)}
+.lede{font-size:18px;color:var(--muted)}
+section{padding-block:96px}
+.head{display:grid;gap:16px;margin-bottom:48px;max-width:760px}
+:focus-visible{outline:2px solid var(--signal);outline-offset:3px}
+
+/* top bar */
+.bar{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:color-mix(in srgb,var(--stage) 88%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid #ffffff14}
+.bar .wrap{display:flex;justify-content:space-between;align-items:center;padding-block:14px;font:500 13px var(--mono);color:var(--stage-muted)}
+.bar a{color:var(--stage-ink);text-decoration:none}
+
+/* stage bands */
+.stage{background:var(--stage);color:var(--stage-ink)}
+.stage .lede,.stage p{color:var(--stage-muted)}
+.stage .eyebrow{color:#8FA8FF}
+
+/* hero */
+.hero{padding-block:72px 88px;overflow:hidden}
+.hero .wrap{display:grid;grid-template-columns:1.1fr .9fr;gap:48px;align-items:center}
+.hero h1{font-size:clamp(40px,6.4vw,76px);font-weight:800;margin-block:20px 24px}
+.hero h1 em{font-style:normal;color:#8FA8FF}
+.hero .lede{font-size:19px;color:#C9CDDA}
+.tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:28px}
+.tag{font:500 11.5px var(--mono);letter-spacing:.08em;text-transform:uppercase;border:1px solid #ffffff2b;border-radius:99px;padding:6px 12px;color:#C9CDDA}
+.meta{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:20px;margin-top:40px;padding-top:24px;border-top:1px solid #ffffff1f}
+.meta dt{font:500 11px var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--stage-muted)}
+.meta dd{margin:6px 0 0;font-weight:500;color:var(--stage-ink);font-size:15px}
+.phones{position:relative;display:flex;justify-content:center;gap:20px;align-items:flex-start}
+.phone{width:min(230px,44%);aspect-ratio:9/17.5;border-radius:30px;background:#000;border:7px solid #23252E;overflow:hidden;box-shadow:0 30px 80px -20px #000}
+.phone video,.phone img{width:100%;height:100%;object-fit:cover}
+.phones .phone:nth-child(2){margin-top:64px}
+.cap{font:400 12px/1.4 var(--mono);color:var(--muted);margin-top:12px}
+.stage .cap{color:var(--stage-muted)}
+
+/* numbers */
+.nums{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));border-top:1px solid var(--line)}
+.num{padding:28px 24px 28px 0;border-right:1px solid var(--line)}
+.num:last-child{border-right:0}
+.num b{display:block;font:800 clamp(34px,4.6vw,56px)/1 var(--display);letter-spacing:-.03em;font-variant-numeric:tabular-nums}
+.num span{display:block;margin-top:10px;color:var(--muted);font-size:14px;max-width:24ch}
+.num + .num{padding-left:24px}
+
+/* generic two-col */
+.split{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:56px;align-items:center}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:28px}
+svg text{font-family:var(--body)}
+.svg-wrap{overflow-x:auto}
+
+/* chips */
+.chips{display:flex;flex-wrap:wrap;gap:10px;margin-top:24px}
+.chip{display:flex;gap:10px;align-items:center;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:10px 14px;font-size:14px;font-weight:500}
+.chip i{font:500 11px var(--mono);font-style:normal;color:var(--signal)}
+
+/* compare */
+.compare{display:grid;grid-template-columns:120px minmax(0,1fr) minmax(0,1fr);border:1px solid var(--line);border-radius:20px;overflow:hidden;background:var(--surface)}
+.compare > div{padding:18px 20px;border-top:1px solid var(--line);font-size:15px}
+.compare .h{border-top:0;font:600 13px var(--mono);letter-spacing:.06em;text-transform:uppercase}
+.compare .rl{font:500 12px var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.compare .us{background:var(--signal-soft)}
+.compare .h.us{color:var(--signal)}
+.compare .them{color:var(--muted)}
+
+/* formula */
+.formula{display:flex;flex-wrap:wrap;align-items:center;gap:14px 18px;margin-top:40px;font-family:var(--display);font-weight:800;letter-spacing:-.02em}
+.formula .t{font-size:clamp(26px,3.6vw,40px)}
+.formula .op{font-size:clamp(22px,3vw,32px);color:var(--muted);font-weight:500}
+.formula .hl{color:var(--signal)}
+.formula .box{border:2px solid var(--ink);border-radius:14px;padding:8px 14px 10px;font-size:clamp(16px,1.8vw,19px);display:grid;gap:2px}
+.formula .box small{font:400 12px/1.3 var(--body);letter-spacing:0;color:var(--muted)}
+.formula .box.out{border-color:var(--signal);background:var(--signal-soft);color:var(--signal)}
+
+/* decisions */
+.cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:28px;display:grid;gap:14px;align-content:start}
+.card .k{font:500 12px var(--mono);color:var(--signal);letter-spacing:.1em;text-transform:uppercase}
+.card p{color:var(--muted);font-size:15px}
+.trade{display:grid;grid-template-columns:auto 1fr;gap:6px 12px;font-size:14px;padding-top:14px;border-top:1px dashed var(--line)}
+.trade b{font:500 11px var(--mono);letter-spacing:.08em;text-transform:uppercase;padding-top:3px}
+.trade .give{color:var(--muted)}
+.trade .get{color:var(--ink)}
+
+/* architecture */
+.arch{display:grid;grid-template-columns:minmax(0,1fr) 40px minmax(0,1.5fr) 40px minmax(0,1fr);align-items:stretch}
+.arch .col{display:grid;gap:12px;align-content:center}
+.arch .arrow{display:grid;place-items:center;color:var(--muted);font-size:22px}
+.node{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:16px 18px}
+.node h4{margin:0 0 8px;font:600 15px var(--body)}
+.node ul{margin:0;padding:0;list-style:none;display:flex;flex-wrap:wrap;gap:6px}
+.node li{font-size:12.5px;background:var(--paper);border-radius:6px;padding:3px 8px;color:var(--muted)}
+.node .lbl{font:500 11px var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:6px}
+.node.main{border:2px solid var(--signal);background:var(--signal-soft)}
+.node.main .lbl{color:var(--signal)}
+.node.base{background:transparent;border-style:dashed}
+
+/* feed */
+.feed{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:56px;align-items:center}
+.feed img{border-radius:16px}
+.big{font:800 clamp(56px,8vw,96px)/1 var(--display);letter-spacing:-.04em;color:var(--stage-ink);margin-top:32px}
+.big + span{color:var(--stage-muted);font-size:15px}
+
+/* features */
+.feats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:20px;overflow:hidden;margin-block:40px}
+.feat{background:var(--surface);padding:22px}
+.feat b{display:block;font-weight:600;margin-bottom:4px}
+.feat span{color:var(--muted);font-size:14px}
+.shot{border-radius:18px;overflow:hidden;background:var(--stage)}
+.duo{display:grid;grid-template-columns:240px minmax(0,1fr);gap:32px;align-items:start}
+
+/* strategies */
+.metrics{display:flex;flex-wrap:wrap;gap:12px;margin-bottom:56px}
+.metric{display:flex;gap:14px;align-items:baseline;border:1px solid var(--line);background:var(--surface);border-radius:14px;padding:14px 18px}
+.metric b{font:600 15px var(--body)}
+.metric span{font:400 13px var(--mono);color:var(--muted)}
+.strat{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:48px;align-items:center;padding-block:56px;border-top:1px solid var(--line)}
+.strat .n{font:500 12px var(--mono);letter-spacing:.12em;color:var(--signal)}
+.strat h3{font-size:clamp(22px,2.6vw,30px);margin-block:10px 14px}
+.strat p{color:var(--muted)}
+.bars{display:grid;gap:18px;margin-top:28px}
+.barrow{display:grid;gap:6px}
+.barrow .top{display:flex;justify-content:space-between;font-size:14px}
+.barrow .top b{font-weight:600}
+.barrow .top em{font-style:italic;color:var(--muted)}
+.track{display:flex;height:14px;border-radius:99px;overflow:hidden;background:var(--line)}
+.track .ai{background:var(--signal)}
+.legend{display:flex;gap:18px;font:400 12px var(--mono);color:var(--muted)}
+.legend i{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:6px;vertical-align:-1px}
+.withphone{display:grid;grid-template-columns:minmax(0,1fr) 190px;gap:28px;align-items:center}
+.withphone img{border-radius:18px}
+
+.shiftshot{margin:0 0 48px;background:var(--stage);border-radius:24px;padding:clamp(12px,2.4vw,28px)}
+.pairs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(8px,1.6vw,20px)}
+.pairs img{width:100%;border-radius:14px}
+.shiftshot .cap{color:var(--stage-muted);margin-top:14px}
+.shifts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:40px}
+.shift{display:grid;gap:12px;align-content:start;border-top:2px solid var(--ink);padding-top:20px}
+.shift .n{font:500 12px var(--mono);letter-spacing:.12em;color:var(--signal)}
+.shift h3{font-size:24px}
+.shift p{color:var(--muted);font-size:15px}
+.formula.mini{margin-top:8px;gap:8px}
+.formula.mini .box{font-size:14px;padding:6px 10px;border-width:1.5px;border-radius:10px}
+.formula.mini .op{font-size:16px}
+.shift .bars{margin-top:8px}
+.shift svg{max-width:340px}
+.studio-video{width:100%;border-radius:16px}
+.mech{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;background:var(--stage);border-radius:18px;padding:14px}
+.mech figure{margin:0}
+.mech img{width:100%;aspect-ratio:358/772;object-fit:cover;border-radius:10px}
+.mech figcaption{font:500 11px var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--stage-muted);margin-top:8px;text-align:center}
+.entries{max-width:920px;margin:72px auto 0}
+.entry-grid{display:grid;grid-template-columns:1.35fr .65fr;gap:16px}
+.entry-grid figure{margin:0;background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:12px;display:grid;gap:10px;align-content:start}
+.entry-grid img{width:100%;border-radius:10px}
+.entry-grid .e-char{grid-row:span 2}
+.entry-grid figcaption{font-size:13.5px;color:var(--muted)}
+.entry-grid figcaption b{display:block;color:var(--ink);font-weight:600}
+.fans{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}
+.fcard{background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:26px;display:grid;gap:14px;align-content:start;min-width:0}
+.fk{font:500 11.5px var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.fcard h4{margin:0;font:700 22px/1.2 var(--display);letter-spacing:-.01em}
+.src{font-size:12.5px;color:var(--muted)}
+.hbars{display:grid;gap:8px}
+.hrow{display:grid;grid-template-columns:96px minmax(0,1fr) 44px;align-items:center;gap:10px;font-size:13.5px}
+.hrow span{color:var(--muted)}
+.hrow em{font-style:normal;font-variant-numeric:tabular-nums;text-align:right;color:var(--muted)}
+.htrack{height:12px}
+.htrack b{display:block;height:100%;background:color-mix(in srgb,var(--signal) 35%,var(--surface));border-radius:0 4px 4px 0}
+.hrow.hi b{background:var(--signal)}
+.hrow.hi span,.hrow.hi em{color:var(--ink);font-weight:600}
+.vbars{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:6px;align-items:end;height:190px}
+.vcol{display:grid;grid-template-rows:auto 1fr auto;height:100%;gap:4px;text-align:center}
+.vcol em{font-style:normal;font-size:11.5px;color:var(--muted);font-variant-numeric:tabular-nums}
+.vbar{display:flex;align-items:flex-end}
+.vbar b{width:100%;background:color-mix(in srgb,var(--signal) 35%,var(--surface));border-radius:4px 4px 0 0;min-height:2px}
+.vcol.hi b{background:var(--signal)}
+.vcol span{font-size:11.5px;color:var(--muted);border-top:1px solid var(--line);padding-top:4px}
+.hours{display:grid;grid-template-columns:repeat(24,minmax(0,1fr));gap:2px;align-items:end;height:150px;border-bottom:1px solid var(--line)}
+.hours i{display:block;background:color-mix(in srgb,var(--signal) 35%,var(--surface));border-radius:3px 3px 0 0}
+.hours i.hi{background:var(--signal)}
+.hours-axis{display:flex;justify-content:space-between;font:400 11px var(--mono);color:var(--muted);margin-top:-6px}
+.phrases{display:grid;gap:16px}
+.phrases small{display:block;font:500 11px var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:8px}
+.phrases span{display:inline-grid;margin:0 6px 8px 0;padding:6px 12px;border-radius:12px;background:var(--signal-soft);color:var(--ink);font-weight:600;line-height:1.25}
+.phrases span i{font-style:normal;font-weight:400;font-size:11.5px;color:var(--muted)}
+.phrases .p1{font-size:20px;background:var(--signal);color:#fff}
+.phrases .p1 i{color:#ffffffcc}
+.phrases .p2{font-size:16px}
+.phrases .p3{font-size:14px;background:var(--paper)}
+[data-tip]{cursor:default}
+.tip{position:fixed;z-index:20;pointer-events:none;background:var(--ink);color:var(--paper);font:500 12px var(--mono);padding:6px 9px;border-radius:8px;transform:translate(-50%,-130%);white-space:nowrap}
+/* studio */
+.steps{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0;margin-block:40px 32px}
+.step{position:relative;padding:22px 40px 22px 26px;background:var(--stage-2);color:var(--stage-ink);clip-path:polygon(0 0,calc(100% - 22px) 0,100% 50%,calc(100% - 22px) 100%,0 100%,22px 50%)}
+.step:first-child{clip-path:polygon(0 0,calc(100% - 22px) 0,100% 50%,calc(100% - 22px) 100%,0 100%);border-radius:12px 0 0 12px}
+.step:nth-child(1){background:var(--signal);color:#fff}
+.step small{font:500 11px var(--mono);letter-spacing:.1em;opacity:.75}
+.step b{display:block;font:700 19px var(--display);margin-block:4px}
+.step span{font-size:13.5px;opacity:.8}
+.step + .step{margin-left:-10px}
+.was{font:400 14px var(--mono);color:var(--stage-muted)}
+.was s{opacity:.7}
+.studio-media{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:20px}
+.studio-media video,.studio-media img{border-radius:14px;width:100%}
+
+/* results */
+.grid6{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:20px;overflow:hidden}
+.grid6 div{background:var(--surface);padding:28px}
+.grid6 b{display:block;font:800 clamp(36px,4.4vw,52px)/1 var(--display);letter-spacing:-.03em;font-variant-numeric:tabular-nums}
+.grid6 span{display:block;margin-top:10px;color:var(--muted);font-size:14.5px}
+.impact{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px 40px;margin-top:40px;padding:0;list-style:none}
+.impact li{padding-left:22px;position:relative;font-size:15px}
+.impact li::before{content:"";position:absolute;left:0;top:.6em;width:10px;height:2px;background:var(--signal)}
+.note{font-size:13px;color:var(--muted);margin-top:20px;max-width:80ch}
+
+/* reflection */
+.refl{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:40px}
+.refl div{border-top:2px solid var(--ink);padding-top:18px;display:grid;gap:10px}
+.refl p{color:var(--muted);font-size:15px}
+
+.next{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.next a{display:grid;gap:8px;padding:28px;border-radius:20px;border:1px solid #ffffff22;color:var(--stage-ink);text-decoration:none;transition:border-color .2s,background .2s}
+.next a:hover{border-color:#8FA8FF;background:#ffffff08}
+.next small{font:500 12px var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--stage-muted)}
+.next b{font:700 24px var(--display)}
+
+@media (max-width:860px){
+  section{padding-block:64px}
+  .hero .wrap,.split,.feed,.strat,.duo{grid-template-columns:1fr}
+  .meta{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .nums{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .num{border-right:0;border-bottom:1px solid var(--line);padding-left:0!important}
+  .cards,.refl,.feats,.grid6,.impact,.next,.shifts,.fans{grid-template-columns:1fr}
+  .mech{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .entry-grid{grid-template-columns:1fr}
+  .entry-grid .e-char{grid-row:auto;max-width:260px}
+  .arch{grid-template-columns:1fr}
+  .arch .arrow{transform:rotate(90deg);height:32px}
+  .steps{grid-template-columns:1fr;gap:8px}
+  .step,.step:first-child{clip-path:none;border-radius:12px;margin-left:0!important}
+  .compare{grid-template-columns:90px minmax(0,1fr) minmax(0,1fr)}
+  .compare > div{padding:14px 12px;font-size:14px}
+  .withphone{grid-template-columns:1fr 130px;gap:16px}
+  .duo .phone{margin-inline:auto}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+
+<header class="bar">
+  <div class="wrap"><a href="/">Serena Zhang</a><span>Case study 01 / 03</span></div>
+</header>
+
+<!-- HERO -->
+<section class="stage hero" id="top">
+  <div class="wrap">
+    <div>
+      <div class="eyebrow">Case study · Tencent Video · 2024</div>
+      <h1>IP + AI: stepping <em>inside</em> the story</h1>
+      <p class="lede">I led a 0-to-1 AI product that lets fans keep living inside the shows they love: talking with the characters, unlocking new chapters and shaping their own endings.</p>
+      <div class="tags"><span class="tag">AI product</span><span class="tag">0 → 1</span><span class="tag">Interactive storytelling</span><span class="tag">Creator tools</span></div>
+      <dl class="meta">
+        <div><dt>Role</dt><dd>Lead PM</dd></div>
+        <div><dt>Team</dt><dd>14 people</dd></div>
+        <div><dt>Cadence</dt><dd>2-week sprints</dd></div>
+        <div><dt>Shipped on</dt><dd>Tencent Video, QQ, Yuanbao</dd></div>
+      </dl>
+    </div>
+    <div>
+      <div class="phones">
+        <div class="phone"><video src="/media/ip-ai-stories/galaxy-opening.mp4" poster="/media/ip-ai-stories/galaxy-opening-poster.jpg" autoplay muted loop playsinline aria-label="Opening film of the original story Galaxy Hunter"></video></div>
+        <div class="phone"><video src="/media/ip-ai-stories/sins-opening.mp4" poster="/media/ip-ai-stories/sins-opening-poster.jpg" autoplay muted loop playsinline aria-label="Opening film of the original story Seven Deadly Sins"></video></div>
+      </div>
+      <p class="cap" style="text-align:center">Opening films for two original stories built on the platform</p>
+    </div>
+  </div>
+</section>
+
+<!-- NUMBERS -->
+<section style="padding-block:0">
+  <div class="wrap nums">
+    <div class="num"><b>800K</b><span>users across 16 AI characters</span></div>
+    <div class="num"><b>30M+</b><span>conversation turns</span></div>
+    <div class="num"><b>37.5</b><span>turns per user, vs. an industry average of about 30</span></div>
+    <div class="num"><b>18.37%</b><span>of fans kept chatting after the finale</span></div>
+  </div>
+</section>
+
+<!-- PROBLEM -->
+<section>
+  <div class="wrap split">
+    <div class="head" style="margin:0">
+      <div class="eyebrow">The problem</div>
+      <h2>When the show ends, the love doesn't.</h2>
+      <p class="lede">Tencent Video runs on premium IP and membership revenue, much like Netflix. Every show has a finale, but fans' feelings carry on, and they take them to Weibo and Xiaohongshu. In 2024 we asked: beyond watching, what can a streaming platform give its fans?</p>
+    </div>
+    <div class="panel svg-wrap">
+      <svg viewBox="0 0 600 300" role="img" aria-label="After the finale, fan emotion stays high while new content on the platform stops, leaving an emotional gap" style="width:100%;min-width:420px;height:auto">
+        <defs><pattern id="hatch" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="7" style="stroke:var(--signal);stroke-width:2;opacity:.35"/></pattern></defs>
+        <line x1="40" y1="250" x2="580" y2="250" style="stroke:var(--line);stroke-width:1.5"/>
+        <line x1="270" y1="40" x2="270" y2="250" style="stroke:var(--muted);stroke-width:1;stroke-dasharray:4 4"/>
+        <path d="M270 92 C 360 96, 450 108, 570 128 L 570 250 L 270 250 Z" style="fill:url(#hatch)"/>
+        <path d="M40 210 C 110 150, 190 100, 270 90 C 360 96, 450 108, 570 128" style="fill:none;stroke:var(--signal);stroke-width:3"/>
+        <path d="M40 200 C 120 120, 200 112, 268 116 L 272 250" style="fill:none;stroke:var(--ink);stroke-width:2"/>
+        <text x="48" y="276" style="fill:var(--muted);font-size:13px">Show airs</text>
+        <text x="270" y="276" text-anchor="middle" style="fill:var(--muted);font-size:13px">Finale</text>
+        <text x="572" y="276" text-anchor="end" style="fill:var(--muted);font-size:13px">Months after</text>
+        <text x="290" y="72" style="fill:var(--signal);font-size:14px;font-weight:600">Fan emotion</text>
+        <text x="258" y="236" text-anchor="end" style="fill:var(--ink);font-size:14px;font-weight:600">New story on platform</text>
+        <rect x="370" y="168" width="168" height="40" rx="8" style="fill:var(--surface);stroke:var(--signal)"/>
+        <text x="454" y="193" text-anchor="middle" style="fill:var(--signal);font-size:14px;font-weight:600">The emotional gap</text>
+      </svg>
+      <p class="cap">Illustrative. Our mission: use AI to fill this gap and extend the life of every IP.</p>
+    </div>
+  </div>
+</section>
+
+<!-- INSIGHT -->
+<section style="padding-top:0">
+  <div class="wrap">
+    <div class="head">
+      <div class="eyebrow">The insight</div>
+      <h2>Fans don't want to chat. They want more story.</h2>
+    </div>
+    <div class="chips">
+      <span class="chip"><i>01</i>Fan interviews</span>
+      <span class="chip"><i>02</i>Comment and bullet-chat analysis</span>
+      <span class="chip"><i>03</i>Teardown of top AI companion apps</span>
+    </div>
+    <div style="margin-top:32px" class="svg-wrap">
+      <div class="compare" style="min-width:560px">
+        <div class="h"></div><div class="h them">Open-chat companions</div><div class="h us">IP + AI stories</div>
+        <div class="rl">World</div><div class="them">User-made premise, no shared world</div><div class="us">The show's own world and characters</div>
+        <div class="rl">Direction</div><div class="them">Drifts; users get lost and tired</div><div class="us">Chapters and goals give every chat a purpose</div>
+        <div class="rl">Feel</div><div class="them">Improvised plots feel fake</div><div class="us">Writers keep characters true to the show</div>
+        <div class="rl">Ending</div><div class="them">None</div><div class="us">Branches and many endings, one per fan</div>
+      </div>
+    </div>
+    <div class="formula" aria-label="A good story equals character times plot">
+      <span class="t">A good story</span><span class="op">=</span><span class="t hl">Character</span><span class="op">×</span><span class="t hl">Plot</span>
+    </div>
+    <p class="cap" style="margin-top:10px">Character: AI agents that feel real. Plot: open storylines that break past the script.</p>
+  </div>
+</section>
+
+<!-- DECISIONS -->
+<section style="padding-top:0">
+  <div class="wrap">
+    <div class="head">
+      <div class="eyebrow">Key decisions</div>
+      <h2>How far to let the AI go</h2>
+    </div>
+    <div class="cards">
+      <div class="card"><span class="k">Decision 1</span><h3>Bounded openness</h3><p>Writers own the world and the key beats. Users choose the path.</p>
+        <div class="trade"><b>Gave</b><span class="give">Some freedom</span><b>Got</b><span class="get">Characters that stay true, plots that hold, content that stays safe</span></div></div>
+      <div class="card"><span class="k">Decision 2</span><h3>IP first</h3><p>We launched with characters from the platform's top shows.</p>
+        <div class="trade"><b>Gave</b><span class="give">Speed, under rights-holder constraints</span><b>Got</b><span class="get">A built-in audience and a cold-start solution</span></div></div>
+      <div class="card"><span class="k">Decision 3</span><h3>Writers train the AI</h3><p>PMs and scriptwriters set characters, rules and quality bars together.</p>
+        <div class="trade"><b>Built</b><span class="give">9 reusable prompt modules and an AI evaluation loop</span><b>Got</b><span class="get">Model pass rate 57% → 83%</span></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- SYSTEM -->
+<section style="padding-top:0">
+  <div class="wrap">
+    <div class="head">
+      <div class="eyebrow">The system</div>
+      <h2>One foundation, two products</h2>
+      <p class="lede">Every capability in the foundation is a reusable prompt module, so a new IP never starts from zero.</p>
+    </div>
+    <div class="arch">
+      <div class="col">
+        <div class="node"><span class="lbl">Input</span><h4>Platform assets</h4><ul><li>IP library</li><li>User behavior data</li><li>Hunyuan LLM</li><li>Model know-how</li></ul></div>
+      </div>
+      <div class="arrow" aria-hidden="true">→</div>
+      <div class="col">
+        <div class="node main"><span class="lbl">Consumer</span><h4>Interactive open stories</h4><ul><li>IP character agents</li><li>Open storylines</li><li>Multi-modal</li></ul></div>
+        <div class="node"><span class="lbl">Creator</span><h4>AI creation studio</h4><ul><li>3-step creation</li><li>AI scripts</li><li>UGC tools</li></ul></div>
+        <div class="node base"><span class="lbl">Foundation · product × model</span><ul><li>AI art, BGM, voice</li><li>Guided replies</li><li>Role-play</li><li>Outcome judging</li><li>Plot continuation</li><li>Stats</li></ul></div>
+      </div>
+      <div class="arrow" aria-hidden="true">→</div>
+      <div class="col">
+        <div class="node"><span class="lbl">To C</span><h4>Fans</h4><ul><li>Tencent Video</li><li>Mini-program</li><li>QQ</li><li>Yuanbao</li></ul></div>
+        <div class="node"><span class="lbl">To B</span><h4>Partners</h4><ul><li>Game studios</li><li>Creators</li><li>Production cos.</li></ul></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FEED -->
+<section class="stage">
+  <div class="wrap feed">
+    <div>
+      <div class="eyebrow">Discovery</div>
+      <h2 style="margin-top:16px">Every card is a world</h2>
+      <p class="lede" style="margin-top:16px">A story feed where each world is one tap away, and recommendation puts the right story in front of the right fan.</p>
+      <div class="big">100+</div><span>original stories built with our creator studio</span>
+    </div>
+    <img src="/media/ip-ai-stories/story-feed.jpg" alt="Story feed: a grid of original interactive stories, each with cover art, a one-line hook and an Enter button">
+  </div>
+</section>
+
+<!-- INSIDE -->
+<section>
+  <div class="wrap">
+    <div class="head">
+      <div class="eyebrow">Inside the story</div>
+      <h2>Conversation with a purpose</h2>
+    </div>
+    <div class="duo">
+      <div>
+        <div class="phone" style="width:100%;max-width:240px"><video src="/media/ip-ai-stories/user-chat.mp4" poster="/media/ip-ai-stories/user-chat-poster.jpg" autoplay muted loop playsinline aria-label="Screen recording of a user solving a case in Galaxy Hunter by talking with AI characters"></video></div>
+        <p class="cap">A real session in <i>Galaxy Hunter</i></p>
+      </div>
+      <div style="min-width:0">
+        <div class="mech">
+          <figure><img src="/media/ip-ai-stories/m-evidence.jpg" alt="Evidence screen: a locked notebook covered in clues"><figcaption>Evidence</figcaption></figure>
+          <figure><img src="/media/ip-ai-stories/m-map.jpg" alt="Hand-drawn map investigation screen"><figcaption>Map search</figcaption></figure>
+          <figure><img src="/media/ip-ai-stories/m-clue.jpg" alt="A clue item, a videotape, unlocked as a story card"><figcaption>Clue card</figcaption></figure>
+          <figure><img src="/media/ip-ai-stories/m-countdown.jpg" alt="Countdown challenge with a story card reward"><figcaption>Countdown</figcaption></figure>
+        </div>
+        <div class="feats" style="margin-bottom:0">
+          <div class="feat"><b>Character agents</b><span>Stay true to the show</span></div>
+          <div class="feat"><b>Chapter unlocks</b><span>Every chat has a goal</span></div>
+          <div class="feat"><b>Branching plots</b><span>Many endings</span></div>
+          <div class="feat"><b>Group chat</b><span>Several characters, one scene</span></div>
+          <div class="feat"><b>Multi-modal</b><span>Art, BGM and voice</span></div>
+          <div class="feat"><b>Guided replies</b><span>For first-time AI users</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="entries">
+      <div class="head" style="margin-bottom:24px">
+        <div class="eyebrow">Where fans find it</div>
+        <h3 style="font-size:clamp(22px,2.6vw,30px)">Built into the show, not a separate app</h3>
+      </div>
+      <div class="entry-grid">
+        <figure class="e-show"><img src="/media/ip-ai-stories/entry-show.jpg" alt="Lost You Forever show page with an AI Chat tab, and the discussion tab with a Chat with AI characters banner"><figcaption><b>In the show page</b>An AI Chat tab and a banner in fan discussions</figcaption></figure>
+        <figure class="e-char"><img src="/media/ip-ai-stories/entry-character.jpg" alt="Xiangliu character page with a Go chat button and fan-made episodes"><figcaption><b>Character page</b>One tap to chat, plus fan-made episodes</figcaption></figure>
+        <figure class="e-search"><img src="/media/ip-ai-stories/entry-search.jpg" alt="Search results for the show's AI chat and for the character name, each showing a Go chat card"><figcaption><b>Search</b>Searching the show or a character's name surfaces the chat card</figcaption></figure>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FANS -->
+<section style="padding-top:0">
+  <div class="wrap">
+    <div class="head">
+      <div class="eyebrow">Who the fans are</div>
+      <h2>Young, loyal, and here for the love story</h2>
+      <p class="lede">We profiled the fans chatting with <i>Lost You Forever</i> characters to tune each agent's voice, timing and story hooks.</p>
+    </div>
+    <div class="fans">
+      <div class="fcard">
+        <div class="fk">Age</div>
+        <h4>57% are 24 or younger</h4>
+        <div class="hbars"><div class="hrow hi" data-tip="18 and under: ≈31%"><span>18 and under</span><div class="htrack"><b style="width:100.0%"></b></div><em>31%</em></div><div class="hrow hi" data-tip="19–24: ≈26.5%"><span>19–24</span><div class="htrack"><b style="width:85.5%"></b></div><em>26.5%</em></div><div class="hrow" data-tip="25–30: ≈13.5%"><span>25–30</span><div class="htrack"><b style="width:43.5%"></b></div><em>13.5%</em></div><div class="hrow" data-tip="31–35: ≈10.5%"><span>31–35</span><div class="htrack"><b style="width:33.9%"></b></div><em>10.5%</em></div><div class="hrow" data-tip="36–40: ≈7.3%"><span>36–40</span><div class="htrack"><b style="width:23.5%"></b></div><em>7.3%</em></div><div class="hrow" data-tip="41–45: ≈4.4%"><span>41–45</span><div class="htrack"><b style="width:14.2%"></b></div><em>4.4%</em></div><div class="hrow" data-tip="46+: ≈4.4%"><span>46+</span><div class="htrack"><b style="width:14.2%"></b></div><em>4.4%</em></div></div>
+        <p class="src">Approximate, from Tencent Video age tags of AI chat users (97.7% tagged).</p>
+      </div>
+      <div class="fcard">
+        <div class="fk">Conversation depth · Xiangliu</div>
+        <h4>47% go past 10 turns</h4>
+        <div class="vbars"><div class="vcol" data-tip="1 turns: 8.23% of users"><em>8.23%</em><div class="vbar"><b style="height:31.2%"></b></div><span>1</span></div><div class="vcol" data-tip="2–5 turns: 26.35% of users"><em>26.35%</em><div class="vbar"><b style="height:99.7%"></b></div><span>2–5</span></div><div class="vcol" data-tip="6–10 turns: 18.75% of users"><em>18.75%</em><div class="vbar"><b style="height:71.0%"></b></div><span>6–10</span></div><div class="vcol hi" data-tip="11–30 turns: 26.42% of users"><em>26.42%</em><div class="vbar"><b style="height:100.0%"></b></div><span>11–30</span></div><div class="vcol hi" data-tip="31–99 turns: 15.54% of users"><em>15.54%</em><div class="vbar"><b style="height:58.8%"></b></div><span>31–99</span></div><div class="vcol hi" data-tip="100–499 turns: 4.47% of users"><em>4.47%</em><div class="vbar"><b style="height:16.9%"></b></div><span>100–499</span></div><div class="vcol hi" data-tip="500+ turns: 0.24% of users"><em>0.24%</em><div class="vbar"><b style="height:0.9%"></b></div><span>500+</span></div></div>
+        <p class="src">Share of users by number of private-chat turns with the Xiangliu agent.</p>
+      </div>
+      <div class="fcard">
+        <div class="fk">When they chat · Xiangliu</div>
+        <h4>Peaks early morning and late evening</h4>
+        <div class="hours" role="img" aria-label="Chats per hour peak around 6 to 7 am at about 140K and 8 to 9 pm at about 130K, with a low of about 11K at noon"><i style="height:45.1%" data-tip="1:00 · 64K chats"></i><i style="height:27.5%" data-tip="2:00 · 39K chats"></i><i style="height:43.0%" data-tip="3:00 · 61K chats"></i><i style="height:48.6%" data-tip="4:00 · 69K chats"></i><i style="height:74.6%" data-tip="5:00 · 106K chats"></i><i style="height:100.0%" data-tip="6:00 · 142K chats" class=hi></i><i style="height:89.4%" data-tip="7:00 · 127K chats" class=hi></i><i style="height:59.9%" data-tip="8:00 · 85K chats"></i><i style="height:34.5%" data-tip="9:00 · 49K chats"></i><i style="height:21.1%" data-tip="10:00 · 30K chats"></i><i style="height:13.4%" data-tip="11:00 · 19K chats"></i><i style="height:7.7%" data-tip="12:00 · 11K chats"></i><i style="height:8.5%" data-tip="13:00 · 12K chats"></i><i style="height:12.0%" data-tip="14:00 · 17K chats"></i><i style="height:24.6%" data-tip="15:00 · 35K chats"></i><i style="height:38.0%" data-tip="16:00 · 54K chats"></i><i style="height:49.3%" data-tip="17:00 · 70K chats"></i><i style="height:52.8%" data-tip="18:00 · 75K chats"></i><i style="height:63.4%" data-tip="19:00 · 90K chats"></i><i style="height:88.7%" data-tip="20:00 · 126K chats" class=hi></i><i style="height:92.3%" data-tip="21:00 · 131K chats" class=hi></i><i style="height:76.1%" data-tip="22:00 · 108K chats"></i><i style="height:75.4%" data-tip="23:00 · 107K chats"></i><i style="height:73.9%" data-tip="24:00 · 105K chats"></i></div>
+        <div class="hours-axis"><span>1:00</span><span>6:00</span><span>12:00</span><span>18:00</span><span>24:00</span></div>
+        <p class="src">Chats per hour of day, thousands. Hover a bar for its value.</p>
+      </div>
+      <div class="fcard">
+        <div class="fk">Hot phrases</div>
+        <h4>They replay the love triangle</h4>
+        <div class="phrases">
+          <div><small>Fans to Xiangliu</small>
+            <span class="p1">我爱你<i>I love you</i></span><span class="p2">你喜欢小夭吗<i>Do you like Xiaoyao?</i></span><span class="p2">相柳大人<i>Lord Xiangliu</i></span><span class="p3">防风邶<i>his alias, Fangfeng Bei</i></span><span class="p3">老公<i>hubby</i></span>
+          </div>
+          <div><small>Fans to Xiaoyao</small>
+            <span class="p1">你最想和谁相伴一生<i>Who do you want to spend your life with?</i></span><span class="p2">你喜欢相柳吗<i>Do you like Xiangliu?</i></span><span class="p3">你愿意嫁给涂山璟吗<i>Would you marry Tushan Jing?</i></span>
+          </div>
+        </div>
+        <p class="src">Most frequent messages, from chat keyword analysis.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ITERATIONS -->
+<section style="padding-top:0">
+  <div class="wrap">
+    <div class="head" style="margin-bottom:28px">
+      <div class="eyebrow">Iteration</div>
+      <h2>Two metrics, three shifts</h2>
+      <p class="lede">Every two-week sprint was judged on two numbers.</p>
+    </div>
+    <div class="metrics">
+      <div class="metric"><b>Turns per user</b><span>motivation · industry ≈ 30</span></div>
+      <div class="metric"><b>Next-day retention</b><span>stickiness · industry 40–50%</span></div>
+    </div>
+
+    <figure class="shiftshot">
+      <div class="pairs">
+        <img src="/media/ip-ai-stories/s1-pair1.jpg" alt="Break Up or Die: story intro with its cast, and the branching story map with an unlocked story card">
+        <img src="/media/ip-ai-stories/s1-pair2.jpg" alt="Billionaire Who Wants to Go Broke: story intro set in 1997 Hong Kong, and a live chat with a character">
+        <img src="/media/ip-ai-stories/s1-pair3.jpg" alt="Anna the Villainess: story intro with five characters, and a negotiation chat with a trust meter">
+      </div>
+      <figcaption class="cap">Main screens across three original stories: story intro, branching map with story cards, and live chat with stats</figcaption>
+    </figure>
+    <div class="shifts">
+      <div class="shift">
+        <div class="n">SHIFT 1</div>
+        <h3>Open the characters</h3>
+        <p>Plots moved from one main line to many branches, driven by stats. Lighter presets let user choices decide where the story goes.</p>
+        <div class="formula mini">
+          <span class="box">High emotion</span><span class="op">×</span><span class="box">High exploration</span><span class="op">×</span><span class="box">Light presets</span><span class="op">=</span><span class="box out">Freedom</span>
+        </div>
+      </div>
+      <div class="shift">
+        <div class="n">SHIFT 2</div>
+        <h3>Open the plot</h3>
+        <p>Three levels of AI continuation, each handing AI a bigger share of the writing while creators keep the frame.</p>
+        <div class="bars">
+          <div class="legend"><span><i style="background:var(--signal)"></i>AI writes</span><span><i style="background:var(--line)"></i>Creator writes</span></div>
+          <div class="barrow"><div class="top"><b>Supplementary</b><em>Anna the Villainess</em></div><div class="track"><div class="ai" style="width:40%"></div></div><span class="cap" style="margin:0">Adds scene detail, thoughts and action to a fixed plot</span></div>
+          <div class="barrow"><div class="top"><b>Imaginative</b><em>Break Up or Die</em></div><div class="track"><div class="ai" style="width:58%"></div></div><span class="cap" style="margin:0">Drives the plot inside the creator's frame, with random events</span></div>
+          <div class="barrow"><div class="top"><b>Game master</b><em>Galaxy Hunter</em></div><div class="track"><div class="ai" style="width:76%"></div></div><span class="cap" style="margin:0">Creator sets start and end; AI writes the journey for each player</span></div>
+        </div>
+      </div>
+      <div class="shift">
+        <div class="n">SHIFT 3</div>
+        <h3>Open creation</h3>
+        <p>Female-oriented IPs like <i>Lost You Forever</i> have huge fan-fiction communities. AI tools let fans build new episodes around official characters, and players turn into creators.</p>
+        <div class="svg-wrap">
+          <svg viewBox="0 0 360 340" role="img" aria-label="The fan-fiction loop: platform IP characters feed the creator studio, which produces fan episodes that players replay and share, and players become creators" style="width:100%;min-width:300px;height:auto">
+            <defs><marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" style="fill:var(--signal)"/></marker></defs>
+            <circle cx="180" cy="176" r="112" style="fill:none;stroke:var(--line);stroke-width:2"/>
+            <path d="M210 70 A112 112 0 0 1 284 140" style="fill:none;stroke:var(--signal);stroke-width:2" marker-end="url(#ar)"/>
+            <path d="M286 212 A112 112 0 0 1 222 280" style="fill:none;stroke:var(--signal);stroke-width:2" marker-end="url(#ar)"/>
+            <path d="M138 280 A112 112 0 0 1 74 212" style="fill:none;stroke:var(--signal);stroke-width:2" marker-end="url(#ar)"/>
+            <path d="M76 140 A112 112 0 0 1 150 70" style="fill:none;stroke:var(--signal);stroke-width:2" marker-end="url(#ar)"/>
+            <g><rect x="110" y="44" width="140" height="44" rx="10" style="fill:var(--signal)"/><text x="180" y="71" text-anchor="middle" style="fill:#fff;font-size:13px;font-weight:600">IP characters</text></g>
+            <g><rect x="250" y="154" width="104" height="44" rx="10" style="fill:var(--surface);stroke:var(--ink)"/><text x="302" y="181" text-anchor="middle" style="fill:var(--ink);font-size:13px;font-weight:600">AI studio</text></g>
+            <g><rect x="106" y="266" width="148" height="44" rx="10" style="fill:var(--surface);stroke:var(--ink)"/><text x="180" y="293" text-anchor="middle" style="fill:var(--ink);font-size:13px;font-weight:600">Fan episodes</text></g>
+            <g><rect x="6" y="154" width="104" height="44" rx="10" style="fill:var(--surface);stroke:var(--ink)"/><text x="58" y="181" text-anchor="middle" style="fill:var(--ink);font-size:13px;font-weight:600">Players</text></g>
+            <text x="180" y="170" text-anchor="middle" style="fill:var(--muted);font-size:12px">play · share · remix</text>
+            <text x="180" y="188" text-anchor="middle" style="fill:var(--signal);font-size:12px;font-weight:600">players → creators</text>
+          </svg>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STUDIO -->
+<section class="stage">
+  <div class="wrap">
+    <div class="head" style="margin-bottom:0">
+      <div class="eyebrow">Creator studio</div>
+      <h2>An immersive story in three steps</h2>
+      <p class="was">Before: <s>script → mechanics → art → audio → QA</s></p>
+    </div>
+    <div class="steps">
+      <div class="step"><small>STEP 1</small><b>Your idea</b><span>Premise, lead, relationships</span></div>
+      <div class="step"><small>STEP 2</small><b>AI writes the plot</b><span>Branches on a free canvas</span></div>
+      <div class="step"><small>STEP 3</small><b>AI adds art and music</b><span>Scenes, BGM, sound</span></div>
+    </div>
+    <video class="studio-video" src="/media/ip-ai-stories/creator-studio.mp4?v=2" poster="/media/ip-ai-stories/creator-studio-poster.jpg" autoplay muted loop playsinline controls aria-label="Screen recording of building a story in the creator studio"></video>
+    <p class="cap">Building a story end to end: idea, branching canvas, AI-written scenes, art and music.</p>
+  </div>
+</section>
+
+<!-- RESULTS -->
+<section>
+  <div class="wrap">
+    <div class="head">
+      <div class="eyebrow">Results</div>
+      <h2>Fans stayed. Creators came without incentives.</h2>
+    </div>
+    <div class="grid6">
+      <div><b>800K</b><span>users across 16 AI characters from 5 IPs</span></div>
+      <div><b>30M+</b><span>conversation turns</span></div>
+      <div><b>37.5</b><span>turns per user; the top 10% reached 67</span></div>
+      <div><b>18.37%</b><span>kept chatting after the finale</span></div>
+      <div><b>2–3×</b><span>deeper conversations in generation 2</span></div>
+      <div><b>70</b><span>creator stories in month one, with zero incentives</span></div>
+    </div>
+    <ul class="impact">
+      <li>1M interactions in 2 days for the <i>Lost You Forever</i> agent</li>
+      <li>500K visitors to an entry four taps deep</li>
+      <li>Trended twice on Weibo; highlighted at a Tencent all-hands</li>
+      <li>3 external game studios signed; OVPD annual award</li>
+    </ul>
+    <p class="note">18.37% is post-finale retention: unique users still chatting after the finale ÷ all chat users, across two IPs, through December.</p>
+  </div>
+</section>
+
+<!-- REFLECTION -->
+<section style="padding-top:0">
+  <div class="wrap">
+    <div class="head"><div class="eyebrow">Reflection</div><h2>What I'd carry forward</h2></div>
+    <div class="refl">
+      <div><h3>Mechanics beat models</h3><p>Users stayed because chapters, branches and outcomes gave conversation a purpose.</p></div>
+      <div><h3>Writers are part of the model</h3><p>Story quality has to be defined by people who understand stories, then encoded into prompts and evaluation.</p></div>
+      <div><h3>Evaluate from day one</h3><p>Next time I'd build the automated evaluation loop before launch, not after.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="stage" style="padding-block:64px">
+  <div class="wrap next">
+    <a href="/#work"><small>Back to</small><b>← All work</b><span class="cap" style="margin:0">Serena Zhang · portfolio home</span></a>
+    <a href="/work/tilo"><small>Next case study</small><b>TILO →</b><span class="cap" style="margin:0">Brand and product design for a tile AI</span></a>
+  </div>
+</section>
+
+<script is:inline>
+(function(){
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  document.querySelectorAll('video').forEach(function(v){
+    if(reduce){ v.removeAttribute('autoplay'); v.pause(); v.controls = true; }
+    else { var p = v.play(); if(p && p.catch) p.catch(function(){ v.controls = true; }); }
+  });
+})();
+</script><script is:inline>
+(function(){
+  var t=document.createElement('div'); t.className='tip'; t.hidden=true; document.body.appendChild(t);
+  document.addEventListener('pointerover',function(e){var el=e.target.closest('[data-tip]'); if(!el){t.hidden=true;return;} t.textContent=el.getAttribute('data-tip'); t.hidden=false;});
+  document.addEventListener('pointermove',function(e){ if(!t.hidden){t.style.left=e.clientX+'px'; t.style.top=e.clientY+'px';}});
+})();
+</script>
+</Base>
