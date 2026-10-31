@@ -240,10 +240,26 @@ figure{margin:0}
 .back b{color:var(--ink);font-weight:600}
 @media (max-width:900px){.loop4{grid-template-columns:1fr 1fr}.st:nth-child(2)::after{display:none}}
 @media (max-width:560px){.loop4{grid-template-columns:1fr}.loop4 .st::after{display:none!important}}
+
+/* laurier work */
+.lw{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}
+.lwc{background:var(--surface);border-radius:24px;overflow:hidden;box-shadow:0 0 0 1px var(--line);display:grid;grid-template-rows:auto 1fr;text-decoration:none;color:var(--ink);transition:box-shadow .25s,transform .25s}
+.lwc:hover{box-shadow:0 0 0 2px var(--k),0 40px 80px -40px #000;transform:translateY(-2px)}
+.lwc .ph{aspect-ratio:4/3;overflow:hidden;background:#22252B}
+.lwc .ph img{width:100%;height:100%;object-fit:cover}
+.lwc .bd{padding:24px 26px 26px;display:grid;gap:10px;align-content:start}
+.lwc .no{font:600 12px var(--mono);letter-spacing:.14em;color:var(--k)}
+.lwc h3{font-size:clamp(22px,2.4vw,28px);font-weight:800;letter-spacing:-.02em}
+.lwc .org{font:500 12.5px var(--mono);color:var(--muted)}
+.lwc p{font-size:15px;color:var(--muted)}
+.lwc .go{font:600 14px var(--body);color:var(--k);display:flex;align-items:center;gap:8px;margin-top:4px}
+.lwc .go i{font-style:normal;transition:transform .2s}
+.lwc:hover .go i{transform:translateX(4px)}
+@media (max-width:800px){.lw{grid-template-columns:1fr}}
 </style>
 
 <header class="bar">
-  <div class="wrap"><a href="#top" class="me">Serena Zhang</a><nav><a href="#work">Work</a><a href="#approach" class="opt">Approach</a><a href="#competitions" class="opt">Competitions</a><a href="#campus" class="opt">Campus</a><a href="#about">About</a><a href="#resume">Resume</a><a href="#contact">Contact</a></nav></div>
+  <div class="wrap"><a href="#top" class="me">Serena Zhang</a><nav><a href="#work">Work</a><a href="#approach" class="opt">Approach</a><a href="#competitions" class="opt">Competitions</a><a href="#campus" class="opt">Campus</a><a href="#about">About</a><a href="#contact">Contact</a></nav></div>
 </header>
 
 <!-- HERO -->
@@ -328,6 +344,35 @@ figure{margin:0}
         <div class="vis v3"><figure class="p a"><img src="/media/home/cover-cs03a.jpg" alt="My Family page with a member card and an invite slot"></figure><figure class="p b"><img src="/media/home/cover-cs03b.jpg" alt="Pay for a family member sheet with family-only prices"></figure></div>
       </a>
 
+    </div>
+  </div>
+</section>
+
+<!-- LAURIER WORK -->
+<section id="laurier" style="padding-top:0">
+  <div class="wrap">
+    <div class="head"><div class="eyebrow">MS UX Design · Wilfrid Laurier University</div><h2>Visual design and 3D from my master's</h2><p class="lede">Two team projects: an AI companion app taken from research to a tested prototype, and a smart street pole built in cardboard, 3D and VR for a real client.</p></div>
+    <div class="lw">
+      <a class="lwc" style="--k:#A98BFF" href="/work/echo">
+        <div class="ph"><img src="/media/home/cover-echo.jpg" alt="Three Echo app screens: Meet Echo, the chat with a glowing 3D companion, and the mood overview"></div>
+        <div class="bd">
+          <span class="no">UX605 PROTOTYPING · 2026</span>
+          <h3>Echo: an AI companion that listens first</h3>
+          <div class="org">Research · personas · lo-fi to hi-fi · usability testing</div>
+          <p>An emotional-support app with a 3D companion, voice and mood input, AR mode and a mood diary, redesigned after moderated testing with first-time users.</p>
+          <span class="go">View project <i>→</i></span>
+        </div>
+      </a>
+      <a class="lwc" style="--k:#E2563F" href="/work/brantpole">
+        <div class="ph"><img src="/media/home/cover-brantpole.jpg" alt="3D render of the BrantPole smart LED pole with a glass canopy and kiosk screen"></div>
+        <div class="bd">
+          <span class="no">UX600 · REAL CLIENT · 2025</span>
+          <h3>BrantPole: a smart LED pole for safer nights</h3>
+          <div class="org">Research · iteration · lo-fi to hi-fi · 3D · VR</div>
+          <p>A human-centred design project for a real client: from field research to a phone-free safety pole for downtown Brantford, tested in cardboard, Figma, 3D and VR.</p>
+          <span class="go">View project <i>→</i></span>
+        </div>
+      </a>
     </div>
   </div>
 </section>
@@ -426,64 +471,6 @@ figure{margin:0}
     </div>
 
     <div class="yoga"><span aria-hidden="true">🧘</span><span><b>Yoga</b> (long-time Ashtanga and Hatha practitioner) keeps me steady. I also play <b>badminton</b> and <b>table tennis</b>.</span></div>
-  </div>
-</section>
-
-<!-- RESUME -->
-<section id="resume" style="padding-top:0">
-  <div class="wrap">
-    <div class="head"><div class="eyebrow">Resume</div><h2>10+ years designing products end to end</h2></div>
-    <div class="cv">
-      <div>
-        <div class="job">
-          <div class="when"><b>Apr 2026 – present</b>Brantford, ON</div>
-          <div><h3>Graduate International Student Leader</h3><div class="co">Wilfrid Laurier University · part-time</div>
-            <ul><li>Welcome and support incoming international students, plan events and host student gatherings, and share the student experience at recruitment fairs and info sessions.</li></ul></div>
-        </div>
-        <div class="job">
-          <div class="when"><b>Apr – Jun 2026</b>Toronto, ON</div>
-          <div><h3>Brand Designer &amp; Product Consultant</h3><div class="co">The Tile Shoppe, Concord</div>
-            <ul><li>Designed the brand identity of <b>TILO</b>, an AI tile-matching assistant, and contributed to its product experience throughout development.</li></ul></div>
-        </div>
-        <div class="job">
-          <div class="when"><b>Mar 2018 – Aug 2025</b>Beijing, China</div>
-          <div><h3>Senior Product Manager</h3><div class="co">Tencent Technology (Beijing) Co., Ltd. · hands-on across product logic, interaction design, data and monetization</div>
-            <div class="prod">Tencent Video · China's leading streaming platform</div>
-            <ul>
-              <li>Pioneered a <b>Family Account</b> system for elders and children: within 6 months, <b>321,577 DAU</b>, <b>RMB 35,102</b> daily family payments and <b>4.16M</b> families created.</li>
-              <li>Led the login experience redesign across <b>8 platforms</b> and <b>12 business lines</b>: login completion <b>+5.73%</b>, generating <b>RMB 38.88M</b> in additional annual membership revenue.</li>
-              <li>Drove AI innovation for 5 major IPs: built <b>16 conversational AI agents</b> with LLMs, reaching <b>800,000 users</b> and <b>30M+</b> conversation turns.</li>
-            </ul>
-            <div class="prod">Tencent Weishi · Short-video platform</div>
-            <ul><li>Built the full content chain, from ingestion to recommendation, improving distribution efficiency across production, understanding and delivery.</li></ul>
-          </div>
-        </div>
-        <div class="job">
-          <div class="when"><b>Jul 2013 – Aug 2017</b>Beijing, China</div>
-          <div><h3>Product Manager</h3><div class="co">Dewmobile Technology (Beijing) Co., Ltd. · owned the iOS product experience</div>
-            <div class="prod">ZAPYA · Global file-sharing app</div>
-            <ul><li>Led product experience on ZAPYA iOS, with a sustained App Store rating of <b>4.7 / 5</b>.</li></ul></div>
-        </div>
-      </div>
-      <aside class="side">
-        <div class="blk"><h4>Education</h4>
-          <div class="edu"><b>MS, User Experience Design</b><span>Wilfrid Laurier University · Brantford, ON</span><small>Sep 2025 – present</small></div>
-          <div class="edu"><b>Bachelor of Law</b><span>Second major: International Economics &amp; Trade<br>Beijing Normal University</span><small>Sep 2009 – Jul 2013</small></div>
-        </div>
-        <div class="blk"><h4>Awards &amp; contributions</h4>
-          <ul>
-            <li>1st Place, Product Design Sprint, Laurier, Mar 2026</li>
-            <li>Invited expert, joint study on A/B testing and product innovation, USTC &amp; Zhejiang University, 2024–2025</li>
-          </ul>
-        </div>
-        <div class="blk"><h4>Skills</h4>
-          <ul><li>Content recommendation, personalized feeds, AI product design, prompt engineering, data analysis</li><li>Figma, Axure RP, Visio, SQL</li></ul>
-        </div>
-        <div class="blk"><h4>Languages</h4>
-          <div class="lang"><div>Mandarin Chinese<span>Native</span></div><div>English<span>Professional</span></div><div>French<span>A2</span></div></div>
-        </div>
-      </aside>
-    </div>
   </div>
 </section>
 

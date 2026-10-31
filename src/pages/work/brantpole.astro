@@ -1,0 +1,370 @@
+---
+import Base from '../../layouts/Base.astro';
+---
+<Base title="BrantPole Smart LED Pole · Serena Zhang" description="Laurier UX600 client project: a smart LED pole for safer nights in downtown Brantford, from sketch and cardboard to 3D model and VR.">
+<style is:global>
+/* Layout: a process journal on warm stone-grey paper so the white boards, renders and photos read as objects. A process rail at the top, then one numbered chapter per stage of the human-centred design process; every stage ends with what we tested and what changed. Brick red (the pole's own color) is the only accent. */
+:root{
+  --paper:#E8E5DF; --surface:#FFFFFF; --sunk:#DEDAD3; --ink:#1E1C19; --muted:#69635B; --line:#D2CCC2;
+  --brick:#B53F2B; --brick-soft:#F3DED8; --test:#2F6B5E; --test-soft:#DCE9E4;
+  --display:"Bricolage Grotesque","Avenir Next","Segoe UI",sans-serif;
+  --body:"IBM Plex Sans","Helvetica Neue",Arial,sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+  --wrap:1120px;
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+body{background:var(--paper);color:var(--ink);font:400 16px/1.65 var(--body);margin:0}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--paper)}
+.wrap{max-width:var(--wrap);margin-inline:auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+@media (min-width:700px){.wrap{padding-left:max(24px,env(safe-area-inset-left,0px));padding-right:max(24px,env(safe-area-inset-right,0px))}}
+img{max-width:100%;display:block;height:auto}
+h1,h2,h3{font-family:var(--display);font-weight:700;letter-spacing:-.02em;line-height:1.08;margin:0;text-wrap:balance}
+h2{font-size:clamp(28px,3.8vw,42px)}
+h3{font-size:20px;letter-spacing:-.01em}
+p{margin:0;max-width:64ch}
+figure{margin:0}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--brick);outline-offset:3px}
+.eyebrow{font:500 12px/1.3 var(--mono);letter-spacing:.16em;text-transform:uppercase;color:var(--brick)}
+.lede{font-size:18px;color:var(--muted)}
+.cap{font:400 12px/1.5 var(--mono);color:var(--muted)}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:18px;overflow:hidden}
+
+.bar{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:color-mix(in srgb,var(--paper) 90%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.bar .wrap{display:flex;justify-content:space-between;align-items:center;gap:16px;padding-block:14px;font:500 13px var(--mono);color:var(--muted)}
+.bar a{color:var(--ink);text-decoration:none}
+
+/* hero */
+.hero{padding-block:64px 40px}
+.hero .wrap{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);gap:48px;align-items:center}
+.hero h1{font-size:clamp(38px,5.6vw,66px);font-weight:800;letter-spacing:-.035em;margin-block:18px 20px}
+.hero h1 em{font-style:normal;color:var(--brick)}
+.meta{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px 24px;margin-top:30px;padding-top:20px;border-top:1px solid var(--line)}
+.meta dt{font:500 11px var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.meta dd{margin:5px 0 0;font-weight:500;font-size:14.5px;line-height:1.45}
+.hero-art{border-radius:24px;overflow:hidden;background:#BDBDBB;position:relative}
+.hero-art figcaption{position:absolute;left:14px;bottom:14px;font:500 11px var(--mono);letter-spacing:.06em;text-transform:uppercase;color:#fff;background:#1E1C1999;padding:5px 10px;border-radius:99px}
+
+/* process rail */
+.rail{padding-block:8px 24px}
+.steps{list-style:none;margin:0;padding:18px;display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:6px;background:var(--surface);border:1px solid var(--line);border-radius:20px;counter-reset:s}
+.steps li{position:relative;display:grid;gap:4px;padding:12px 10px;border-radius:12px;counter-increment:s}
+.steps a{text-decoration:none;display:grid;gap:4px}
+.steps a:hover b{color:var(--brick)}
+.steps small{font:500 11px var(--mono);color:var(--brick);letter-spacing:.08em}
+.steps small::before{content:counter(s,decimal-leading-zero) " "}
+.steps b{font:700 15px var(--display);line-height:1.2}
+.steps span{font-size:12.5px;color:var(--muted);line-height:1.35}
+.steps .t{position:absolute;right:-9px;top:14px;z-index:1;font:600 10px var(--mono);color:var(--test);background:var(--test-soft);border-radius:99px;padding:2px 6px}
+.loopnote{display:flex;align-items:center;gap:10px;margin-top:12px;font:500 12.5px var(--mono);color:var(--muted)}
+.loopnote i{font-style:normal;color:var(--test);background:var(--test-soft);border-radius:99px;padding:2px 8px;font-size:11px}
+
+/* chapters */
+.ch{padding-block:80px;border-top:1px solid var(--line)}
+.ch-head{display:grid;grid-template-columns:120px minmax(0,1fr);gap:28px;margin-bottom:40px}
+.ch-head .no{font:800 64px/.85 var(--display);letter-spacing:-.05em;color:var(--brick)}
+.ch-head .no small{display:block;margin-top:10px;font:500 11px var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.ch-head .h{display:grid;gap:14px;align-content:start}
+.body{display:grid;gap:28px}
+.body > *,.two > *,figure{min-width:0}
+.two{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:28px;align-items:start}
+.two.wide-r{grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr)}
+.txt{display:grid;gap:12px;align-content:start}
+.txt p,.txt li{color:var(--muted);font-size:15.5px}
+ul.clean{margin:0;padding-left:18px;display:grid;gap:6px}
+
+.concerns{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+.concerns div{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:16px;display:grid;gap:6px;align-content:start}
+.concerns small{font:500 11px var(--mono);letter-spacing:.1em;color:var(--brick)}
+.concerns p{font-size:14.5px}
+.hmw{background:var(--ink);color:#F4F1EC;border-radius:20px;padding:26px 28px;display:grid;gap:8px}
+.hmw small{font:500 11px var(--mono);letter-spacing:.14em;text-transform:uppercase;color:#E9A597}
+.hmw p{font:600 clamp(20px,2.4vw,26px)/1.3 var(--display);letter-spacing:-.01em;max-width:none}
+
+.methods{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.methods div{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:18px;display:grid;gap:4px;align-content:start}
+.methods b{font:700 26px/1 var(--display);letter-spacing:-.02em}
+.methods strong{font-weight:600}
+.methods span{font-size:14px;color:var(--muted)}
+.scroll{overflow-x:auto;border-radius:18px}
+.affinity{min-width:760px}
+.impl{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px;counter-reset:i}
+.impl div{border-top:2px solid var(--ink);padding-top:12px;display:grid;gap:6px;align-content:start;counter-increment:i}
+.impl div::before{content:counter(i);font:700 13px var(--mono);color:var(--brick)}
+.impl p{font-size:14.5px;color:var(--ink)}
+
+.users{display:flex;flex-wrap:wrap;gap:8px}
+.users span{font:500 13px var(--body);padding:7px 12px;border-radius:99px;background:var(--surface);border:1px solid var(--line)}
+.goals{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+.goals div{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:18px;display:grid;gap:6px;align-content:start}
+.goals b{font:700 17px var(--display)}
+.goals p{font-size:14px;color:var(--muted)}
+
+/* test and change */
+.tc{display:grid;grid-template-columns:minmax(0,1fr) 40px minmax(0,1fr);gap:0;align-items:stretch;background:var(--surface);border:1px solid var(--line);border-radius:20px;overflow:hidden}
+.tc > div{padding:22px 24px;display:grid;gap:10px;align-content:start}
+.tc .who{font:600 11px var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--test)}
+.tc .arrow{display:grid;place-items:center;background:var(--sunk);font:600 16px var(--mono);color:var(--muted);padding:0}
+.tc .chg{background:color-mix(in srgb,var(--brick-soft) 55%,var(--surface))}
+.tc .chg .who{color:var(--brick)}
+.tc ul{margin:0;padding-left:18px;display:grid;gap:6px;font-size:14.5px}
+.tc .lead{font-size:14px;color:var(--muted)}
+
+.sketch{max-width:280px;background:var(--surface);border:1px solid var(--line);border-radius:16px;overflow:hidden}
+.feats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.feat{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:20px;display:grid;gap:8px;align-content:start}
+.feat .k{font:600 11px var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--brick)}
+.feat p{color:var(--muted);font-size:14.5px}
+.alarm{display:flex;flex-wrap:wrap;gap:6px;align-items:center;font:500 12px var(--mono);margin-top:4px}
+.alarm span{padding:5px 9px;border-radius:8px}
+.alarm .y{background:#F2E86A;color:#1E1C19}
+.alarm .r{background:var(--brick);color:#fff}
+.screen{display:grid;grid-template-columns:minmax(0,.55fr) minmax(0,.45fr);gap:16px;align-items:end}
+.screen .s1{border-radius:16px;overflow:hidden;box-shadow:0 30px 60px -30px #1E1C1988}
+.vrrow{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:16px;align-items:start}
+.vrrow figure{display:grid;gap:8px}
+
+.ways{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}
+.ways div{border-top:2px solid var(--brick);padding-top:14px;display:grid;gap:8px;align-content:start}
+.ways p{color:var(--muted);font-size:15px}
+
+.next{border-top:1px solid var(--line);padding-block:48px}
+.next .wrap{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.next a{display:grid;gap:6px;text-decoration:none;padding:22px;border:1px solid var(--line);border-radius:18px;background:var(--surface)}
+.next a:hover{border-color:var(--brick)}
+.next small{font:500 11px var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.next b{font:700 20px var(--display)}
+footer{padding-block:28px 48px;color:var(--muted);font:400 12px var(--mono)}
+
+@media (max-width:960px){
+  .steps{grid-template-columns:repeat(4,minmax(0,1fr))}
+  .steps .t{display:none}
+}
+@media (max-width:860px){
+  .hero .wrap,.two,.two.wide-r,.vrrow,.screen{grid-template-columns:1fr}
+  .ch-head{grid-template-columns:1fr;gap:12px}
+  .ch-head .no{font-size:44px}
+  .concerns,.goals{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .methods,.feats,.ways{grid-template-columns:1fr}
+  .tc{grid-template-columns:1fr}
+  .tc .arrow{padding:6px 0}
+  .tc .arrow span{display:inline-block;transform:rotate(90deg)}
+  .next .wrap{grid-template-columns:1fr}
+  .ch{padding-block:64px}
+}
+@media (max-width:520px){
+  .meta,.concerns,.goals{grid-template-columns:1fr}
+  .steps{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+</style>
+
+<header class="bar"><div class="wrap"><a href="/">Serena Zhang</a><span>Laurier work · 02 / 02</span></div></header>
+
+<main id="top">
+<section class="hero">
+  <div class="wrap">
+    <div>
+      <div class="eyebrow">UX600 Human-Centred Design · Wilfrid Laurier University · 2025</div>
+      <h1>BrantPole: designing <em>safer nights</em> in downtown Brantford</h1>
+      <p class="lede">A real brief from the Workforce Planning Board of Grand Erie. We went from field research to a street pole that works without a phone, testing it at every fidelity: cardboard, Figma, 3D and VR.</p>
+      <dl class="meta">
+        <div><dt>Client</dt><dd>Workforce Planning Board of Grand Erie</dd></div>
+        <div><dt>Team</dt><dd>BY KAMSA: Hala Jaber, Jorge Garcia, Si Zhang, Walter Xu</dd></div>
+        <div><dt>My focus</dt><dd>3D modelling, visual design, prototyping</dd></div>
+        <div><dt>Tools</dt><dd>Figma, Unreal Engine (VR), Miro, Canva, Adobe CC</dd></div>
+      </dl>
+    </div>
+    <figure class="hero-art">
+      <img src="/media/brantpole/hero-render.jpg" alt="3D render of BrantPole at night: a red pole with a glass LED canopy and a kiosk screen, lit by a pool of light on the ground">
+      <figcaption>Final 3D model</figcaption>
+    </figure>
+  </div>
+</section>
+
+<div class="rail">
+  <div class="wrap">
+    <ol class="steps" aria-label="Design process">
+      <li><a href="#brief"><small>Need</small><b>Client brief</b><span>Four concerns</span></a></li>
+      <li><a href="#research"><small>Research</small><b>Survey, interviews, field</b><span>Affinity map</span></a></li>
+      <li><a href="#define"><small>Define</small><b>Users and goals</b><span>Storyboard</span></a></li>
+      <li><a href="#lofi"><small>Lo-fi</small><b>Cardboard + Figma</b><span>User test</span></a><em class="t">TEST</em></li>
+      <li><a href="#midfi"><small>Mid-fi</small><b>First 3D model</b><span>Expert, police, engineer</span></a><em class="t">TEST</em></li>
+      <li><a href="#hifi"><small>Hi-fi</small><b>Final 3D + screen</b><span>Accessibility</span></a></li>
+      <li><a href="#vr"><small>VR</small><b>Simulation</b><span>+ working prototype</span></a></li>
+    </ol>
+    <p class="loopnote"><i>TEST</i>Each round of feedback fed the next model.</p>
+  </div>
+</div>
+
+<!-- 01 BRIEF -->
+<section class="ch" id="brief">
+  <div class="wrap">
+    <div class="ch-head"><div class="no">01<small>Need</small></div><div class="h"><h2>The brief: a downtown people avoid after dark</h2><p class="lede">The client came with four concerns about downtown Brantford. We chose to focus on one principle from the ICF Canada Smart City Framework: safety.</p></div></div>
+    <div class="body">
+      <div class="concerns">
+        <div><small>CONCERN 1</small><p>People feel unsafe on the streets at night</p></div>
+        <div><small>CONCERN 2</small><p>Transit and public space are poorly connected</p></div>
+        <div><small>CONCERN 3</small><p>The Laurier campus feels cut off from the city, and any fix must stay inclusive of people experiencing homelessness</p></div>
+        <div><small>CONCERN 4</small><p>Few people use SAFEHawk, the existing safety app</p></div>
+      </div>
+      <div class="hmw"><small>How might we</small><p>help students, seniors, residents and commuters feel safe walking downtown at night, without relying on a phone app?</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- 02 RESEARCH -->
+<section class="ch" id="research">
+  <div class="wrap">
+    <div class="ch-head"><div class="no">02<small>Research</small></div><div class="h"><h2>Listening to the people who walk there</h2><p class="lede">Three methods, then an affinity map to sort what we heard into themes.</p></div></div>
+    <div class="body">
+      <div class="methods">
+        <div><b>62</b><strong>Survey responses</strong><span>A mix of ages, split evenly between residents and commuters</span></div>
+        <div><b>3</b><strong>Interviews</strong><span>A Laurier faculty member and commuter, a senior resident, a Laurier student and resident</span></div>
+        <div><b>2</b><strong>Field observations</strong><span>The bridge between One Market and Market Centre parking, and the downtown bus terminal</span></div>
+      </div>
+      <figure>
+        <div class="scroll card"><img class="affinity" src="/media/brantpole/affinity.jpg" alt="Affinity map with four themes: unsafe locations, use of SAFEHawk, feeling unsafe and smart solutions, each with survey, interview and observation notes"></div>
+        <figcaption class="cap" style="margin-top:10px">Affinity map. Yellow: survey · pink: interviews · green: field observation. Notes clustered around four themes: unsafe locations, use of SAFEHawk, feeling unsafe and smart solutions.</figcaption>
+      </figure>
+      <div class="two">
+        <div class="txt">
+          <h3>What we heard</h3>
+          <ul class="clean">
+            <li>The same places came up again and again: the bridge, the parking garage, the corner outside Tim Hortons.</li>
+            <li>People knew SAFEHawk existed but did not open it. “Yeah, I've heard of it. But I've never used it.”</li>
+            <li>Feeling unsafe changed behaviour. “I find myself walking fast all the time because I just don't feel comfortable.”</li>
+            <li>People wanted a simple way to ask for help. “I feel like it'd be nice to have an easy way to report something.”</li>
+          </ul>
+        </div>
+        <div class="txt">
+          <h3>Design implications</h3>
+          <div class="impl">
+            <div><p>A physical tool that does not depend on a phone</p></div>
+            <div><p>Better lighting where people feel exposed</p></div>
+            <div><p>Infrastructure that reacts to context</p></div>
+            <div><p>Help people find their way</p></div>
+            <div><p>Quiet features that do not alert a threat</p></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 03 DEFINE -->
+<section class="ch" id="define">
+  <div class="wrap">
+    <div class="ch-head"><div class="no">03<small>Define</small></div><div class="h"><h2>Who it is for, and what “good” means</h2></div></div>
+    <div class="body">
+      <div class="users"><span>Laurier students</span><span>Senior residents</span><span>Downtown residents</span><span>Commuters</span></div>
+      <div class="goals">
+        <div><b>Safety</b><p>Increase the sense of safety downtown</p></div>
+        <div><b>Accessibility</b><p>Inclusive and usable for all users</p></div>
+        <div><b>Smart solution</b><p>Help Brantford become a smart city</p></div>
+        <div><b>Realistic</b><p>Doable to build and to maintain</p></div>
+      </div>
+      <figure>
+        <div class="card"><img src="/media/brantpole/storyboard.jpg" alt="Storyboard: a user feels unsafe at the bridge, runs to the nearest smart pole, sees a glowing red emergency button, presses it while the screen flashes red and blue, and talks to a police officer"></div>
+        <figcaption class="cap" style="margin-top:10px">Storyboard: one moment at the bridge near One Market, from feeling unsafe to talking with an officer.</figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- 04 LO-FI -->
+<section class="ch" id="lofi">
+  <div class="wrap">
+    <div class="ch-head"><div class="no">04<small>Lo-fi</small></div><div class="h"><h2>Sketch, then cardboard you can press</h2><p class="lede">We started from a street-light sketch and built it the cheap way: a cardboard pole with real buttons and braille, plus the screen flow in Figma.</p></div></div>
+    <div class="body">
+      <div class="two wide-r">
+        <figure class="sketch"><img src="/media/brantpole/sketch.jpg" alt="Pencil sketch of a street lamp with a screen and a button"></figure>
+        <figure class="card"><img src="/media/brantpole/lofi.jpg" alt="Cardboard prototype mounted on a pole with Map, Event and News areas, up and down buttons with braille, a red PUSH button and a speaker, next to the Figma screen flow"></figure>
+      </div>
+      <div class="tc">
+        <div><span class="who">Test · 3 users, different cultural backgrounds</span><ul><li>Buttons felt inconsistent</li><li>Some wanted a loud alarm, others a silent one</li><li>Height-adjust labels were unclear</li><li>Language settings reset too quickly</li></ul></div>
+        <div class="arrow"><span>→</span></div>
+        <div class="chg"><span class="who">What changed in mid-fi</span><ul><li>Both preferences kept: press once for a silent alarm, hold for a loud one</li><li>Height and emergency buttons got clear text labels</li><li>The pole moved from cardboard into a 3D model</li></ul></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 05 MID-FI -->
+<section class="ch" id="midfi">
+  <div class="wrap">
+    <div class="ch-head"><div class="no">05<small>Mid-fi</small></div><div class="h"><h2>The first 3D model and a two-step alarm</h2><p class="lede">The 3D model gave the pole real proportions. A painted prototype with a tablet let people try the new screen and the alarm flow.</p></div></div>
+    <div class="body">
+      <figure class="card"><img src="/media/brantpole/midfi.jpg" alt="Painted physical prototype with a tablet showing the BrantPole screen, the alarm decision flow, and the first 3D model of the pole with a kiosk"></figure>
+      <div class="tc">
+        <div><span class="who">Test · expert and stakeholders</span>
+          <p class="lead">UX expert, heuristic walkthrough</p><ul><li>Button placement and feedback clarity</li><li>A clearer cancel, plus an “are you sure?” step</li><li>A search bar on the map</li></ul>
+          <p class="lead">Police officer</p><ul><li>Could help people feel safer at night; the camera would help filter prank calls</li></ul>
+          <p class="lead">Architectural engineer</p><ul><li>Feasible to build; estimated cost per pole</li></ul>
+        </div>
+        <div class="arrow"><span>→</span></div>
+        <div class="chg"><span class="who">What changed in hi-fi</span><ul><li>Alarm flow with a clearer cancel and an “are you sure?” step</li><li>A motion-sensing LED canopy replaced the simple lamp heads</li><li>A rebuilt 3D model and a dark, high-contrast screen</li></ul></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 06 HI-FI -->
+<section class="ch" id="hifi">
+  <div class="wrap">
+    <div class="ch-head"><div class="no">06<small>Hi-fi</small></div><div class="h"><h2>Final 3D model: three features in one pole</h2></div></div>
+    <div class="body">
+      <figure class="card"><img src="/media/brantpole/render-views.jpg" alt="Two renders of the final pole: a three-quarter view showing the kiosk screen, and a side view showing the slim profile and the glass canopy"></figure>
+      <div class="feats">
+        <div class="feat"><span class="k">Emergency button</span><h3>Ask for help without a phone</h3><p>An illuminated red button with braille. A one-way camera, speaker and microphone connect the user to an officer.</p><div class="alarm"><span class="y">Silent alarm</span><span aria-hidden="true">→</span><span class="y">Hold for loud</span><span aria-hidden="true">→</span><span class="r">Alarm activated</span></div></div>
+        <div class="feat"><span class="k">LED canopy</span><h3>Light that reacts to people</h3><p>LED sensor strips under a protective shield. At night they turn on when someone is within 2 metres, and the canopy shelters the screen from weather.</p></div>
+        <div class="feat"><span class="k">Interactive screen</span><h3>Maps, events and news</h3><p>Way-finding to nearby businesses, city events and local news, so the pole is useful every day, not only in an emergency.</p></div>
+      </div>
+      <figure>
+        <div class="card"><img src="/media/brantpole/accessibility.jpg" alt="Accessibility render: a wheelchair user at the pole, with labels for the height adjustment button, braille, text size up to 200 percent per AODA, text-to-speech, and a 68 cm screen height per Accessibility Standards Canada"></div>
+        <figcaption class="cap" style="margin-top:10px">Designed to Canadian standards: screen at 68 cm with up and down control (Accessibility Standards Canada), text up to 200% (AODA), braille labels, language switch and text-to-speech.</figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- 07 VR -->
+<section class="ch" id="vr">
+  <div class="wrap">
+    <div class="ch-head"><div class="no">07<small>VR</small></div><div class="h"><h2>Standing next to it before it exists</h2><p class="lede">We checked the final concept two ways: a VR simulation of the pole, and a physical prototype with working LED strips under the canopy.</p></div></div>
+    <div class="vrrow">
+      <figure><div class="card"><img src="/media/brantpole/vr.jpg" alt="VR simulation: looking up at the pole's screen and canopy in a virtual street, with a VR controller in view"></div><figcaption class="cap">VR simulation in Unreal Engine</figcaption></figure>
+      <figure><div class="card"><img src="/media/brantpole/physical-hifi.jpg" alt="Physical hi-fi prototype: a red kiosk with a screen under a translucent canopy lit by LED strips"></div><figcaption class="cap">Physical prototype with the lit canopy</figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<section class="ch" id="summary">
+  <div class="wrap">
+    <div class="ch-head"><div class="no" aria-hidden="true">→<small>Handoff</small></div><div class="h"><h2>One-page summary for the client</h2></div></div>
+    <div class="scroll card"><img src="/media/brantpole/onepager.jpg" alt="One-page summary: BrantPole overview, objective, accessibility features, three locations, emergency button with alarm flow, LED canopy, interactive screen and user task flow" style="min-width:760px"></div>
+  </div>
+</section>
+
+<section class="ch" id="ways">
+  <div class="wrap">
+    <div class="ch-head"><div class="no" aria-hidden="true">✓<small>Takeaways</small></div><div class="h"><h2>How we worked</h2></div></div>
+    <div class="ways">
+      <div><h3>Test at every fidelity</h3><p>Cardboard, Figma, 3D and VR each answered a different question. Cheap prototypes let us change direction early.</p></div>
+      <div><h3>Design with stakeholders, not only users</h3><p>A police officer and an engineer shaped the camera, the alarm and what was realistic to build and maintain.</p></div>
+      <div><h3>Inclusive by default</h3><p>Accessibility followed Canadian standards from the start: AODA text sizing, screen height for wheelchair users and braille.</p></div>
+    </div>
+  </div>
+</section>
+</main>
+
+<nav class="next" aria-label="More work">
+  <div class="wrap">
+    <a href="/work/echo"><small>Previous Laurier project</small><b>← Echo</b><span class="cap">AI companion, research to hi-fi</span></a>
+    <a href="/#laurier"><small>Back to</small><b>All work →</b><span class="cap">Serena Zhang · portfolio home</span></a>
+  </div>
+</nav>
+<footer><div class="wrap">BrantPole · Team BY KAMSA · UX600, Wilfrid Laurier University · Supported by Dr. John Munoz</div></footer>
+
+
+</Base>

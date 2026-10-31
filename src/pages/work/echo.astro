@@ -1,0 +1,396 @@
+---
+import Base from '../../layouts/Base.astro';
+---
+<Base title="Echo AI Companion · Serena Zhang" description="Laurier UX605 project: an AI emotional-support companion app, from research and personas to lo-fi, hi-fi and usability testing.">
+<style is:global>
+/* Layout: a single dark "night sky" theme that matches the product itself. Phone screens sit in rows like a storyboard; research and test data sit in plain, readable blocks between them. */
+:root{
+  --bg:#0E0C18; --surface:#16132A; --raise:#1E1A38; --ink:#ECEAF6; --muted:#A6A2BF; --line:#2B2746;
+  --accent:#9B7DFF; --glow:#6FE3E6; --warn:#FF7A8A;
+  --display:"Bricolage Grotesque","Avenir Next","Segoe UI",sans-serif;
+  --body:"IBM Plex Sans","Helvetica Neue",Arial,sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+  --wrap:1120px;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font:400 16px/1.65 var(--body);margin:0}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--bg)}
+.wrap{max-width:var(--wrap);margin-inline:auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+@media (min-width:700px){.wrap{padding-left:max(24px,env(safe-area-inset-left,0px));padding-right:max(24px,env(safe-area-inset-right,0px))}}
+img{max-width:100%;display:block;height:auto}
+h1,h2,h3{font-family:var(--display);font-weight:700;letter-spacing:-.02em;line-height:1.06;margin:0;text-wrap:balance}
+h2{font-size:clamp(30px,4.2vw,46px)}
+h3{font-size:21px;letter-spacing:-.01em}
+p{margin:0;max-width:62ch}
+figure{margin:0}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--glow);outline-offset:3px}
+.eyebrow{font:500 12px/1.3 var(--mono);letter-spacing:.16em;text-transform:uppercase;color:var(--glow)}
+.lede{font-size:18px;color:var(--muted)}
+.cap{font:400 12px/1.5 var(--mono);color:var(--muted)}
+section{padding-block:96px}
+.head{display:grid;gap:16px;margin-bottom:48px;max-width:760px}
+
+.bar{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:color-mix(in srgb,var(--bg) 86%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.bar .wrap{display:flex;justify-content:space-between;align-items:center;gap:16px;padding-block:14px;font:500 13px var(--mono);color:var(--muted)}
+.bar a{color:var(--ink);text-decoration:none}
+
+/* hero */
+.hero{position:relative;overflow:hidden;padding-block:72px 64px}
+.hero::before{content:"";position:absolute;inset:-20% -10% auto auto;width:70%;height:120%;background:radial-gradient(closest-side,color-mix(in srgb,var(--accent) 30%,transparent),transparent 70%);pointer-events:none}
+.hero .wrap{position:relative;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:48px;align-items:center}
+.hero h1{font-size:clamp(40px,6vw,72px);font-weight:800;letter-spacing:-.035em;margin-block:20px 22px}
+.hero h1 em{font-style:normal;background:linear-gradient(90deg,var(--accent),var(--glow));-webkit-background-clip:text;background-clip:text;color:transparent}
+.meta{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px 24px;margin-top:34px;padding-top:22px;border-top:1px solid var(--line)}
+.meta dt{font:500 11px var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.meta dd{margin:5px 0 0;font-weight:500;font-size:14.5px;line-height:1.45}
+.scope{display:flex;flex-wrap:wrap;gap:8px;margin-top:22px}
+.scope span{font:500 11.5px var(--mono);letter-spacing:.06em;text-transform:uppercase;padding:6px 11px;border-radius:99px;border:1px solid var(--line);color:var(--muted)}
+.scope span.on{border-color:color-mix(in srgb,var(--accent) 60%,transparent);color:var(--ink);background:color-mix(in srgb,var(--accent) 18%,transparent)}
+.trio{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;align-items:center}
+.trio .ph:nth-child(2){transform:translateY(-26px)}
+
+/* phone */
+.ph{border-radius:22px;overflow:hidden;background:#000;box-shadow:0 0 0 1px var(--line),0 30px 60px -30px #000}
+.ph img{width:100%}
+.phs{display:grid;gap:16px;grid-template-columns:repeat(4,minmax(0,1fr))}
+.phs figure{display:grid;gap:10px;align-content:start}
+.phs figcaption{font:400 12px/1.45 var(--mono);color:var(--muted)}
+.phs figcaption b{display:block;color:var(--ink);font:600 13px var(--body);margin-bottom:2px}
+
+/* numbers */
+.nums{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));border-block:1px solid var(--line)}
+.num{padding:28px 20px 28px 0;display:grid;gap:8px;align-content:start}
+.num + .num{padding-left:24px;border-left:1px solid var(--line)}
+.num b{font:800 clamp(34px,4.6vw,56px)/.95 var(--display);letter-spacing:-.04em;font-variant-numeric:tabular-nums}
+.num span{color:var(--muted);font-size:14px;line-height:1.45;max-width:24ch}
+
+/* personas */
+.personas{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
+.pc{background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:26px;display:grid;gap:16px;align-content:start}
+.pc .top{display:flex;gap:14px;align-items:center}
+.pc .av{width:52px;height:52px;border-radius:50%;display:grid;place-items:center;font:700 20px var(--display);background:linear-gradient(135deg,var(--accent),var(--glow));color:var(--bg);flex:none}
+.pc .who{font:400 12.5px/1.5 var(--mono);color:var(--muted)}
+.pc blockquote{margin:0;padding:12px 14px;border-radius:12px;background:color-mix(in srgb,var(--glow) 14%,transparent);color:var(--ink);font-size:15px;line-height:1.5}
+.pc dl{display:grid;grid-template-columns:auto minmax(0,1fr);gap:6px 14px;margin:0;font-size:14px}
+.pc dt{font:500 11px/1.9 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.pc dd{margin:0}
+.more-p{margin-top:16px}
+
+/* process strips */
+.strips{display:grid;gap:22px}
+.strip{display:grid;grid-template-columns:150px minmax(0,1fr);gap:24px;align-items:center;padding-block:18px;border-top:1px solid var(--line)}
+.strip .lab{display:grid;gap:6px}
+.strip .lab b{font:700 18px var(--display)}
+.strip .lab span{font:400 12.5px/1.5 var(--mono);color:var(--muted)}
+.strip .img{border-radius:14px;overflow:hidden;background:#808080;max-width:660px;width:100%}
+
+/* visual direction */
+.vis{display:grid;grid-template-columns:1.1fr .9fr .9fr;gap:14px}
+.vis figure{border-radius:18px;overflow:hidden;position:relative}
+.vis img{width:100%;height:100%;object-fit:cover;aspect-ratio:4/5}
+.vis figcaption{position:absolute;left:12px;bottom:12px;right:12px;font:500 11px var(--mono);letter-spacing:.06em;color:#fff;text-shadow:0 1px 8px #000}
+.ds{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin-top:14px}
+.ds figure{border-radius:14px;overflow:hidden;border:1px solid var(--line)}
+.note{margin-top:14px}
+
+/* flows */
+.flow{display:grid;gap:18px;padding-block:34px;border-top:1px solid var(--line)}
+.flow .fh{display:flex;justify-content:space-between;align-items:baseline;gap:20px;flex-wrap:wrap}
+.flow .fh p{color:var(--muted);font-size:15px}
+
+/* test */
+.method{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-bottom:34px}
+.method div{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:20px;display:grid;gap:6px;align-content:start}
+.method b{font:600 15px var(--body)}
+.method span{font-size:14px;color:var(--muted)}
+.chart{background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:24px;display:grid;gap:14px}
+.chart .row{display:grid;grid-template-columns:200px minmax(0,1fr) 120px;gap:16px;align-items:center;font-size:14px}
+.chart .track{height:14px;border-radius:99px;background:var(--raise);position:relative;overflow:hidden}
+.chart .fill{position:absolute;inset:0 auto 0 0;border-radius:99px;background:linear-gradient(90deg,var(--accent),var(--glow))}
+.chart .fill.hot{background:linear-gradient(90deg,var(--accent),var(--warn))}
+.chart .v{font:500 13px var(--mono);color:var(--muted);font-variant-numeric:tabular-nums;text-align:right}
+.chart .v b{color:var(--ink);font-weight:500}
+.chart .axis{display:grid;grid-template-columns:200px minmax(0,1fr) 120px;gap:16px;font:400 11px var(--mono);color:var(--muted)}
+.chart .axis div{display:flex;justify-content:space-between}
+
+/* findings */
+.find{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);gap:40px;align-items:center;padding-block:40px;border-top:1px solid var(--line)}
+.find .t{display:grid;gap:14px}
+.find .t p{color:var(--muted)}
+.find .q{border-left:3px solid var(--glow);padding-left:14px;color:var(--ink);font-size:15px}
+.tag{justify-self:start;font:600 11px var(--mono);letter-spacing:.1em;text-transform:uppercase;padding:5px 10px;border-radius:99px;background:color-mix(in srgb,var(--warn) 20%,transparent);color:var(--warn)}
+.ba{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
+.ba figure{display:grid;gap:10px}
+.ba .k{font:600 11px var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.ba .after .k{color:var(--glow)}
+.ba .ph{position:relative}
+.ba .hl{position:absolute;border:2px solid var(--warn);border-radius:10px}
+.ba .after .hl{border-color:var(--glow)}
+.fixes{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.fix{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:22px;display:grid;gap:10px;align-content:start}
+.fix p{color:var(--muted);font-size:15px}
+.fix .swap{display:flex;flex-wrap:wrap;gap:8px;align-items:center;font:500 13px var(--mono)}
+.fix .swap s{color:var(--muted)}
+.fix .swap b{color:var(--glow);font-weight:500}
+
+.learn{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px}
+.learn div{display:grid;gap:8px;align-content:start;border-top:2px solid var(--accent);padding-top:16px}
+.learn p{color:var(--muted);font-size:15px}
+
+.next{border-top:1px solid var(--line);padding-block:48px}
+.next .wrap{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.next a{display:grid;gap:6px;text-decoration:none;padding:22px;border:1px solid var(--line);border-radius:18px;background:var(--surface)}
+.next a:hover{border-color:var(--accent)}
+.next small{font:500 11px var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.next b{font:700 20px var(--display)}
+footer{padding-block:28px 48px;color:var(--muted);font:400 12px var(--mono)}
+
+@media (max-width:900px){
+  .hero .wrap,.find{grid-template-columns:1fr}
+  .phs{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .nums{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .num:nth-child(3){padding-left:0;border-left:0}
+  .num:nth-child(n+3){border-top:1px solid var(--line)}
+  .personas,.method,.learn,.fixes,.ds{grid-template-columns:1fr}
+  .vis{grid-template-columns:1fr 1fr}
+  .vis figure:first-child{grid-column:1/-1}
+  .vis figure:first-child img{aspect-ratio:16/10}
+  .strip{grid-template-columns:1fr;gap:12px}
+  .chart .row,.chart .axis{grid-template-columns:110px minmax(0,1fr) 92px;gap:10px;font-size:13px}
+  .next .wrap{grid-template-columns:1fr}
+  section{padding-block:72px}
+}
+@media (max-width:480px){.meta{grid-template-columns:1fr}.trio{gap:8px}}
+@media (prefers-reduced-motion:no-preference){.ph img{transition:transform .5s ease}.phs figure:hover .ph img{transform:scale(1.02)}}
+</style>
+
+<header class="bar"><div class="wrap"><a href="/">Serena Zhang</a><span>Laurier work · 01 / 02</span></div></header>
+
+<main id="top">
+<section class="hero">
+  <div class="wrap">
+    <div>
+      <div class="eyebrow">UX605 Prototyping · Wilfrid Laurier University · 2026</div>
+      <h1>Echo: an AI companion that <em>listens first</em></h1>
+      <p class="lede">A mobile app for everyday emotional support. Users create their own AI companion, talk to it by text or voice, meet it in AR and keep a mood diary. We took it from research to a tested high-fidelity prototype.</p>
+      <div class="scope"><span class="on">Research</span><span class="on">Personas</span><span class="on">Lo-fi to hi-fi</span><span class="on">Visual design</span><span class="on">Usability testing</span></div>
+      <dl class="meta">
+        <div><dt>Type</dt><dd>Course project, high-fidelity prototype</dd></div>
+        <div><dt>Team</dt><dd>4 designers: Carol Chen, Qiaohui Xu, Si Zhang, Aileen Zhou</dd></div>
+        <div><dt>Tools</dt><dd>Figma, Figma Make, Zoom, Google Sheets, AI tools for concept art and analysis</dd></div>
+        <div><dt>Scope</dt><dd>5 core flows, about 20 key screens</dd></div>
+      </dl>
+    </div>
+    <div class="trio">
+      <div class="ph"><img src="/media/echo/p-splash.jpg" alt="Echo splash screen: the ECHO wordmark on a dark purple gradient with Log in and Sign up buttons"></div>
+      <div class="ph"><img src="/media/echo/p-chat.jpg" alt="Main chat screen with the 3D companion waving and the message bubble Hi! How is your day?"></div>
+      <div class="ph"><img src="/media/echo/p-diary.jpg" alt="Mood overview with a monthly calendar, sentiment bar and mood breakdown"></div>
+    </div>
+  </div>
+</section>
+
+<div class="wrap">
+  <div class="nums">
+    <div class="num"><b>4</b><span>personas built from interviews and secondary research</span></div>
+    <div class="num"><b>5</b><span>core tasks tested with first-time users</span></div>
+    <div class="num"><b>19/20</b><span>task runs fully completed (1 partial)</span></div>
+    <div class="num"><b>91.7</b><span>average UMUX-Lite score out of 100</span></div>
+  </div>
+</div>
+
+<!-- RESEARCH -->
+<section id="research">
+  <div class="wrap">
+    <div class="head">
+      <div class="eyebrow">Research</div>
+      <h2>Who needs a companion, and what makes them trust one</h2>
+      <p class="lede">We started with secondary research on emotional-support apps and accessibility, then ran interviews and synthesized them with affinity mapping and a journey map. Four personas came out of it. Two are shown here.</p>
+    </div>
+    <div class="personas">
+      <article class="pc">
+        <div class="top"><div class="av" aria-hidden="true">A</div><div><h3>Andy</h3><div class="who">21 · Calgary · heavy online gamer</div></div></div>
+        <blockquote>“It's probably because of my lack of confidence in describing my emotions and feelings. Like the biggest struggle from getting emotional support.”</blockquote>
+        <dl>
+          <dt>Needs</dt><dd>Passive companionship, social mediation, validation during conflict</dd>
+          <dt>Context</dt><dd>His social life lives in Discord and in-game voice. Daily social needs are met online, deeper support is missing.</dd>
+          <dt>Design cue</dt><dd>Lower the effort of expressing feelings: voice input and one-tap mood icons.</dd>
+        </dl>
+      </article>
+      <article class="pc">
+        <div class="top"><div class="av" aria-hidden="true">D</div><div><h3>David</h3><div class="who">25 · Toronto · night owl, pragmatic AI user</div></div></div>
+        <blockquote>“If I feel like it's an AI, chatting with it feels very weird… It should just provide emotional comfort, not specific advice.”</blockquote>
+        <dl>
+          <dt>Needs</dt><dd>Simple stress relief, non-prescriptive comfort, efficiency</dd>
+          <dt>Context</dt><dd>Uses AI tools for work every day but keeps them apart from emotional life. Skeptical of robotic responses.</dd>
+          <dt>Design cue</dt><dd>Comfort before features, and a companion that feels human enough to talk to.</dd>
+        </dl>
+      </article>
+    </div>
+    <p class="cap more-p">The other two personas are Margaret and Mia. Interviewee photos are left out to protect their privacy.</p>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section id="process" style="padding-top:0">
+  <div class="wrap">
+    <div class="head">
+      <div class="eyebrow">From wireframe to prototype</div>
+      <h2>Low-fi to mid-fi to hi-fi</h2>
+      <p class="lede">We mapped every flow in grey boxes first, tested the logic, then moved to dark mid-fi screens with the companion in place before polishing the visuals.</p>
+    </div>
+    <div class="strips">
+      <div class="strip"><div class="lab"><b>Lo-fi</b><span>Sign up and log in</span></div><div class="img"><img src="/media/echo/lofi-signup.jpg" alt="Five grey wireframes: welcome, sign up, filled sign up, log in, filled log in"></div></div>
+      <div class="strip"><div class="lab"><b>Lo-fi</b><span>Create a companion: name, personality, appearance, review</span></div><div class="img"><img src="/media/echo/lofi-create.jpg" alt="Five wireframes for companion creation: quick or advanced, name, personality traits, visual appearance, review"></div></div>
+      <div class="strip"><div class="lab"><b>Mid-fi</b><span>Emotional support flow with the companion in place</span></div><div class="img dark"><img src="/media/echo/midfi-chat.jpg" alt="Dark mid-fidelity screens: main page, speaking, response, side menu and tarot"></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- VISUAL -->
+<section id="visual" style="padding-top:0">
+  <div class="wrap">
+    <div class="head">
+      <div class="eyebrow">Visual direction</div>
+      <h2>A night sky, a soft glow and a companion who feels present</h2>
+      <p class="lede">The look had to feel calm late at night, not clinical: a deep violet night palette with aurora highlights, and a soft, glowing 3D character so the companion feels warm rather than robotic.</p>
+    </div>
+    <div class="vis">
+      <figure><img src="/media/echo/cover.jpg" alt="Concept image: an older woman on a sofa smiling at her phone while a glowing companion stands beside her"><figcaption>Use scene · companion at home</figcaption></figure>
+      <figure><img src="/media/echo/window.jpg" alt="The companion touching a window that looks out on misty mountains"><figcaption>AR mode concept</figcaption></figure>
+      <figure><img src="/media/echo/mist.jpg" alt="The companion seen from behind, looking at a sunrise over mountains"><figcaption>Mood · calm</figcaption></figure>
+    </div>
+    <p class="cap note">Character and scene concepts were generated with AI tools, then selected and placed into the interface by the team.</p>
+    <div class="ds">
+      <figure><img src="/media/echo/ds4.jpg" alt="Design system page: color scales in violet, grey, green and red, Roboto type scale and an icon set"></figure>
+      <figure><img src="/media/echo/ds5.jpg" alt="Design system page: buttons, inputs, cards, avatars, toggles and accessibility settings"></figure>
+    </div>
+    <p class="cap note">Design system: color scales, Roboto type scale, a 60-icon set, components, and accessibility settings for text size, theme, voice output and multimodal input.</p>
+  </div>
+</section>
+
+<!-- HI-FI -->
+<section id="hifi" style="padding-top:0">
+  <div class="wrap">
+    <div class="head">
+      <div class="eyebrow">High-fidelity prototype</div>
+      <h2>Five flows, one calm voice</h2>
+    </div>
+
+    <div class="flow">
+      <div class="fh"><h3>Create a companion</h3><p>Quick Create asks 3 questions. Advanced lets users shape every detail.</p></div>
+      <div class="phs">
+        <figure><div class="ph"><img src="/media/echo/p-create.jpg" alt="How would you like to create your companion? Quick Create or Advanced Customization"></div><figcaption><b>Choose a path</b>About 2 min or 5 to 7 min</figcaption></figure>
+        <figure><div class="ph"><img src="/media/echo/p-need.jpg" alt="What do you need? screen with a voice button and the reply I've been feeling lonely since moving"></div><figcaption><b>Say what you need</b>Voice first, typing optional</figcaption></figure>
+        <figure><div class="ph"><img src="/media/echo/p-forming.jpg" alt="Creating your companion loading screen with a glowing orb"></div><figcaption><b>Companion forming</b>Feedback while it builds</figcaption></figure>
+        <figure><div class="ph"><img src="/media/echo/p-meet.jpg" alt="Meet Echo card with style Casual, voice Warm and Sweet, Start Conversation button"></div><figcaption><b>Meet Echo</b>Review, then start talking</figcaption></figure>
+      </div>
+    </div>
+
+    <div class="flow">
+      <div class="fh"><h3>Talk it through</h3><p>Text, voice or a mood icon, for moments when words are hard.</p></div>
+      <div class="phs">
+        <figure><div class="ph"><img src="/media/echo/p-keys.jpg" alt="Chat with keyboard open"></div><figcaption><b>Type</b>Message stays above the keyboard</figcaption></figure>
+        <figure><div class="ph"><img src="/media/echo/p-voice.jpg" alt="Voice input with a waveform around the microphone"></div><figcaption><b>Speak</b>Hold to talk</figcaption></figure>
+        <figure><div class="ph"><img src="/media/echo/p-mood.jpg" alt="Row of emoji mood icons floating above the input"></div><figcaption><b>Share a mood</b>One tap instead of a sentence</figcaption></figure>
+        <figure><div class="ph"><img src="/media/echo/p-empathy.jpg" alt="Companion replies Your feelings are valid. I'm here to support you through this."></div><figcaption><b>Feel heard</b>Empathy before suggestions</figcaption></figure>
+      </div>
+    </div>
+
+    <div class="flow">
+      <div class="fh"><h3>AR, diary and personal settings</h3><p>The companion steps into the room, the diary shows the month, settings adapt the app.</p></div>
+      <div class="phs">
+        <figure><div class="ph"><img src="/media/echo/p-ar.jpg" alt="AR mode: the companion standing in a real living room"></div><figcaption><b>AR mode</b>Companion in your space</figcaption></figure>
+        <figure><div class="ph"><img src="/media/echo/p-ar-window.jpg" alt="Companion pointing at a window with mountains, sharing the view"></div><figcaption><b>Share a view</b>Send a photo, get a reaction</figcaption></figure>
+        <figure><div class="ph"><img src="/media/echo/p-settings.jpg" alt="Settings screen with account, app language, text size and theme"></div><figcaption><b>Settings</b>Text size, theme, language</figcaption></figure>
+        <figure><div class="ph"><img src="/media/echo/p-voice-set.jpg" alt="Voice settings with pitch and speed sliders and voice list"></div><figcaption><b>Voice</b>Pick and tune a voice</figcaption></figure>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TEST -->
+<section id="test" style="padding-top:0">
+  <div class="wrap">
+    <div class="head">
+      <div class="eyebrow">Usability testing</div>
+      <h2>Four first-time users, five tasks, think-aloud</h2>
+      <p class="lede">Moderated remote sessions over Zoom. Each participant signed up, created two companions, sent text and voice messages, used AR, recorded a mood entry and changed three settings.</p>
+    </div>
+    <div class="method">
+      <div><b>Moderated + think-aloud</b><span>Facilitator, observer and recorded sessions, about 30 minutes each</span></div>
+      <div><b>SEQ after every task</b><span>1 = very easy, 7 = very difficult, plus time on task and error counts</span></div>
+      <div><b>UMUX-Lite after the test</b><span>We also ran an AI-simulated user pass to cross-check problem areas</span></div>
+    </div>
+    <div class="chart" role="img" aria-label="Average time on task in seconds: Task 1 117, Task 2 83.5, Task 3 145, Task 4 116.5, Task 5 123.5. Average SEQ: 1.25, 1.5, 2.0, 2.25, 1.25.">
+      <div class="axis"><span>Task</span><div><span>0s</span><span>75s</span><span>150s</span></div><span style="text-align:right">time · SEQ</span></div>
+      <div class="row"><span>1 · Sign up, create 2 companions</span><div class="track"><div class="fill" style="width:78%"></div></div><span class="v"><b>117s</b> · 1.25</span></div>
+      <div class="row"><span>2 · Text and voice message</span><div class="track"><div class="fill" style="width:55.7%"></div></div><span class="v"><b>84s</b> · 1.50</span></div>
+      <div class="row"><span>3 · Enter AR mode</span><div class="track"><div class="fill hot" style="width:96.7%"></div></div><span class="v"><b>145s</b> · 2.00</span></div>
+      <div class="row"><span>4 · Record a mood entry</span><div class="track"><div class="fill hot" style="width:77.7%"></div></div><span class="v"><b>117s</b> · 2.25</span></div>
+      <div class="row"><span>5 · Text size, theme, voice</span><div class="track"><div class="fill" style="width:82.3%"></div></div><span class="v"><b>124s</b> · 1.25</span></div>
+    </div>
+    <p class="cap note">Bars show average time on task. Tasks 3 and 4 had the highest difficulty ratings. UMUX-Lite averaged 91.67, with one participant giving 100.</p>
+  </div>
+</section>
+
+<!-- FINDINGS -->
+<section id="findings" style="padding-top:0">
+  <div class="wrap">
+    <div class="head">
+      <div class="eyebrow">Findings and redesign</div>
+      <h2>What broke, and what we changed</h2>
+    </div>
+    <div class="find">
+      <div class="t">
+        <span class="tag">Finding 1 · emotional timing</span>
+        <h3>The AI pushed a feature when the user needed comfort</h3>
+        <p>When a participant described a stressful day, the companion offered a tarot reading. Task 2 had four operational errors and the AI tool flagged it as the highest-risk moment.</p>
+        <p class="q">“I just poured out my feelings about having a stressful day, and the companion completely ignored my emotional state to suggest a Tarot reading.”</p>
+        <p>We removed the automatic pop-up and moved tarot into a “Mystic Tools” entry in the side menu, so users open it when they want to.</p>
+      </div>
+      <div class="ba">
+        <figure><span class="k">Before</span><div class="ph"><img src="/media/echo/p-tarot-before.jpg" alt="Before: a pop-up in the chat asks Do you want to open Mystic Tools? with Yes and No buttons"><span class="hl" style="left:6%;top:53%;width:88%;height:24%"></span></div></figure>
+        <figure class="after"><span class="k">After</span><div class="ph"><img src="/media/echo/p-sidebar-after.jpg" alt="After: the side menu lists Mood Diary and Mystic Tools as user-initiated entries"><span class="hl" style="left:2%;top:11.5%;width:68%;height:6.5%"></span></div></figure>
+      </div>
+    </div>
+    <div class="fixes">
+      <div class="fix">
+        <span class="tag">Finding 2 · findability</span>
+        <h3>The mood diary was hard to find and had no clear next step</h3>
+        <p>Task 4 had the worst SEQ (2.25). The diary lived only inside Profile, and the calendar looked like a report with no obvious way to add an entry. We added a Mood Diary entry to the side menu and a clear “Add Mood Diary” button on the list and calendar.</p>
+      </div>
+      <div class="fix">
+        <span class="tag">Finding 3 · wording</span>
+        <h3>Vague labels and jargon raised the learning curve</h3>
+        <p>One participant thought they had to finish the avatar before being logged in. Another did not know what “The Cross” spread meant. We rewrote onboarding copy and added short in-context hints.</p>
+        <div class="swap"><s>Create Your Companion</s><span aria-hidden="true">→</span><b>Customize your AI avatar</b></div>
+        <div class="swap"><s>The Cross</s><span aria-hidden="true">→</span><b>Select 3 cards</b></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="learned" style="padding-top:0">
+  <div class="wrap">
+    <div class="head"><div class="eyebrow">What I took away</div><h2>Designing for feelings</h2></div>
+    <div class="learn">
+      <div><h3>Timing is part of the interface</h3><p>The same feature can feel helpful or rude depending on when it appears. Emotional state should gate what the product offers.</p></div>
+      <div><h3>High scores can hide friction</h3><p>UMUX-Lite was above 90, yet think-aloud showed hesitation in AR and the diary. Watching people matters more than the score.</p></div>
+      <div><h3>Less jargon, more guidance</h3><p>Small copy changes, like naming the action instead of the concept, removed confusion that no visual polish could fix.</p></div>
+    </div>
+  </div>
+</section>
+</main>
+
+<nav class="next" aria-label="More work">
+  <div class="wrap">
+    <a href="/#laurier"><small>Back to</small><b>← All work</b><span class="cap">Serena Zhang · portfolio home</span></a>
+    <a href="/work/brantpole"><small>Next Laurier project</small><b>BrantPole →</b><span class="cap">Smart LED pole, 3D and physical prototype</span></a>
+  </div>
+</nav>
+<footer><div class="wrap">Echo · UX605 Prototyping, Group 5 · Wilfrid Laurier University</div></footer>
+
+
+</Base>
