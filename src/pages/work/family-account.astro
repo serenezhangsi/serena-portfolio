@@ -8,9 +8,9 @@ import Base from '../../layouts/Base.astro';
   --paper:#F7F8F6; --surface:#FFFFFF; --ink:#1A1D1C; --muted:#5F6664; --line:#E1E5E2;
   --signal:#0B6E66; --fill:#16B3A6; --soft:#E5F5F2; --gold:#F5C451; --cream:#FFF6E2;
   --stage:#1F2F2C; --stage-2:#283A37; --stage-ink:#EEF2F0; --stage-muted:#9AA5A1;
-  --display:"Bricolage Grotesque","Avenir Next","Segoe UI",sans-serif;
-  --body:"IBM Plex Sans","PingFang SC","Helvetica Neue",Arial,sans-serif;
-  --mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+  --display:"TencentSans","PingFang SC","Helvetica Neue",Arial,sans-serif;
+  --body:"TencentSans","PingFang SC","Helvetica Neue",Arial,sans-serif;
+  --mono:"TencentSans","PingFang SC","Helvetica Neue",Arial,sans-serif;
   --wrap:1120px; color-scheme:light;
 }
 *{box-sizing:border-box}
@@ -18,7 +18,7 @@ body{background:var(--paper);color:var(--ink);font:400 16px/1.65 var(--body);mar
 .wrap{max-width:var(--wrap);margin-inline:auto;padding-inline:24px}
 img{max-width:100%;display:block}
 h1,h2,h3{font-family:var(--display);font-weight:700;letter-spacing:-.02em;line-height:1.06;margin:0;text-wrap:balance}
-h2{font-size:clamp(30px,4.2vw,48px)}
+h2{font-size:clamp(28px,3.4vw,40px)}
 h3{font-size:22px;letter-spacing:-.01em}
 p{margin:0;max-width:62ch}
 .eyebrow{font:500 12px/1 var(--mono);letter-spacing:.16em;text-transform:uppercase;color:var(--signal)}
@@ -36,7 +36,7 @@ figure{margin:0}
 /* hero */
 .hero{padding-block:88px 80px}
 .hero .wrap{display:grid;grid-template-columns:1fr 1.05fr;gap:56px;align-items:center}
-.hero h1{font-size:clamp(40px,5.8vw,74px);font-weight:800;margin-block:22px 26px;letter-spacing:-.035em}
+.hero h1{font-size:clamp(28px,3.4vw,40px);font-weight:800;margin-block:22px 26px;letter-spacing:-.035em}
 .hero h1 em{font-style:normal;color:var(--fill)}
 .tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:28px}
 .tag{font:500 11.5px var(--mono);letter-spacing:.08em;text-transform:uppercase;border:1px solid var(--line);background:var(--surface);border-radius:99px;padding:6px 12px;color:var(--muted)}
@@ -57,7 +57,7 @@ figure{margin:0}
 .num{padding:32px 24px 32px 0;border-right:1px solid var(--line);display:grid;gap:10px;align-content:start}
 .num + .num{padding-left:28px}
 .num:last-child{border-right:0}
-.num b{font:800 clamp(36px,4.8vw,60px)/.95 var(--display);letter-spacing:-.04em;font-variant-numeric:tabular-nums}
+.num b{font:800 clamp(28px,3.4vw,40px)/.95 var(--display);letter-spacing:-.04em;font-variant-numeric:tabular-nums}
 .num b small{font-size:.45em;letter-spacing:-.01em;font-weight:700}
 .num span{color:var(--muted);font-size:14px;max-width:26ch;line-height:1.45}
 .num.hi{background:var(--soft);margin-right:-24px;padding-right:24px}
@@ -176,7 +176,7 @@ figure{margin:0}
 
 /* stage (interaction design) */
 .stage{padding:0 12px;color:var(--stage-ink)}
-.stage > .wrap{max-width:1272px;background:var(--stage);border-radius:40px;padding:104px clamp(20px,6vw,100px)}
+.stage > .wrap{max-width:1272px;background:var(--stage);border-radius:40px;padding:104px clamp(20px,3.4vw,40px)}
 .stage .eyebrow{color:var(--fill)}
 .stage .lede{color:var(--stage-muted)}
 .boards{display:grid;gap:72px}
@@ -259,6 +259,11 @@ figure{margin:0}
 .scope .p{font:600 12.5px var(--body);padding:6px 12px;border-radius:99px;border:1px dashed currentColor;opacity:.4}
 .scope .p.on{opacity:1;border:1px solid transparent;background:var(--scope-bg);color:var(--scope-ink)}
 .hero .scope{color:var(--muted);--scope-bg:var(--fill);--scope-ink:#0C110F}
+
+/* site-wide type: TencentSans, heading sizes matched to the homepage */
+h1{font-size:clamp(32px,4vw,46px)!important;font-weight:700!important;letter-spacing:-.015em!important;line-height:1.15!important}
+h2{font-size:clamp(24px,2.6vw,30px)!important;font-weight:700!important;letter-spacing:-.01em!important;line-height:1.15!important}
+h3{font-size:18px!important;letter-spacing:0!important;line-height:1.25!important}
 </style>
 
 <header class="bar">
@@ -575,7 +580,7 @@ figure{margin:0}
   function pill(x,y,t,k){
     var w=t.length*7.1+26,h=30,g=el(svg,'g',{},gn);
     el(svg,'rect',{x:x-w/2,y:y-h/2,width:w,height:h,rx:15,fill:k===1?'#16B3A6':k===2?'#1A1D1C':'#E5F5F2',stroke:k===0?'#A9DDD5':'none'},g);
-    var s=el(svg,'text',{x:x,y:y+4.5,'text-anchor':'middle','font-size':12.5,'font-weight':k===0?500:600,fill:k===2?'#FFFFFF':'#1A1D1C','font-family':'IBM Plex Sans, Arial, sans-serif'},g); s.textContent=t;
+    var s=el(svg,'text',{x:x,y:y+4.5,'text-anchor':'middle','font-size':12.5,'font-weight':k===0?500:600,fill:k===2?'#FFFFFF':'#1A1D1C','font-family':'TencentSans, Arial, sans-serif'},g); s.textContent=t;
   }
   B.forEach(function(b){
     var hx=b.h[0],hy=b.h[1];
@@ -585,24 +590,24 @@ figure{margin:0}
   });
   el(svg,'circle',{cx:C.x,cy:C.y,r:64,fill:'#FFFFFF',stroke:'#16B3A6','stroke-width':2},gn);
   [[-18,-14,'#1A1D1C',13],[16,-12,'#16B3A6',11],[0,10,'#F5C451',9]].forEach(function(p){el(svg,'circle',{cx:C.x+p[0],cy:C.y+p[1],r:p[3],fill:p[2]},gn)});
-  var t=el(svg,'text',{x:C.x,y:C.y+42,'text-anchor':'middle','font-size':13,'font-weight':700,fill:'#1A1D1C','font-family':'Bricolage Grotesque, Arial, sans-serif'},gn); t.textContent='Family Account';
+  var t=el(svg,'text',{x:C.x,y:C.y+42,'text-anchor':'middle','font-size':13,'font-weight':700,fill:'#1A1D1C','font-family':'TencentSans, Arial, sans-serif'},gn); t.textContent='Family Account';
 
   document.querySelectorAll('.svg-scroll').forEach(function(sc){if(sc.scrollWidth>sc.clientWidth) sc.scrollLeft=(sc.scrollWidth-sc.clientWidth)/2;});
   /* revenue chart */
   var D=[["12-01",3,36],["12-02",6,274],["12-03",1,12],["12-04",9,516],["12-05",34,580],["12-06",62,1264],["12-07",74,1532],["12-08",60,1428],["12-09",67,977],["12-10",139,3408],["12-11",110,2288],["12-12",115,1908],["12-13",274,5117],["12-14",315,6081],["12-15",347,7430],["12-16",371,8092],["12-17",357,7275],["12-18",266,5766],["12-19",265,6068],["12-20",231,5108],["12-21",221,4797],["12-22",249,4748],["12-23",303,6000],["12-24",295,7504],["12-25",271,5333],["12-26",272,6167],["12-27",323,7503],["12-28",471,9374],["12-29",562,11579],["12-30",675,15562],["12-31",571,12608],["01-01",684,14151],["01-02",726,16751],["01-03",832,33972],["01-04",904,52016],["01-05",1137,68526],["01-06",1284,71615],["01-07",1166,64139],["01-08",1104,63084]];
   var c=document.getElementById('chart'), L=56, R=744, T=40, Bt=320, cap=80000, bw=(R-L)/D.length, piv=D.findIndex(function(d){return d[0]==='01-03'});
   function y(v){return Bt-v/cap*(Bt-T)}
-  [0,20000,40000,60000,80000].forEach(function(v){el(c,'line',{x1:L,x2:R,y1:y(v),y2:y(v),stroke:'#E8ECEA'});var s=el(c,'text',{x:L-8,y:y(v)+4,'text-anchor':'end','font-size':11.5,fill:'#5F6664','font-family':'IBM Plex Mono, monospace'});s.textContent=v?'¥'+v/1000+'k':'0';});
+  [0,20000,40000,60000,80000].forEach(function(v){el(c,'line',{x1:L,x2:R,y1:y(v),y2:y(v),stroke:'#E8ECEA'});var s=el(c,'text',{x:L-8,y:y(v)+4,'text-anchor':'end','font-size':11.5,fill:'#5F6664','font-family':'TencentSans, Arial, sans-serif'});s.textContent=v?'¥'+v/1000+'k':'0';});
   var peak=D.reduce(function(m,d){return d[2]>m[2]?d:m},D[0]);
   D.forEach(function(d,i){var r=el(c,'rect',{x:L+i*bw+2,y:y(d[2]),width:bw-4,height:Bt-y(d[2]),rx:2,fill:i>=piv?'#16B3A6':'#C9D1CE'});var ti=el(c,'title',{},r);ti.textContent=d[0]+': ¥'+d[2].toLocaleString('en-US')+' · '+d[1]+' orders';
-    if(i%7===0||i===D.length-1){var s=el(c,'text',{x:L+i*bw+bw/2,y:Bt+18,'text-anchor':'middle','font-size':11,fill:'#5F6664','font-family':'IBM Plex Mono, monospace'});s.textContent=d[0];}});
+    if(i%7===0||i===D.length-1){var s=el(c,'text',{x:L+i*bw+bw/2,y:Bt+18,'text-anchor':'middle','font-size':11,fill:'#5F6664','font-family':'TencentSans, Arial, sans-serif'});s.textContent=d[0];}});
   el(c,'line',{x1:L,x2:R,y1:y(20000),y2:y(20000),stroke:'#1A1D1C','stroke-dasharray':'5 4','stroke-opacity':.55});
-  var g1=el(c,'text',{x:L+6,y:y(20000)-7,'font-size':12,fill:'#1A1D1C','font-family':'IBM Plex Sans, sans-serif'});g1.textContent='Phase 1 goal · ¥20k / day';
+  var g1=el(c,'text',{x:L+6,y:y(20000)-7,'font-size':12,fill:'#1A1D1C','font-family':'TencentSans, Arial, sans-serif'});g1.textContent='Phase 1 goal · ¥20k / day';
   var px=L+piv*bw; el(c,'line',{x1:px,x2:px,y1:T-8,y2:Bt,stroke:'#0B6E66','stroke-dasharray':'2 3'});
   function aov(a){var g=0,o=0;a.forEach(function(d){g+=d[2];o+=d[1]});return g/o}
-  var n1=el(c,'text',{x:px-8,y:T+4,'text-anchor':'end','font-size':12.5,'font-weight':600,fill:'#0B6E66','font-family':'IBM Plex Sans, sans-serif'});n1.textContent='Discounts tilt to long-term & SVIP';
-  var n2=el(c,'text',{x:px-8,y:T+21,'text-anchor':'end','font-size':12,fill:'#5F6664','font-family':'IBM Plex Sans, sans-serif'});n2.textContent='Order value ¥'+Math.round(aov(D.slice(0,piv)))+' → ¥'+Math.round(aov(D.slice(piv)));
-  var pi=D.indexOf(peak), pk=el(c,'text',{x:L+pi*bw+bw/2,y:y(peak[2])-8,'text-anchor':'middle','font-size':12.5,'font-weight':700,fill:'#1A1D1C','font-family':'IBM Plex Mono, monospace'});pk.textContent='¥'+(peak[2]/1000).toFixed(1)+'k';
+  var n1=el(c,'text',{x:px-8,y:T+4,'text-anchor':'end','font-size':12.5,'font-weight':600,fill:'#0B6E66','font-family':'TencentSans, Arial, sans-serif'});n1.textContent='Discounts tilt to long-term & SVIP';
+  var n2=el(c,'text',{x:px-8,y:T+21,'text-anchor':'end','font-size':12,fill:'#5F6664','font-family':'TencentSans, Arial, sans-serif'});n2.textContent='Order value ¥'+Math.round(aov(D.slice(0,piv)))+' → ¥'+Math.round(aov(D.slice(piv)));
+  var pi=D.indexOf(peak), pk=el(c,'text',{x:L+pi*bw+bw/2,y:y(peak[2])-8,'text-anchor':'middle','font-size':12.5,'font-weight':700,fill:'#1A1D1C','font-family':'TencentSans, Arial, sans-serif'});pk.textContent='¥'+(peak[2]/1000).toFixed(1)+'k';
   document.getElementById('chartSub').textContent='Dec 1, 2023 ¥'+D[0][2]+' → Jan 6, 2024 ¥'+peak[2].toLocaleString('en-US')+' ('+peak[1].toLocaleString('en-US')+' orders)';
 
   /* lightbox */

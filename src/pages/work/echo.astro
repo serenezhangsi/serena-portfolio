@@ -7,9 +7,9 @@ import Base from '../../layouts/Base.astro';
 :root{
   --bg:#0E0C18; --surface:#16132A; --raise:#1E1A38; --ink:#ECEAF6; --muted:#A6A2BF; --line:#2B2746;
   --accent:#9B7DFF; --glow:#6FE3E6; --warn:#FF7A8A;
-  --display:"Bricolage Grotesque","Avenir Next","Segoe UI",sans-serif;
-  --body:"IBM Plex Sans","Helvetica Neue",Arial,sans-serif;
-  --mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+  --display:"TencentSans","PingFang SC","Helvetica Neue",Arial,sans-serif;
+  --body:"TencentSans","PingFang SC","Helvetica Neue",Arial,sans-serif;
+  --mono:"TencentSans","PingFang SC","Helvetica Neue",Arial,sans-serif;
   --wrap:1120px;
   color-scheme:dark;
 }
@@ -40,7 +40,7 @@ section{padding-block:96px}
 .hero{position:relative;overflow:hidden;padding-block:72px 64px}
 .hero::before{content:"";position:absolute;inset:-20% -10% auto auto;width:70%;height:120%;background:radial-gradient(closest-side,color-mix(in srgb,var(--accent) 30%,transparent),transparent 70%);pointer-events:none}
 .hero .wrap{position:relative;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:48px;align-items:center}
-.hero h1{font-size:clamp(40px,6vw,72px);font-weight:800;letter-spacing:-.035em;margin-block:20px 22px}
+.hero h1{font-size:clamp(28px,3.4vw,40px);font-weight:800;letter-spacing:-.035em;margin-block:20px 22px}
 .hero h1 em{font-style:normal;background:linear-gradient(90deg,var(--accent),var(--glow));-webkit-background-clip:text;background-clip:text;color:transparent}
 .meta{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px 24px;margin-top:34px;padding-top:22px;border-top:1px solid var(--line)}
 .meta dt{font:500 11px var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
@@ -63,7 +63,7 @@ section{padding-block:96px}
 .nums{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));border-block:1px solid var(--line)}
 .num{padding:28px 20px 28px 0;display:grid;gap:8px;align-content:start}
 .num + .num{padding-left:24px;border-left:1px solid var(--line)}
-.num b{font:800 clamp(34px,4.6vw,56px)/.95 var(--display);letter-spacing:-.04em;font-variant-numeric:tabular-nums}
+.num b{font:800 clamp(28px,3.4vw,40px)/.95 var(--display);letter-spacing:-.04em;font-variant-numeric:tabular-nums}
 .num span{color:var(--muted);font-size:14px;line-height:1.45;max-width:24ch}
 
 /* personas */
@@ -164,6 +164,11 @@ footer{padding-block:28px 48px;color:var(--muted);font:400 12px var(--mono)}
 }
 @media (max-width:480px){.meta{grid-template-columns:1fr}.trio{gap:8px}}
 @media (prefers-reduced-motion:no-preference){.ph img{transition:transform .5s ease}.phs figure:hover .ph img{transform:scale(1.02)}}
+
+/* site-wide type: TencentSans, heading sizes matched to the homepage */
+h1{font-size:clamp(32px,4vw,46px)!important;font-weight:700!important;letter-spacing:-.015em!important;line-height:1.15!important}
+h2{font-size:clamp(24px,2.6vw,30px)!important;font-weight:700!important;letter-spacing:-.01em!important;line-height:1.15!important}
+h3{font-size:18px!important;letter-spacing:0!important;line-height:1.25!important}
 </style>
 
 <header class="bar"><div class="wrap"><a href="/">Serena Zhang</a><span>Laurier work · 01 / 02</span></div></header>

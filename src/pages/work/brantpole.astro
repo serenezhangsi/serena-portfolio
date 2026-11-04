@@ -7,9 +7,9 @@ import Base from '../../layouts/Base.astro';
 :root{
   --paper:#E8E5DF; --surface:#FFFFFF; --sunk:#DEDAD3; --ink:#1E1C19; --muted:#69635B; --line:#D2CCC2;
   --brick:#B53F2B; --brick-soft:#F3DED8; --test:#2F6B5E; --test-soft:#DCE9E4;
-  --display:"Bricolage Grotesque","Avenir Next","Segoe UI",sans-serif;
-  --body:"IBM Plex Sans","Helvetica Neue",Arial,sans-serif;
-  --mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+  --display:"TencentSans","PingFang SC","Helvetica Neue",Arial,sans-serif;
+  --body:"TencentSans","PingFang SC","Helvetica Neue",Arial,sans-serif;
+  --mono:"TencentSans","PingFang SC","Helvetica Neue",Arial,sans-serif;
   --wrap:1120px;
   color-scheme:light;
 }
@@ -38,7 +38,7 @@ a{color:inherit}
 /* hero */
 .hero{padding-block:64px 40px}
 .hero .wrap{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);gap:48px;align-items:center}
-.hero h1{font-size:clamp(38px,5.6vw,66px);font-weight:800;letter-spacing:-.035em;margin-block:18px 20px}
+.hero h1{font-size:clamp(28px,3.4vw,40px);font-weight:800;letter-spacing:-.035em;margin-block:18px 20px}
 .hero h1 em{font-style:normal;color:var(--brick)}
 .meta{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px 24px;margin-top:30px;padding-top:20px;border-top:1px solid var(--line)}
 .meta dt{font:500 11px var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
@@ -63,7 +63,7 @@ a{color:inherit}
 /* chapters */
 .ch{padding-block:80px;border-top:1px solid var(--line)}
 .ch-head{display:grid;grid-template-columns:120px minmax(0,1fr);gap:28px;margin-bottom:40px}
-.ch-head .no{font:800 64px/.85 var(--display);letter-spacing:-.05em;color:var(--brick)}
+.ch-head .no{font:800 40px/.85 var(--display);letter-spacing:-.05em;color:var(--brick)}
 .ch-head .no small{display:block;margin-top:10px;font:500 11px var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
 .ch-head .h{display:grid;gap:14px;align-content:start}
 .body{display:grid;gap:28px}
@@ -157,6 +157,11 @@ footer{padding-block:28px 48px;color:var(--muted);font:400 12px var(--mono)}
   .meta,.concerns,.goals{grid-template-columns:1fr}
   .steps{grid-template-columns:repeat(2,minmax(0,1fr))}
 }
+
+/* site-wide type: TencentSans, heading sizes matched to the homepage */
+h1{font-size:clamp(32px,4vw,46px)!important;font-weight:700!important;letter-spacing:-.015em!important;line-height:1.15!important}
+h2{font-size:clamp(24px,2.6vw,30px)!important;font-weight:700!important;letter-spacing:-.01em!important;line-height:1.15!important}
+h3{font-size:18px!important;letter-spacing:0!important;line-height:1.25!important}
 </style>
 
 <header class="bar"><div class="wrap"><a href="/">Serena Zhang</a><span>Laurier work · 02 / 02</span></div></header>

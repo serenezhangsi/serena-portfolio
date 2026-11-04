@@ -8,9 +8,9 @@ import Base from '../layouts/Base.astro';
   --paper:#0F1013; --surface:#17191E; --ink:#EEF0F3; --muted:#9A9EA8; --line:#262931; --on-ink:#0F1013;
   --signal:#8FA8FF; --soft:#1A2140;
   --c1:#7D97FF; --c2:#FF8A1F; --c3:#3FD3C4;
-  --display:"Bricolage Grotesque","Avenir Next","Segoe UI",sans-serif;
-  --body:"IBM Plex Sans","PingFang SC","Helvetica Neue",Arial,sans-serif;
-  --mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+  --display:"TencentSans","Helvetica Neue",Arial,sans-serif;
+  --body:"TencentSans","PingFang SC","Helvetica Neue",Arial,sans-serif;
+  --mono:"TencentSans","Helvetica Neue",Arial,sans-serif;
   --wrap:1160px; color-scheme:dark;
 }
 *{box-sizing:border-box}
@@ -19,14 +19,14 @@ body{background:var(--paper);color:var(--ink);font:400 16px/1.65 var(--body);mar
 .wrap{max-width:var(--wrap);margin-inline:auto;padding-inline:24px}
 img{max-width:100%;display:block}
 a{color:inherit}
-h1,h2,h3{font-family:var(--display);font-weight:700;letter-spacing:-.02em;line-height:1.06;margin:0;text-wrap:balance}
-h2{font-size:clamp(32px,4.4vw,52px)}
-h3{font-size:22px;letter-spacing:-.01em}
+h1,h2,h3{font-family:var(--display);font-weight:700;letter-spacing:-.01em;line-height:1.15;margin:0;text-wrap:balance}
+h2{font-size:clamp(24px,2.6vw,30px)}
+h3{font-size:18px;letter-spacing:0}
 p{margin:0;max-width:62ch}
 .eyebrow{font:500 12px/1 var(--mono);letter-spacing:.16em;text-transform:uppercase;color:var(--signal)}
-.lede{font-size:18.5px;color:var(--muted)}
-section{padding-block:112px}
-.head{display:grid;gap:18px;margin-bottom:52px;max-width:760px}
+.lede{font-size:16px;color:var(--muted)}
+section{padding-block:88px}
+.head{display:grid;gap:10px;margin-bottom:32px;max-width:760px}
 .cap{font:400 12px/1.5 var(--mono);color:var(--muted)}
 figure{margin:0}
 :focus-visible{outline:2px solid var(--signal);outline-offset:3px}
@@ -39,13 +39,13 @@ figure{margin:0}
 .bar nav{display:flex;gap:22px}
 
 /* hero */
-.hero{padding-block:80px 96px}
+.hero{padding-block:72px 80px}
 .hero .wrap{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,.8fr);gap:64px;align-items:center}
-.hero h1{font-size:clamp(42px,6.2vw,80px);font-weight:800;letter-spacing:-.035em;margin-block:22px 26px}
-.hero h1 em{font-style:normal;background:linear-gradient(90deg,#6F8DFF,#A88BFF 45%,#3FD3C4);-webkit-background-clip:text;background-clip:text;color:transparent}
-.hi{font:500 15px var(--mono);color:var(--muted)}
+.hero h1{font-size:clamp(32px,4vw,46px);font-weight:700;letter-spacing:-.015em;margin-block:16px 16px}
+.hero h1 em{font-style:normal;color:var(--signal)}
+.hi{font:400 15px var(--body);color:var(--muted)}
 .hi b{color:var(--ink);font-weight:600}
-.ctas{display:flex;flex-wrap:wrap;gap:12px;margin-top:32px}
+.ctas{display:flex;flex-wrap:wrap;gap:12px;margin-top:28px}
 .btn{display:inline-flex;align-items:center;gap:8px;padding:13px 20px;border-radius:99px;background:var(--ink);color:var(--on-ink);font-weight:600;text-decoration:none;transition:background .2s}
 .btn:hover{background:var(--signal);color:var(--on-ink)}
 .btn.ghost{background:transparent;color:var(--ink);box-shadow:inset 0 0 0 1.5px var(--ink)}
@@ -70,17 +70,32 @@ figure{margin:0}
 .badge.b i{background:radial-gradient(circle at 35% 30%,#fff 0,#D6D6D6 70%);box-shadow:0 2px 6px rgba(0,0,0,.25)}
 @keyframes bob{0%,100%{transform:translate(0,0)}35%{transform:translate(4px,-10px)}70%{transform:translate(-3px,-4px)}}
 
+/* what I bring */
+.bring{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:40px;align-items:start}
+.pts{list-style:none;margin:0;padding:0;display:grid;gap:26px}
+.pts li{display:grid;grid-template-columns:44px minmax(0,1fr);gap:16px;align-items:start}
+.pts .n{font:700 40px/1 var(--display);color:var(--signal)}
+.pts h3{font-size:19px;margin-bottom:6px}
+.pts p{color:var(--muted);font-size:15px}
+.ev{display:grid;grid-template-columns:minmax(0,.82fr) minmax(0,1.18fr);gap:12px;align-items:start}
+.ev figure{display:grid;gap:6px;align-content:start}
+.ev img{width:100%;border-radius:12px;background:#fff}
+.ev figcaption{font-size:12px;color:var(--muted)}
+.src{margin-top:18px}
+@media (max-width:900px){.bring{grid-template-columns:1fr}}
+@media (max-width:520px){.ev{grid-template-columns:1fr}}
+
 /* work */
 .work{display:grid;gap:28px}
 .case{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);border-radius:28px;overflow:hidden;background:var(--surface);box-shadow:0 0 0 1px var(--line);text-decoration:none;color:var(--ink);transition:box-shadow .25s,transform .25s}
 .case:hover{box-shadow:0 0 0 2px var(--k),0 40px 80px -40px #000;transform:translateY(-2px)}
 .case .txt{padding:40px;display:grid;gap:16px;align-content:start}
 .case .no{font:600 12px var(--mono);letter-spacing:.14em;color:var(--k)}
-.case h3{font-size:clamp(26px,2.8vw,34px);font-weight:800;letter-spacing:-.025em}
+.case h3{font-size:22px;font-weight:700;letter-spacing:-.01em}
 .case .meta{font:500 12.5px var(--mono);color:var(--muted)}
 .case p{color:var(--muted);font-size:15.5px}
 .case .ms{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;padding-top:18px;border-top:1px solid var(--line);margin-top:4px}
-.case .ms b{display:block;font:800 24px/1 var(--display);letter-spacing:-.03em;color:var(--ink)}
+.case .ms b{display:block;font:700 22px/1 var(--display);letter-spacing:-.03em;color:var(--ink)}
 .case .ms span{display:block;font-size:12.5px;color:var(--muted);margin-top:6px;line-height:1.35}
 .case .go{font:600 14px var(--body);color:var(--k);display:flex;align-items:center;gap:8px;margin-top:6px}
 .case .go i{font-style:normal;transition:transform .2s}
@@ -89,7 +104,11 @@ figure{margin:0}
 .tag{font:500 11px var(--mono);letter-spacing:.06em;text-transform:uppercase;border:1px solid var(--line);border-radius:99px;padding:5px 10px;color:var(--muted);background:var(--paper)}
 .vis{position:relative;min-height:380px;overflow:hidden}
 .v1{background:#0A0C14}
-.v1 img{position:absolute;left:6%;top:12%;width:150%;max-width:none;border-radius:10px;box-shadow:0 30px 60px -20px #000}
+.v1{background:radial-gradient(circle at 70% 25%,#1B2A5E 0,#10162E 55%,#0A0C14)}
+.v1 .br{position:absolute;left:6%;top:12%;width:88%;border-radius:12px;overflow:hidden;background:#1c1c1c;box-shadow:0 30px 60px -20px #000}
+.v1 .br .chrome{display:flex;gap:5px;padding:8px 10px;background:#2a2a2e}
+.v1 .br .chrome i{width:8px;height:8px;border-radius:50%;background:#55565c}
+.v1 .ph{position:absolute;right:4%;bottom:-8%;width:27%;border-radius:16px;overflow:hidden;box-shadow:0 0 0 4px #0f1013,0 30px 50px -16px #000}
 .v1 .glow{position:absolute;inset:0;background:radial-gradient(circle at 80% 20%,#2B5CFF55,transparent 55%)}
 .v2{background:radial-gradient(circle at 70% 30%,#4A2A10 0,#24180F 60%,#1C150F)}
 .v2 .br{position:absolute;left:8%;top:12%;width:86%;border-radius:12px;overflow:hidden;background:#fff;box-shadow:0 30px 60px -20px #000}
@@ -142,13 +161,13 @@ figure{margin:0}
 
 /* beyond work */
 .hob{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:48px;align-items:center;padding-block:40px;border-top:1px solid var(--line)}
-.hob:first-of-type{border-top:0;padding-top:0}
+.hob:first-of-type,.head + .hob{border-top:0;padding-top:0}
 .hob.flip{grid-template-columns:minmax(0,1.2fr) minmax(0,.8fr)}
 .hob.flip .ht{order:2}
 .ht{display:grid;gap:14px}
-.ht .big{font:800 clamp(44px,5vw,64px)/.95 var(--display);letter-spacing:-.04em}
+.ht .big{font:700 36px/1 var(--display);letter-spacing:-.02em}
 .ht .big small{font-size:.4em;letter-spacing:0;margin-left:6px;color:var(--muted);font-weight:600}
-.ht h3{font-size:28px}
+.ht h3{font-size:20px}
 .ht p{color:var(--muted)}
 .chips{display:flex;flex-wrap:wrap;gap:8px}
 .chip{font:600 12.5px var(--body);padding:7px 12px;border-radius:99px;background:var(--surface);box-shadow:0 0 0 1px var(--line)}
@@ -186,9 +205,9 @@ figure{margin:0}
 .lang span{font:500 12px var(--mono);color:var(--muted)}
 
 /* contact */
-.contact{background:radial-gradient(circle at 85% 0%,#22306B 0,#161A2B 45%,#14161C 80%);color:#fff;box-shadow:0 0 0 1px var(--line);border-radius:36px;margin:0 12px 12px;padding:96px 0}
+.contact{background:var(--surface);color:#fff;box-shadow:0 0 0 1px var(--line);border-radius:28px;margin:0 12px 12px;padding:72px 0}
 .contact .wrap{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,.8fr);gap:48px;align-items:end}
-.contact h2{font-size:clamp(36px,5vw,64px);font-weight:800;letter-spacing:-.035em}
+.contact h2{font-size:clamp(26px,3vw,36px);font-weight:700;letter-spacing:-.01em}
 .contact h2 em{font-style:normal;color:#8FA8FF}
 .contact .eyebrow{color:#8FA8FF}
 .links{display:grid;gap:4px}
@@ -228,7 +247,7 @@ figure{margin:0}
 .st{position:relative;background:var(--surface);border-radius:22px;box-shadow:0 0 0 1px var(--line);padding:24px 22px 22px;display:grid;gap:10px;align-content:start}
 .st .n{display:flex;align-items:center;justify-content:space-between;font:600 12px var(--mono);letter-spacing:.12em;color:var(--k)}
 .st .n i{font-style:normal;width:34px;height:34px;border-radius:50%;display:grid;place-items:center;background:color-mix(in srgb,var(--k) 18%,transparent);color:var(--k);font:700 15px var(--display);letter-spacing:0}
-.st h3{font-size:22px}
+.st h3{font-size:18px}
 .st p{font-size:14.5px;color:var(--muted)}
 .st .ex{margin-top:6px;padding-top:12px;border-top:1px dashed var(--line);font-size:13.5px;color:var(--ink);line-height:1.45}
 .st .ex small{display:block;font:500 11px var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:4px}
@@ -249,7 +268,7 @@ figure{margin:0}
 .lwc .ph img{width:100%;height:100%;object-fit:cover}
 .lwc .bd{padding:24px 26px 26px;display:grid;gap:10px;align-content:start}
 .lwc .no{font:600 12px var(--mono);letter-spacing:.14em;color:var(--k)}
-.lwc h3{font-size:clamp(22px,2.4vw,28px);font-weight:800;letter-spacing:-.02em}
+.lwc h3{font-size:20px;font-weight:700;letter-spacing:-.01em}
 .lwc .org{font:500 12.5px var(--mono);color:var(--muted)}
 .lwc p{font-size:15px;color:var(--muted)}
 .lwc .go{font:600 14px var(--body);color:var(--k);display:flex;align-items:center;gap:8px;margin-top:4px}
@@ -266,16 +285,10 @@ figure{margin:0}
 <section class="hero" id="top">
   <div class="wrap">
     <div>
-      <p class="hi">Hi, I'm <b>Zhang Si (Serena)</b>, a product designer 👋</p>
+      <p class="hi">Hi, I'm <b>Zhang Si (Serena)</b>, a product designer</p>
       <h1>I build products people come back to, <em>and pay for.</em></h1>
-      <p class="lede">I design products end to end: the product logic, the interaction and UI, the data that steers them and the model that makes them pay. 10+ years shipping at Tencent and Dewmobile; now completing an MS in User Experience Design at Wilfrid Laurier University.</p>
+      <p class="lede">10+ years designing products at Tencent. MS in UX Design at Laurier.</p>
       <div class="ctas"><a class="btn" href="#work">See my work ↓</a><a class="btn ghost" href="mailto:serene.zhangsi@gmail.com">Email me</a></div>
-      <div class="stats">
-        <div><b>10+</b><span>years in product</span></div>
-        <div><b>100+</b><span>people led across 11 departments</span></div>
-        <div><b>4.16M</b><span>families on a product I built</span></div>
-        <div><b>800K</b><span>users talking to my AI characters</span></div>
-      </div>
     </div>
     <div class="photo">
       <div class="frame"><img src="/media/home/portrait.jpg" alt="Portrait of Serena Zhang in a black dress with a white bow"></div>
@@ -285,24 +298,42 @@ figure{margin:0}
   </div>
 </section>
 
+<!-- WHAT I BRING -->
+<section id="bring" style="padding-top:0">
+  <div class="wrap">
+    <div class="head"><h2>What I bring</h2></div>
+    <div class="bring">
+      <ol class="pts">
+        <li><span class="n">1</span><div><h3>Top-tier internet product experience</h3><p>7+ years building products at Tencent, No. 3 in Asia by market cap. Tencent Video is China's Netflix: 117M paid subscribers and 365M monthly users.</p></div></li>
+        <li><span class="n">2</span><div><h3>Academic grounding in UX design</h3><p>Master's in User Experience Design and human-centred digital innovation at Wilfrid Laurier University.</p></div></li>
+        <li><span class="n">3</span><div><h3>AI conversational product design</h3><p>Designed AI character chat for Tencent Video: 16 characters, 800K users and 30M+ conversation turns.</p></div></li>
+      </ol>
+      <div class="ev">
+        <figure class="e1"><img src="/media/home/tencent-marketcap.jpg" alt="FinanceCharts table of the biggest companies in Asia by market cap, May 2026, with Tencent Holdings highlighted at No. 3"><figcaption>Asia's largest companies by market cap, May 2026</figcaption></figure>
+        <figure class="e2"><img src="/media/home/tencent-ott.jpg" alt="Bar chart of video service use in China, 2022: iQiyi 68%, Tencent Video 66%, Douyin 61%"><figcaption>Use of video services in China, 2022</figcaption></figure>
+      </div>
+    </div>
+    <p class="cap src">Sources: FinanceCharts, May 2026; Sci-Tech Today, 2022; Tencent Q1 2025 results; QuestMobile, July 2025.</p>
+  </div>
+</section>
+
 <!-- APPROACH -->
 <section id="approach" style="padding-top:0">
   <div class="wrap">
-    <div class="head"><div class="eyebrow">How I design</div><h2>One loop, from logic to revenue</h2><p class="lede">I don't stop at the screen. I design how a product works, how it feels, how we measure it and how it earns, then feed what we learn into the next version.</p></div>
+    <div class="head"><h2>How I design: one loop, from logic to revenue</h2></div>
     <div class="loop4">
-      <article class="st" style="--k:#B49BFF"><div class="n">PRODUCT LOGIC<i>1</i></div><h3>Shape the system</h3><p>Account models, rules, states and flows, so the experience holds together underneath.</p><div class="ex"><small>Example</small><a href="/work/family-account">Family Account</a>: a bind-not-switch account model with caps that stop discount abuse.</div></article>
-      <article class="st" style="--k:var(--c2)"><div class="n">UI / UX<i>2</i></div><h3>Design what people touch</h3><p>Interaction flows, interfaces and brand, tested with real users and tuned to the detail.</p><div class="ex"><small>Example</small><a href="/work/tilo">TILO</a>: brand, search-bar camera entry and redesigned result cards, now live.</div></article>
-      <article class="st" style="--k:var(--c1)"><div class="n">DATA<i>3</i></div><h3>Let numbers steer</h3><p>Define the metrics, run A/B tests and read the results before deciding what to design next.</p><div class="ex"><small>Example</small><a href="/work/ip-ai-stories">IP + AI</a>: every sprint judged on turns per user and retention; 37.5 turns vs. ~30 industry.</div></article>
-      <article class="st" style="--k:var(--c3)"><div class="n">MONETIZATION<i>4</i></div><h3>Design how it earns</h3><p>Pricing, offers and conversion paths that turn real needs into sustainable revenue.</p><div class="ex"><small>Example</small><a href="/work/family-account">Family Account</a>: tilting discounts to long-term plans lifted order value 2.6×.</div></article>
+      <article class="st" style="--k:#B49BFF"><div class="n">PRODUCT LOGIC<i>1</i></div><h3>Define the system</h3><p>Account models, rules and flows.</p><div class="ex"><small>Example</small><a href="/work/family-account">Family Account</a>: bind-not-switch accounts with abuse caps.</div></article>
+      <article class="st" style="--k:var(--c2)"><div class="n">UI / UX<i>2</i></div><h3>Design the experience</h3><p>Flows, interface and brand, tested with users.</p><div class="ex"><small>Example</small><a href="/work/tilo">TILO</a>: brand, camera search and result cards, live.</div></article>
+      <article class="st" style="--k:var(--c1)"><div class="n">DATA<i>3</i></div><h3>Measure</h3><p>Metrics and A/B tests decide the next step.</p><div class="ex"><small>Example</small><a href="/work/ip-ai-stories">IP + AI</a>: 37.5 turns per user vs. ~30 industry average.</div></article>
+      <article class="st" style="--k:var(--c3)"><div class="n">MONETIZATION<i>4</i></div><h3>Monetize</h3><p>Pricing, offers and conversion paths.</p><div class="ex"><small>Example</small><a href="/work/family-account">Family Account</a>: long-term plan pricing lifted order value 2.6×.</div></article>
     </div>
-    <div class="back"><span>Results <b>feed the next iteration</b> ↺</span></div>
   </div>
 </section>
 
 <!-- WORK -->
 <section id="work" style="padding-top:0">
   <div class="wrap">
-    <div class="head"><div class="eyebrow">Selected work</div><h2>Three products, from 0 to 1</h2><p class="lede">Each case walks through the problem, the research, the decisions and the results.</p></div>
+    <div class="head"><h2>Selected work: three products, from 0 to 1</h2></div>
     <div class="work">
 
       <a class="case" style="--k:var(--c1)" href="/work/ip-ai-stories">
@@ -315,7 +346,7 @@ figure{margin:0}
           <div class="ms"><div><b>800K</b><span>users</span></div><div><b>30M+</b><span>conversation turns</span></div><div><b>16</b><span>AI characters, 5 IPs</span></div></div>
           <span class="go">Read case study <i>→</i></span>
         </div>
-        <div class="vis v1"><img src="/media/home/cover-cs01.jpg" alt="Interactive story screens: character cards, a branching story map and chat"><div class="glow"></div></div>
+        <div class="vis v1"><div class="br"><div class="chrome"><i></i><i></i><i></i></div><img src="/media/home/cover-cs01-studio.jpg" alt="Creator studio: a writer sets up an AI character with bio, greeting and rules, with a live phone preview"></div><div class="ph"><img src="/media/home/cover-cs01-chat.jpg" alt="Tencent Video app: a user chats with characters inside an interactive mystery story"></div></div>
       </a>
 
       <a class="case" style="--k:var(--c2)" href="/work/tilo">
@@ -351,7 +382,7 @@ figure{margin:0}
 <!-- LAURIER WORK -->
 <section id="laurier" style="padding-top:0">
   <div class="wrap">
-    <div class="head"><div class="eyebrow">MS UX Design · Wilfrid Laurier University</div><h2>Visual design and 3D from my master's</h2><p class="lede">Two team projects: an AI companion app taken from research to a tested prototype, and a smart street pole built in cardboard, 3D and VR for a real client.</p></div>
+    <div class="head"><h2>Laurier MS projects: visual design and 3D</h2></div>
     <div class="lw">
       <a class="lwc" style="--k:#A98BFF" href="/work/echo">
         <div class="ph"><img src="/media/home/cover-echo.jpg" alt="Three Echo app screens: Meet Echo, the chat with a glowing 3D companion, and the mood overview"></div>
@@ -380,7 +411,7 @@ figure{margin:0}
 <!-- COMPETITIONS -->
 <section id="competitions" style="padding-top:0">
   <div class="wrap">
-    <div class="head"><div class="eyebrow">Competitions at Laurier</div><h2>Learning North American practice, as a team</h2><p class="lede">Three design and case competitions during my MS at Wilfrid Laurier University.</p></div>
+    <div class="head"><h2>Competitions at Laurier</h2></div>
     <div class="comps">
       <article class="comp">
         <div class="ph"><img src="/media/home/gc-team.jpg" alt="Team Gotcha 5 and the judges, each holding up one finger, in front of the 1st Place slide"><span class="place gold">1st Place</span></div>
@@ -415,7 +446,7 @@ figure{margin:0}
 <!-- CAMPUS / ISL -->
 <section id="campus" style="padding-top:0">
   <div class="wrap">
-    <div class="head"><div class="eyebrow">On campus</div><h2>Graduate International Student Leader</h2><p class="lede">At Laurier I help the next international students feel at home, the same way people here did for me.</p></div>
+    <div class="head"><h2>On campus: Graduate International Student Leader</h2></div>
     <div class="isl">
       <div class="isl-txt">
         <div class="role"><span class="chip dk">Wilfrid Laurier University</span><span class="chip">Apr 2026 – present</span><span class="chip">Brantford campus</span></div>
@@ -441,7 +472,7 @@ figure{margin:0}
 <!-- ABOUT / BEYOND WORK -->
 <section id="about" style="padding-top:0">
   <div class="wrap">
-    <div class="head"><div class="eyebrow">Beyond work</div><h2>Off the screen</h2><p class="lede">The board and the field teach me the same things product work does: read the whole picture, then move as a team.</p></div>
+    <div class="head"><h2>Beyond work</h2></div>
 
     <div class="hob">
       <div class="ht">
@@ -477,7 +508,7 @@ figure{margin:0}
 <!-- CONTACT -->
 <section class="contact" id="contact">
   <div class="wrap">
-    <div><div class="eyebrow">Contact</div><h2 style="margin-top:18px">Let's build something people <em>keep coming back to.</em></h2><p style="color:#ffffffaa;margin-top:20px">Open to product designer and UI/UX designer roles.</p></div>
+    <div><h2>Let's build something people <em>keep coming back to.</em></h2><p style="color:#ffffffaa;margin-top:20px">Open to product designer and UI/UX designer roles.</p></div>
     <div class="links">
       <a href="mailto:serene.zhangsi@gmail.com"><span>Email</span>serene.zhangsi@gmail.com</a>
       <a href="https://www.linkedin.com/in/si-zhang-769211393" target="_blank" rel="noopener"><span>LinkedIn</span>si-zhang-769211393 ↗</a>
