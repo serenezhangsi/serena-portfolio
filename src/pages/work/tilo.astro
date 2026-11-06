@@ -346,6 +346,54 @@ figure{margin:0}
 h1{font-size:clamp(32px,4vw,46px)!important;font-weight:700!important;letter-spacing:-.015em!important;line-height:1.15!important}
 h2{font-size:clamp(24px,2.6vw,30px)!important;font-weight:700!important;letter-spacing:-.01em!important;line-height:1.15!important}
 h3{font-size:18px!important;letter-spacing:0!important;line-height:1.25!important}
+
+/* timeline v3: Tailscale-style rail, text left, square panel right */
+.tlx{position:relative;margin-top:24px}
+.tl-track{position:absolute;left:19px;top:40px;bottom:40px;width:2px;background:#F1D9C2;border-radius:2px}
+.tl-track i{position:absolute;left:0;top:0;width:100%;height:var(--p,0%);background:var(--fill);border-radius:2px;transition:height .15s linear}
+.tr{display:grid;grid-template-columns:minmax(0,.82fr) minmax(0,1.18fr);gap:72px;align-items:center;padding-block:56px;position:relative}
+.tt{position:relative;padding-left:72px;display:grid;gap:14px;align-content:center;opacity:.35;transform:translateY(16px);transition:opacity .6s,transform .6s}
+.tr.in .tt{opacity:1;transform:none}
+.tdot{position:absolute;left:0;top:-4px;width:40px;height:40px;border-radius:50%;background:#FFD3A8;display:grid;place-items:center;box-shadow:0 0 0 6px var(--paper);transition:background .4s,transform .4s}
+.tdot img{width:24px;height:auto;opacity:.9}
+.tr.in .tdot{background:var(--fill);transform:scale(1.06)}
+.stamp{font:600 12.5px/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--signal);margin:6px 0 0}
+.tt h3{font-size:22px!important}
+.tt p{color:var(--muted);font-size:15.5px;margin:0}
+.tt p b{color:var(--ink)}
+.tt .q{color:var(--ink);font-style:italic;border-left:3px solid var(--fill);padding-left:14px}
+.tt .q small{display:block;font-style:normal;font:500 11.5px var(--mono);letter-spacing:.1em;color:var(--muted);margin-top:8px}
+.tt .loop{margin:6px 0 0}
+.panel{background:linear-gradient(160deg,#FFE3C7,#FFD2A8);border-radius:28px;padding:28px;display:grid;gap:16px;align-content:center;min-height:440px;opacity:0;transform:translateY(40px) scale(.97);transition:opacity .8s cubic-bezier(.2,.7,.2,1),transform .8s cubic-bezier(.2,.7,.2,1)}
+.tr.in .panel{opacity:1;transform:none}
+.panel > *{margin:0;opacity:0;transform:translateY(22px);transition:opacity .7s cubic-bezier(.2,.7,.2,1),transform .7s cubic-bezier(.2,.7,.2,1)}
+.tr.in .panel > *{opacity:1;transform:none}
+.tr.in .panel > *:nth-child(1){transition-delay:.18s}
+.tr.in .panel > *:nth-child(2){transition-delay:.34s}
+.win{position:relative;border-radius:16px;overflow:hidden;background:#fff;box-shadow:0 24px 48px -28px #8a4a1066,0 0 0 1px #00000010}
+.win img,.win video{display:block;width:100%;height:auto}
+.lg{position:relative;background:#fff;border-radius:18px;padding:28px 32px;display:grid;place-items:center;box-shadow:0 18px 40px -28px #8a4a1066;opacity:.72}
+.lg.on{opacity:1;box-shadow:0 0 0 2px var(--fill),0 24px 48px -28px #8a4a1088}
+.tr.in .lg:not(.on){opacity:.72}
+.lg img{width:min(100%,360px);height:auto}
+.lg .badge{position:absolute;top:14px;left:14px;font:700 11px var(--mono);letter-spacing:.1em;text-transform:uppercase;background:var(--fill);color:#1C1C1C;padding:5px 10px;border-radius:99px}
+.vcrop-r{aspect-ratio:1104/872}
+.vcrop-r video{width:100%;height:100%;object-fit:cover;object-position:100% 50%}
+.vcrop-tl{aspect-ratio:2/1}
+.vcrop-tl video{position:absolute;left:0;top:0;width:150%;max-width:none}
+.p-camera figcaption{position:absolute;inset:auto 0 0 0;display:grid;grid-template-columns:1fr 1fr;pointer-events:none}
+.p-camera figcaption span{justify-self:start;margin:0 0 12px 12px;font:700 11px var(--mono);letter-spacing:.1em;text-transform:uppercase;background:#1C1C1Ccc;color:#fff;padding:5px 10px;border-radius:99px}
+.p-camera figcaption span + span{background:var(--fill);color:#1C1C1C}
+@media (max-width:900px){
+  .tl-track{left:15px}
+  .tr{grid-template-columns:1fr;gap:28px;padding-block:36px}
+  .tt{padding-left:52px;opacity:1;transform:none}
+  .tdot{width:32px;height:32px}.tdot img{width:19px}
+  .panel{min-height:0;padding:18px;border-radius:22px;margin-left:52px}
+  .lg{padding:20px}
+}
+@media (max-width:560px){.panel{margin-left:0}}
+@media (prefers-reduced-motion:reduce){.panel,.panel > *,.tt{opacity:1!important;transform:none!important}}
 </style>
 
 <header class="bar">
@@ -449,70 +497,70 @@ h3{font-size:18px!important;letter-spacing:0!important;line-height:1.25!importan
       <h2>From pitch to production in seven weeks</h2>
       <p class="lede">I presented design progress at every weekly client review. Each step built on the last.</p>
     </div>
-    <div class="journey2">
-      <aside class="jdate" aria-hidden="true"><div class="jbig" id="jbig">May 11 – 17</div><div class="jstage" id="jstage">Concepts</div><ol class="jlist" id="jlist"><li class="on">May 11 – 17</li><li>May 18 – 27</li><li>May 28 – Jun 3</li><li>Jun 4 – 10</li><li>Jun 24</li></ol></aside>
-      <div class="stops">
+    <div class="tlx" id="tlx">
+      <div class="tl-track" aria-hidden="true"><i id="tlfill"></i></div>
 
-      <article class="stop" data-i="0">
-        <div class="date">May 11 – 17<small>Concepts</small></div>
-        <div class="body">
-          <span class="pill-tag ghost">Brand concepts</span>
+      <article class="tr" data-i="0">
+        <div class="tt"><span class="tdot"><img src="/media/tilo/icon-white.png" alt=""></span>
+          <p class="stamp">May 11 – 17 · Concepts</p>
           <h3>Two directions, pitched before the contract</h3>
           <p><b>TILO</b>, a friendly helper, and <b>TILBY</b>, an expert advisor. Each came with a name, mark and previews in the chat and website so the client could judge it in context.</p>
           <p class="q">"A lively robot incorporating tile elements, captured both the personality of TILO and our brand identity."<small>DANNI WANG, CLIENT</small></p>
-          <div class="media"><figure class="shot"><img src="/media/tilo/tl-concepts.jpg" alt="Concept 1 TILO, Hey ask Tilo, chosen; Concept 2 TILBY, knows every tile"></figure></div>
         </div>
+        <div class="tp"><div class="panel p-concepts">
+          <figure class="lg on"><span class="badge">Chosen</span><img src="/media/tilo/tl-concept-tilo.jpg" alt="Concept 1: TILO, Hey ask Tilo"></figure>
+          <figure class="lg"><img src="/media/tilo/tl-concept-tilby.jpg" alt="Concept 2: TILBY, knows every tile"></figure>
+        </div></div>
       </article>
 
-      <article class="stop" data-i="1">
-        <div class="date">May 18 – 27<small>Brand system</small></div>
-        <div class="body">
-          <span class="pill-tag ghost">Guidelines + chat entry</span>
+      <article class="tr" data-i="1">
+        <div class="tt"><span class="tdot"><img src="/media/tilo/icon-white.png" alt=""></span>
+          <p class="stamp">May 18 – 27 · Brand system</p>
           <h3>TILO chosen; it learns to say hello</h3>
           <p>With the agreement signed, I turned the mark into a brand system (above) and designed the first touchpoint: a light "Need Help?" tooltip that invites shoppers into chat without interrupting them.</p>
-          <div class="media"><figure class="shot"><video src="/media/tilo/proto-tilo-chatbot.mp4" poster="/media/tilo/proto-tilo-chatbot-poster.jpg" autoplay muted loop playsinline aria-label="Prototype: the Need Help tooltip appears beside the TILO chat button"></video></figure></div>
         </div>
+        <div class="tp"><div class="panel p-chat">
+          <figure class="win vcrop-r"><video src="/media/tilo/proto-tilo-chatbot.mp4" poster="/media/tilo/proto-tilo-chatbot-poster.jpg" autoplay muted loop playsinline aria-label="Prototype: the Need Help tooltip appears beside the TILO chat button, then the chat window opens"></video></figure>
+        </div></div>
       </article>
 
-      <article class="stop" data-i="2">
-        <div class="date">May 28 – Jun 3<small>Entry &amp; UX review</small></div>
-        <div class="body">
-          <span class="pill-tag ghost">Photo matching + UX review</span>
+      <article class="tr" data-i="2">
+        <div class="tt"><span class="tdot"><img src="/media/tilo/icon-white.png" alt=""></span>
+          <p class="stamp">May 28 – Jun 3 · Entry &amp; UX review</p>
           <h3>The camera moves into the search bar; results start to sell</h3>
           <p>At the client's request I moved photo matching into the search bar with the new TILO camera icon. Then I tested the build as a shopper and redesigned the result card: larger square images, match badges, price first, View Product as the main action. Seven of my recommendations entered the official requirements list.</p>
-          <div class="media two">
-            <figure class="shot"><video src="/media/tilo/proto-camera.mp4" poster="/media/tilo/proto-camera-poster.jpg" autoplay muted loop playsinline aria-label="Prototype: the TILO camera button inside the search bar"></video></figure>
-            <figure class="shot"><img src="/media/tilo/tl-cards.jpg" alt="Result card before and after the redesign"></figure>
-          </div>
         </div>
+        <div class="tp"><div class="panel p-camera">
+          <figure class="win vcrop-tl"><video src="/media/tilo/proto-camera.mp4" poster="/media/tilo/proto-camera-poster.jpg" autoplay muted loop playsinline aria-label="Prototype: the TILO camera button inside the search bar"></video></figure>
+          <figure class="win"><img src="/media/tilo/tl-cards-crop.jpg" alt="Result card before (left) and after the redesign (right)"><figcaption><span>Before</span><span>After</span></figcaption></figure>
+        </div></div>
       </article>
 
-      <article class="stop" data-i="3">
-        <div class="date">Jun 4 – 10<small>Data</small></div>
-        <div class="body">
-          <span class="pill-tag ghost">Admin dashboard · beyond scope</span>
+      <article class="tr" data-i="3">
+        <div class="tt"><span class="tdot"><img src="/media/tilo/icon-white.png" alt=""></span>
+          <p class="stamp">Jun 4 – 10 · Data</p>
           <h3>A dashboard the store team can read</h3>
           <p>Not in the brief. I proposed and designed the admin panel: an overview landing page, chat history with confidence and ratings, two-level navigation, and month-over-month comparisons.</p>
-          <div class="media"><figure class="shot"><img src="/media/tilo/dash-insights.jpg" alt="Before and after: metric tiles gained month-over-month change and comparisons with the daily average"></figure></div>
         </div>
+        <div class="tp"><div class="panel p-dash">
+          <figure class="win"><img src="/media/tilo/tl-dash-crop.jpg" alt="Before and after: metric tiles gained month-over-month change and comparisons with the daily average"></figure>
+        </div></div>
       </article>
 
-      <article class="stop end" data-i="4">
-        <div class="date">Jun 24<small>Live</small></div>
-        <div class="body">
-          <span class="pill-tag">Final delivery</span>
+      <article class="tr end" data-i="4">
+        <div class="tt"><span class="tdot"><img src="/media/tilo/icon-white.png" alt=""></span>
+          <p class="stamp">Jun 24 · Live</p>
           <h3>TILO goes live on tileshoppes.com</h3>
           <p>Brand assets handed over: light and dark logo files, UI icons, tooltip assets and the 7-page guidelines. The TILO camera now sits in the site's search bar, and the TILO chat button greets every visitor.</p>
-          <div class="closing">
-            <div class="eyebrow">Closing the loop</div>
-            <p>I didn't stop at the logo. The same thread runs from the first concept to the dashboard the client uses to judge TILO every day.</p>
-            <div class="loop" aria-label="Idea, brand, experience, launch, data"><span>Idea</span><i>→</i><span>Brand</span><i>→</i><span>Experience</span><i>→</i><span>Launch</span><i>→</i><span class="on">Data</span></div>
-            <figure class="dash"><img src="/media/tilo/dash-overview.jpg" alt="TILO Admin Panel overview: daily activity, monthly matches, cost, messages and sessions, peak days and snapshots"></figure>
-          </div>
+          <p>I didn't stop at the logo. The same thread runs from the first concept to the dashboard the client uses to judge TILO every day.</p>
+          <div class="loop" aria-label="Idea, brand, experience, launch, data"><span>Idea</span><i>→</i><span>Brand</span><i>→</i><span>Experience</span><i>→</i><span>Launch</span><i>→</i><span class="on">Data</span></div>
         </div>
+        <div class="tp"><div class="panel p-live">
+          <figure class="win"><img src="/media/tilo/site-live.jpg" alt="The Tile Shoppe homepage live with the TILO camera in the search bar and the TILO chat button"></figure>
+          <figure class="win"><img src="/media/tilo/dash-overview.jpg" alt="TILO Admin Panel overview: daily activity, monthly matches, cost, messages and sessions, peak days and snapshots"></figure>
+        </div></div>
       </article>
 
-      </div>
     </div>
   </div>
 </section>
@@ -586,12 +634,13 @@ h3{font-size:18px!important;letter-spacing:0!important;line-height:1.25!importan
   var t=el('text',{x:C.x,y:C.y+44,'text-anchor':'middle','font-size':13,'font-weight':700,fill:'#1C1C1C','font-family':'TencentSans, Arial, sans-serif','letter-spacing':'1'},gn); t.textContent='TILO';
 
 
-  var stops=[].slice.call(document.querySelectorAll('.stops .stop')), big=document.getElementById('jbig'), stg=document.getElementById('jstage'), lis=[].slice.call(document.querySelectorAll('#jlist li'));
-  function setI(i){var d=stops[i].querySelector('.date'); big.textContent=d.firstChild.textContent.trim(); stg.textContent=d.querySelector('small').textContent; lis.forEach(function(l,k){l.classList.toggle('on',k===i)});}
-  if('IntersectionObserver' in window && stops.length){
-    var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting)setI(+e.target.getAttribute('data-i'))})},{rootMargin:'-35% 0px -55% 0px'});
-    stops.forEach(function(st){io.observe(st)});
-  }
+  var rows=[].slice.call(document.querySelectorAll('.tlx .tr')), tlx=document.getElementById('tlx'), fill=document.getElementById('tlfill');
+  if('IntersectionObserver' in window && rows.length){
+    var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting)e.target.classList.add('in')})},{rootMargin:'0px 0px -30% 0px',threshold:.15});
+    rows.forEach(function(r){io.observe(r)});
+  } else rows.forEach(function(r){r.classList.add('in')});
+  function prog(){ if(!tlx)return; var r=tlx.getBoundingClientRect(), vh=window.innerHeight; var p=Math.min(1,Math.max(0,(vh*0.6-r.top)/(r.height-80))); fill.style.setProperty('--p',(p*100).toFixed(1)+'%'); fill.style.height=(p*100).toFixed(1)+'%'; }
+  window.addEventListener('scroll',prog,{passive:true}); window.addEventListener('resize',prog); prog();
   var reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   document.querySelectorAll('video').forEach(function(v){
     if(reduce){v.removeAttribute('autoplay');v.pause();v.controls=true;}
