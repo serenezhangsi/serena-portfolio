@@ -48,7 +48,7 @@ a{color:inherit}
 
 /* process rail */
 .rail{padding-block:8px 24px}
-.steps{list-style:none;margin:0;padding:18px;display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:6px;background:var(--surface);border:1px solid var(--line);border-radius:20px;counter-reset:s}
+.steps{list-style:none;margin:0;padding:18px;display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:6px;background:var(--surface);border:1px solid var(--line);border-radius:20px;counter-reset:s}
 .steps li{position:relative;display:grid;gap:4px;padding:12px 10px;border-radius:12px;counter-increment:s}
 .steps a{text-decoration:none;display:grid;gap:4px}
 .steps a:hover b{color:var(--brick)}
@@ -158,6 +158,37 @@ footer{padding-block:28px 48px;color:var(--muted);font:400 12px var(--mono)}
   .steps{grid-template-columns:repeat(2,minmax(0,1fr))}
 }
 
+
+/* evolution steps */
+.comic{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px;position:relative}
+.comic figure{margin:0;display:grid;grid-template-rows:auto 1fr;gap:0;background:var(--surface);border:1px solid var(--line);border-radius:18px;overflow:hidden;height:100%;transition:transform .25s,box-shadow .25s}
+.comic figure:hover{transform:translateY(-3px);box-shadow:0 24px 40px -28px #1E1C1966}
+.comic .frame{position:relative;aspect-ratio:4/5;background:#fff;border-bottom:1px solid var(--line)}
+.comic .frame img{position:absolute;inset:0;width:100%!important;height:100%!important;max-width:none;object-fit:contain;padding:14px}
+.comic li:nth-child(2) .frame img,.comic li:nth-child(3) .frame img{object-fit:cover;padding:0}
+.comic .n{display:none}
+.comic figcaption{padding:16px 18px 18px;font-size:13.5px;color:var(--muted);line-height:1.5;display:grid;gap:4px;align-content:start}
+.comic figcaption .s{font:600 11px var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--brick)}
+.comic figcaption b{color:var(--ink);font:700 16px var(--display)}
+/* vr split */
+.vrsplit{display:grid;grid-template-columns:minmax(0,.62fr) minmax(0,1.38fr);gap:40px;align-items:center}
+.ch-head.v{grid-template-columns:1fr;gap:16px;margin:0}
+.ch-head.v .h p + p{margin-top:-2px}
+.vrvid{margin:0}
+.vrvid video{width:100%;border-radius:18px;background:#111;box-shadow:0 30px 60px -30px #1E1C1988;display:block;aspect-ratio:16/9;object-fit:cover}
+/* showcase */
+.show{display:grid;grid-template-columns:minmax(0,1.75fr) minmax(0,1fr);gap:14px}
+.show figure{margin:0;border-radius:16px;overflow:hidden;background:var(--surface)}
+.show img{width:100%;height:100%;object-fit:cover;object-position:50% 100%;display:block}
+.show figure:not(.t){aspect-ratio:4/3}
+.show .t{grid-row:span 2}
+@media (max-width:860px){
+  .comic{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+  .comic figcaption{padding:12px 14px 14px}
+  .vrsplit{grid-template-columns:1fr;gap:24px}
+  .show{grid-template-columns:1fr 1fr}
+  .show .t{grid-row:auto;grid-column:span 2}
+}
 /* site-wide type: TencentSans, heading sizes matched to the homepage */
 h1{font-size:clamp(32px,4vw,46px)!important;font-weight:700!important;letter-spacing:-.015em!important;line-height:1.15!important}
 h2{font-size:clamp(24px,2.6vw,30px)!important;font-weight:700!important;letter-spacing:-.01em!important;line-height:1.15!important}
@@ -193,8 +224,7 @@ h3{font-size:18px!important;letter-spacing:0!important;line-height:1.25!importan
       <li><a href="#brief"><small>Need</small><b>Client brief</b><span>Four concerns</span></a></li>
       <li><a href="#research"><small>Research</small><b>Survey, interviews, field</b><span>Affinity map</span></a></li>
       <li><a href="#define"><small>Define</small><b>Users and goals</b><span>Storyboard</span></a></li>
-      <li><a href="#lofi"><small>Lo-fi</small><b>Cardboard + Figma</b><span>User test</span></a><em class="t">TEST</em></li>
-      <li><a href="#midfi"><small>Mid-fi</small><b>First 3D model</b><span>Expert, police, engineer</span></a><em class="t">TEST</em></li>
+      <li><a href="#evolution"><small>Evolution</small><b>Sketch → 3D</b><span>Users, expert, police</span></a><em class="t">TEST</em></li>
       <li><a href="#hifi"><small>Hi-fi</small><b>Final 3D + screen</b><span>Accessibility</span></a></li>
       <li><a href="#vr"><small>VR</small><b>Simulation</b><span>+ working prototype</span></a></li>
     </ol>
@@ -278,38 +308,16 @@ h3{font-size:18px!important;letter-spacing:0!important;line-height:1.25!importan
 </section>
 
 <!-- 04 LO-FI -->
-<section class="ch" id="lofi">
+<section class="ch" id="evolution">
   <div class="wrap">
-    <div class="ch-head"><div class="no">04<small>Lo-fi</small></div><div class="h"><h2>Sketch, then cardboard you can press</h2><p class="lede">We started from a street-light sketch and built it the cheap way: a cardboard pole with real buttons and braille, plus the screen flow in Figma.</p></div></div>
+    <div class="ch-head"><div class="no">04<small>Evolution</small></div><div class="h"><h2>How the pole took shape, in four steps</h2><p class="lede">Each version was cheap enough to change and real enough to test. What users and experts said at one step shaped the next.</p></div></div>
     <div class="body">
-      <div class="two wide-r">
-        <figure class="sketch"><img src="/media/brantpole/sketch.jpg" alt="Pencil sketch of a street lamp with a screen and a button"></figure>
-        <figure class="card"><img src="/media/brantpole/lofi.jpg" alt="Cardboard prototype mounted on a pole with Map, Event and News areas, up and down buttons with braille, a red PUSH button and a speaker, next to the Figma screen flow"></figure>
-      </div>
-      <div class="tc">
-        <div><span class="who">Test · 3 users, different cultural backgrounds</span><ul><li>Buttons felt inconsistent</li><li>Some wanted a loud alarm, others a silent one</li><li>Height-adjust labels were unclear</li><li>Language settings reset too quickly</li></ul></div>
-        <div class="arrow"><span>→</span></div>
-        <div class="chg"><span class="who">What changed in mid-fi</span><ul><li>Both preferences kept: press once for a silent alarm, hold for a loud one</li><li>Height and emergency buttons got clear text labels</li><li>The pole moved from cardboard into a 3D model</li></ul></div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- 05 MID-FI -->
-<section class="ch" id="midfi">
-  <div class="wrap">
-    <div class="ch-head"><div class="no">05<small>Mid-fi</small></div><div class="h"><h2>The first 3D model and a two-step alarm</h2><p class="lede">The 3D model gave the pole real proportions. A painted prototype with a tablet let people try the new screen and the alarm flow.</p></div></div>
-    <div class="body">
-      <figure class="card"><img src="/media/brantpole/midfi.jpg" alt="Painted physical prototype with a tablet showing the BrantPole screen, the alarm decision flow, and the first 3D model of the pole with a kiosk"></figure>
-      <div class="tc">
-        <div><span class="who">Test · expert and stakeholders</span>
-          <p class="lead">UX expert, heuristic walkthrough</p><ul><li>Button placement and feedback clarity</li><li>A clearer cancel, plus an “are you sure?” step</li><li>A search bar on the map</li></ul>
-          <p class="lead">Police officer</p><ul><li>Could help people feel safer at night; the camera would help filter prank calls</li></ul>
-          <p class="lead">Architectural engineer</p><ul><li>Feasible to build; estimated cost per pole</li></ul>
-        </div>
-        <div class="arrow"><span>→</span></div>
-        <div class="chg"><span class="who">What changed in hi-fi</span><ul><li>Alarm flow with a clearer cancel and an “are you sure?” step</li><li>A motion-sensing LED canopy replaced the simple lamp heads</li><li>A rebuilt 3D model and a dark, high-contrast screen</li></ul></div>
-      </div>
+      <ol class="comic" aria-label="Four versions of the pole">
+        <li><figure><div class="frame"><img src="/media/brantpole/evo-1-sketch.jpg" alt="Colour sketch: a red pole with a blue screen, a round emergency button and two yellow lamp heads"></div><figcaption><span class="s">Step 01</span><b>Sketch</b>A street light with a screen and one big button.</figcaption></figure></li>
+        <li><figure><div class="frame"><img src="/media/brantpole/evo-2-cardboard.jpg" alt="Cardboard prototype on a pole with Map, Event and News areas, braille up and down buttons, a red PUSH button and a speaker"></div><figcaption><span class="s">Step 02</span><b>Cardboard</b>Real buttons and braille you can press, plus the screen flow in Figma.</figcaption></figure></li>
+        <li><figure><div class="frame"><img src="/media/brantpole/evo-3-ipad.jpg" alt="Painted prototype with an iPad running the BrantPole screen: Brant Maps, an event poster, the news, time and language buttons"></div><figcaption><span class="s">Step 03</span><b>Working prototype</b>A painted pole with an iPad, so people could try the maps, events and alarm.</figcaption></figure></li>
+        <li><figure><div class="frame"><img src="/media/brantpole/evo-4-3d.jpg" alt="First 3D model: a red pole with twin lamp heads and a kiosk screen"></div><figcaption><span class="s">Step 04</span><b>3D model</b>Real proportions, height and materials, ready for the final design.</figcaption></figure></li>
+      </ol>
     </div>
   </div>
 </section>
@@ -317,7 +325,7 @@ h3{font-size:18px!important;letter-spacing:0!important;line-height:1.25!importan
 <!-- 06 HI-FI -->
 <section class="ch" id="hifi">
   <div class="wrap">
-    <div class="ch-head"><div class="no">06<small>Hi-fi</small></div><div class="h"><h2>Final 3D model: three features in one pole</h2></div></div>
+    <div class="ch-head"><div class="no">05<small>Hi-fi</small></div><div class="h"><h2>Final 3D model: three features in one pole</h2></div></div>
     <div class="body">
       <figure class="card"><img src="/media/brantpole/render-views.jpg" alt="Two renders of the final pole: a three-quarter view showing the kiosk screen, and a side view showing the slim profile and the glass canopy"></figure>
       <div class="feats">
@@ -333,21 +341,24 @@ h3{font-size:18px!important;letter-spacing:0!important;line-height:1.25!importan
   </div>
 </section>
 
-<!-- 07 VR -->
+<!-- 06 VR -->
 <section class="ch" id="vr">
   <div class="wrap">
-    <div class="ch-head"><div class="no">07<small>VR</small></div><div class="h"><h2>Standing next to it before it exists</h2><p class="lede">We checked the final concept two ways: a VR simulation of the pole, and a physical prototype with working LED strips under the canopy.</p></div></div>
-    <div class="vrrow">
-      <figure><div class="card"><img src="/media/brantpole/vr.jpg" alt="VR simulation: looking up at the pole's screen and canopy in a virtual street, with a VR controller in view"></div><figcaption class="cap">VR simulation in Unreal Engine</figcaption></figure>
-      <figure><div class="card"><img src="/media/brantpole/physical-hifi.jpg" alt="Physical hi-fi prototype: a red kiosk with a screen under a translucent canopy lit by LED strips"></div><figcaption class="cap">Physical prototype with the lit canopy</figcaption></figure>
+    <div class="vrsplit">
+      <div class="ch-head v"><div class="no">06<small>VR</small></div><div class="h"><h2>Standing next to it before it exists</h2><p class="lede">We built a night-time street and the pole in Unreal Engine and tested the final concept in VR. A user walks up, reads the screen, then presses the emergency button: a silent alarm first, then hold for a loud one.</p></div></div>
+      <figure class="vrvid"><video id="vrv" src="/media/brantpole/vr-walkthrough.mp4" poster="/media/brantpole/vr-walkthrough-poster.jpg" muted loop playsinline preload="metadata" aria-label="VR walkthrough at night: approaching the pole, browsing events, news and maps, then triggering the silent alarm and holding for the loud alarm"></video><figcaption class="cap">VR walkthrough in Unreal Engine</figcaption></figure>
     </div>
   </div>
 </section>
 
-<section class="ch" id="summary">
+<section class="ch" id="showcase">
   <div class="wrap">
-    <div class="ch-head"><div class="no" aria-hidden="true">→<small>Handoff</small></div><div class="h"><h2>One-page summary for the client</h2></div></div>
-    <div class="scroll card"><img src="/media/brantpole/onepager.jpg" alt="One-page summary: BrantPole overview, objective, accessibility features, three locations, emergency button with alarm flow, LED canopy, interactive screen and user task flow" style="min-width:760px"></div>
+    <div class="ch-head"><div class="no" aria-hidden="true">★<small>Showcase</small></div><div class="h"><h2>Showcase day</h2><p class="lede">We presented BrantPole at the Laurier UX Design MSc showcase, with the prototype on hand and the VR simulation open for guests to try.</p></div></div>
+    <div class="show">
+      <figure class="t"><img src="/media/brantpole/team-showcase.jpg" alt="Team BY KAMSA at the showcase with the BrantPole prototype"></figure>
+      <figure><img src="/media/brantpole/showcase-vr.jpg" alt="A guest trying the BrantPole VR simulation with a headset and controllers"></figure>
+      <figure><img src="/media/brantpole/showcase-talk.jpg" alt="Team BY KAMSA presenting BrantPole at the showcase, with the lit canopy prototype and research findings on screen"></figure>
+    </div>
   </div>
 </section>
 
@@ -372,4 +383,10 @@ h3{font-size:18px!important;letter-spacing:0!important;line-height:1.25!importan
 <footer><div class="wrap">BrantPole · Team BY KAMSA · UX600, Wilfrid Laurier University · Supported by Dr. John Munoz</div></footer>
 
 
+<script is:inline>
+(function(){var v=document.getElementById('vrv');if(!v)return;
+var reduce=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
+if(reduce||!('IntersectionObserver' in window)){v.controls=true;return;}
+new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){var p=v.play();if(p&&p.catch)p.catch(function(){v.controls=true})}else v.pause()})},{threshold:.4}).observe(v);})();
+</script>
 </Base>
