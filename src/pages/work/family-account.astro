@@ -264,6 +264,38 @@ figure{margin:0}
 h1{font-size:clamp(32px,4vw,46px)!important;font-weight:700!important;letter-spacing:-.015em!important;line-height:1.15!important}
 h2{font-size:clamp(24px,2.6vw,30px)!important;font-weight:700!important;letter-spacing:-.01em!important;line-height:1.15!important}
 h3{font-size:18px!important;letter-spacing:0!important;line-height:1.25!important}
+
+/* decisions timeline: rail, text left, panel right */
+.tlx{position:relative;margin-top:8px}
+.tl-track{position:absolute;left:19px;top:40px;bottom:40px;width:2px;background:#CFE9E5;border-radius:2px}
+.tl-track i{position:absolute;left:0;top:0;width:100%;height:0;background:var(--fill);border-radius:2px;transition:height .15s linear}
+.tr{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:64px;align-items:center;padding-block:52px;position:relative}
+.tt{position:relative;padding-left:72px;display:grid;gap:12px;align-content:center;opacity:.35;transform:translateY(16px);transition:opacity .6s,transform .6s}
+.tr.in .tt{opacity:1;transform:none}
+.tdot{position:absolute;left:0;top:-6px;width:40px;height:40px;border-radius:50%;background:#CFE9E5;color:var(--signal);display:grid;place-items:center;font:700 14px var(--mono);box-shadow:0 0 0 6px var(--paper);transition:background .4s,color .4s,transform .4s}
+.tr.in .tdot{background:var(--fill);color:#fff;transform:scale(1.06)}
+.stamp{font:600 12.5px/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--signal);margin:6px 0 0}
+.tt h3{font-size:22px!important}
+.tt p{color:var(--muted);font-size:15.5px;margin:0}
+.tt ul{margin:0;padding-left:18px;display:grid;gap:6px;color:var(--muted);font-size:15px}
+.tt ul b{color:var(--ink)}
+.panel{background:linear-gradient(160deg,#E3F5F1,#C8EBE5);border-radius:28px;padding:28px;display:grid;gap:16px;align-content:center;min-height:420px;opacity:0;transform:translateY(40px) scale(.97);transition:opacity .8s cubic-bezier(.2,.7,.2,1),transform .8s cubic-bezier(.2,.7,.2,1)}
+.tr.in .panel{opacity:1;transform:none}
+.panel > *{margin:0;opacity:0;transform:translateY(22px);transition:opacity .7s cubic-bezier(.2,.7,.2,1) .2s,transform .7s cubic-bezier(.2,.7,.2,1) .2s}
+.tr.in .panel > *{opacity:1;transform:none}
+.panel .win{border-radius:16px;overflow:hidden;background:#151515;box-shadow:0 24px 48px -28px #0d3b3688;display:grid}
+.panel .win img{display:block;width:100%;height:auto}
+.panel .win figcaption{font:500 11.5px var(--mono);letter-spacing:.06em;color:#BFD9D5;padding:10px 14px;background:#151515}
+.panel .pay,.panel .rules,.panel .road{width:100%}
+@media (max-width:900px){
+  .tl-track{left:15px}
+  .tr{grid-template-columns:1fr;gap:24px;padding-block:32px}
+  .tt{padding-left:52px;opacity:1;transform:none}
+  .tdot{width:32px;height:32px;font-size:12px}
+  .panel{min-height:0;padding:16px;border-radius:22px;margin-left:52px}
+}
+@media (max-width:560px){.panel{margin-left:0}}
+@media (prefers-reduced-motion:reduce){.panel,.panel > *,.tt{opacity:1!important;transform:none!important}}
 </style>
 
 <header class="bar">
@@ -400,29 +432,26 @@ h3{font-size:18px!important;letter-spacing:0!important;line-height:1.25!importan
       <div class="eyebrow">03 · Key decisions</div>
       <h2>Four decisions, each guarding a business risk</h2>
     </div>
-    <div class="spine">
-
-      <article class="dec wide">
-        <div class="no">01</div>
-        <div class="txt">
-          <span class="pill">Account model</span>
+    <div class="tlx" id="tlx">
+      <div class="tl-track" aria-hidden="true"><i id="tlfill"></i></div>
+      <article class="tr" data-i="0">
+        <div class="tt"><span class="tdot">01</span>
+          <p class="stamp">01 · Account model</p>
           <h3>Bind accounts, don't switch profiles</h3>
           <p>We designed two directions side by side: Netflix-style profiles inside one account, or a main account that invites and binds others. Phase 1 chose binding.</p>
           <ul><li><b>No learning cost:</b> existing WeChat and QQ login and sharing.</li><li><b>Clean data:</b> each person's history and recommendations stay their own.</li><li><b>Protects revenue:</b> every member still holds a real membership.</li></ul>
         </div>
-        <div class="art"><button class="zoom" data-src="/media/family-account/board-directions.jpg"><img src="/media/family-account/board-directions.jpg" alt="Interaction study comparing Direction 1, multi-profile switch and manage, with Direction 2, multi-account bind and manage, from admin and member views"></button><div class="zh"><span>Direction 1 vs Direction 2 · my interaction study</span><span>Click to zoom</span></div></div>
+        <div class="tp"><div class="panel"><figure class="win"><img src="/media/family-account/dec-bind.jpg" alt="Direction 2 interaction study: the main account invites family members by WeChat, QQ, link or QR poster, then manages each bound member" loading="lazy"><figcaption>Direction 2 · bind + manage · chosen for Phase 1</figcaption></figure></div></div>
       </article>
-
-      <article class="dec">
-        <div class="no">02</div>
-        <div class="txt">
-          <span class="pill">Business loop</span>
+      <article class="tr" data-i="1">
+        <div class="tt"><span class="tdot">02</span>
+          <p class="stamp">02 · Business loop</p>
           <h3>Pay for family, with family-only prices</h3>
           <p>With the membership team I designed discounts that only work when buying for a family member: VIP monthly at 52% off, SVIP at 54% off, once per member per plan.</p>
           <p>After launch, we moved the discount weight toward quarterly, annual and SVIP plans. That one change lifted order value about 2.6×.</p>
           <p>I also scoped a standalone family SKU, <b style="color:var(--ink)">FVIP</b>: one purchase, 2 to 4 seats, mixed tiers.</p>
         </div>
-        <div class="pay">
+        <div class="tp"><div class="panel"><div class="pay">
           <figure class="phone"><img src="/media/family-account/s-pay.jpg" alt="Pay for family sheet with family-only prices: 16, 73 and 248 yuan"></figure>
           <div class="fvip" aria-label="FVIP purchase logic">
             <div class="t">FVIP · new family SKU</div>
@@ -430,32 +459,28 @@ h3{font-size:18px!important;letter-spacing:0!important;line-height:1.25!importan
             <div class="flow"><div class="box"><b>Main account buys</b>Picks 2 / 3 / 4 seats and SVIP or HVIP</div><span class="ar">↓</span><div class="box"><b>Seats assigned</b>Each family member gets one</div></div>
             <div class="seats"><span>SVIP 1</span><span>SVIP 2</span><span class="h">HVIP 3</span><span class="h">HVIP 4</span></div>
           </div>
-        </div>
+        </div></div></div>
       </article>
-
-      <article class="dec">
-        <div class="no">03</div>
-        <div class="txt">
-          <span class="pill">Risk rules</span>
+      <article class="tr" data-i="2">
+        <div class="tt"><span class="tdot">03</span>
+          <p class="stamp">03 · Risk rules</p>
           <h3>Friction where it protects the product</h3>
           <p>Family discounts are an invitation to "carpool" strangers. A few limits keep the family a family, while normal users never notice them.</p>
         </div>
-        <div class="rules">
+        <div class="tp"><div class="panel"><div class="rules">
           <div class="rule"><b>4<small>members</small></b><span>Maximum family size</span></div>
           <div class="rule"><b>1×<small>/ year</small></b><span>The main account can dissolve the family</span></div>
           <div class="rule"><b>1×<small>/ year</small></b><span>A member can leave</span></div>
           <div class="rule"><b>Approve</b><span>New-device logins for no-account members ask the main account first</span></div>
-        </div>
+        </div></div></div>
       </article>
-
-      <article class="dec">
-        <div class="no">04</div>
-        <div class="txt">
-          <span class="pill">Roadmap</span>
+      <article class="tr end" data-i="3">
+        <div class="tt"><span class="tdot">04</span>
+          <p class="stamp">04 · Roadmap</p>
           <h3>Close the loop first, then layer by audience</h3>
           <p>Phase 1 did five things and proved families would pay. That data earned Phase 2, which splits into four lines, one for each unmet need.</p>
         </div>
-        <div class="road">
+        <div class="tp"><div class="panel"><div class="road">
           <div class="lane"><div class="ph-l">Phase 1<small>MVP · shipped</small></div><div class="mods one"><div class="mod">Create family</div><div class="mod">Invite</div><div class="mod">Pay for family</div><div class="mod">Recommend</div><div class="mod">Status</div></div></div>
           <div class="down">↓ data earns the next phase</div>
           <div class="lane"><div class="ph-l">Phase 2<small>designed</small></div><div class="mods">
@@ -464,51 +489,8 @@ h3{font-size:18px!important;letter-spacing:0!important;line-height:1.25!importan
             <div class="mod"><b>Connection</b>Online now, watching now, watch together, shared clips</div>
             <div class="mod"><b>Parental control</b>Time windows and limits, age rating, blocking, eye care</div>
           </div></div>
-        </div>
+        </div></div></div>
       </article>
-
-    </div>
-  </div>
-</section>
-
-<!-- INTERACTION DESIGN -->
-<section class="stage">
-  <div class="wrap">
-    <div class="head">
-      <div class="eyebrow">04 · Interaction design</div>
-      <h2>Every state, from both sides of the invite</h2>
-      <p class="lede">I led the interaction framework for every key flow, mapping each screen from the main account's view and the joiner's view. Click any board to see it at full size.</p>
-    </div>
-    <div class="boards">
-
-      <div class="bd">
-        <div class="bd-h"><span class="k">A</span><h3>Phase 1: bind first, buy later</h3><p>Buying and binding started as one step, so parents had to pay before deciding who for. I split them: build the relationship first, then suggest "Not a member yet · get it for them" right on the member card.</p></div>
-        <button class="zoom" data-src="/media/family-account/board-phase1.jpg"><img src="/media/family-account/board-phase1.jpg" alt="Phase 1 interaction board: main account invite and member management flows on the left, joiner states on the right"></button>
-        <div class="callouts"><span><b>01</b>Invite via WeChat, QQ or link</span><span><b>02</b>Member card with pay prompt</span><span><b>03</b>5 joiner states, incl. expired invite</span><span><b>04</b>Watch time and history for the payer</span></div>
-      </div>
-
-      <div class="bd">
-        <div class="bd-h"><span class="k">B</span><h3>No account? Three ways in</h3><p>For elders and kids without accounts: log in with the main account and pick a profile, open an invite link, or type a temporary passcode. Repeat logins ask the main account to approve.</p></div>
-        <button class="zoom" data-src="/media/family-account/board-multiprofile.jpg"><img src="/media/family-account/board-multiprofile.jpg" alt="Paid multi-profile board: main account creates members and shares login by link or passcode; three login methods for the member"></button>
-        <button class="zoom" data-src="/media/family-account/board-passcode.jpg"><img src="/media/family-account/board-passcode.jpg" alt="Board: existing multi-account model plus link with passcode login, including second-login approval on the main account's lock screen"></button>
-      </div>
-
-      <div class="bd">
-        <div class="bd-h"><span class="k">C</span><h3>FVIP: one purchase, a seat for everyone</h3><p>Where the family SKU lives: a buy entry in the membership center, two layouts for the post-purchase profile, and a seat and device manager.</p></div>
-        <button class="zoom" data-src="/media/family-account/board-fvip.jpg"><img src="/media/family-account/board-fvip.jpg" alt="FVIP flow board: purchase entry, two profile layouts, identity switching and shared device management"></button>
-      </div>
-
-      <div class="bd">
-        <div class="bd-h"><span class="k">D</span><h3>One page for care and control</h3><p>The member page carries both connection and parental control. Empty, kid and elder states share one framework, which kept build cost low.</p></div>
-        <div class="screens">
-          <figure><div class="phone"><img src="/media/family-account/s-kidctl.jpg" alt="Kid profile: online on the living-room TV, remote play button, pending pay request, history and daily watch time"></div><figcaption><b>Kid, configured</b>Online device, remote play, watch time, then limits</figcaption></figure>
-          <figure><div class="phone"><img src="/media/family-account/s-remote-a.jpg" alt="Shared account management for Mom: now watching an episode played remotely, plus limits"></div><figcaption><b>Elder, now watching</b>See what Mom is watching; queue the next episode</figcaption></figure>
-          <figure><div class="phone"><img src="/media/family-account/s-remote-b.jpg" alt="Player More menu: play this for a family member, recommend it, share a clip to the family room"></div><figcaption><b>From any title</b>Play for family, recommend, share a clip</figcaption></figure>
-          <figure><div class="phone"><img src="/media/family-account/s-member.jpg" alt="Family member page: not a member yet, get it for them; recommended list"></div><figcaption><b>Member card</b>"Not a member yet" turns care into a purchase</figcaption></figure>
-        </div>
-        <p class="cap" style="color:var(--stage-muted)">When the time limit is reached, the player says it, not the parent, with an option to finish the current episode first so kids aren't cut off mid-show.</p>
-      </div>
-
     </div>
   </div>
 </section>
@@ -517,7 +499,7 @@ h3{font-size:18px!important;letter-spacing:0!important;line-height:1.25!importan
 <section>
   <div class="wrap">
     <div class="head">
-      <div class="eyebrow">05 · Results</div>
+      <div class="eyebrow">04 · Results</div>
       <h2>From an emotional need to new revenue</h2>
       <p class="lede">Grey launch proved families would pay. Once discounts shifted toward long-term and SVIP plans, daily revenue cleared the Phase 1 goal within days.</p>
     </div>
@@ -542,7 +524,7 @@ h3{font-size:18px!important;letter-spacing:0!important;line-height:1.25!importan
 <!-- REFLECTION -->
 <section style="padding-top:0">
   <div class="wrap">
-    <div class="head"><div class="eyebrow">06 · Reflection</div><h2>What I'd carry forward</h2></div>
+    <div class="head"><div class="eyebrow">05 · Reflection</div><h2>What I'd carry forward</h2></div>
     <div class="refl">
       <div><h3>Close the loop, then layer</h3><p>Phase 1 only had to prove that family ties lead to payment. That proof bought the resources for Phase 2.</p></div>
       <div><h3>Pricing is product design</h3><p>The discount structure, not a new screen, was the turning point in the revenue curve.</p></div>
@@ -559,7 +541,6 @@ h3{font-size:18px!important;letter-spacing:0!important;line-height:1.25!importan
   </div>
 </section>
 
-<div class="lb" id="lb" role="dialog" aria-modal="true" aria-label="Full-size board"><span class="hint">Scroll to explore</span><button type="button" id="lbx">Close ✕</button><img id="lbimg" alt=""></div>
 
 <script is:inline>
 (function(){
@@ -610,13 +591,14 @@ h3{font-size:18px!important;letter-spacing:0!important;line-height:1.25!importan
   var pi=D.indexOf(peak), pk=el(c,'text',{x:L+pi*bw+bw/2,y:y(peak[2])-8,'text-anchor':'middle','font-size':12.5,'font-weight':700,fill:'#1A1D1C','font-family':'TencentSans, Arial, sans-serif'});pk.textContent='¥'+(peak[2]/1000).toFixed(1)+'k';
   document.getElementById('chartSub').textContent='Dec 1, 2023 ¥'+D[0][2]+' → Jan 6, 2024 ¥'+peak[2].toLocaleString('en-US')+' ('+peak[1].toLocaleString('en-US')+' orders)';
 
-  /* lightbox */
-  var lb=document.getElementById('lb'), im=document.getElementById('lbimg'), last=null;
-  document.querySelectorAll('.zoom').forEach(function(b){b.addEventListener('click',function(){last=b;im.src=b.getAttribute('data-src');im.alt=b.querySelector('img').alt;lb.classList.add('on');document.body.style.overflow='hidden';lb.scrollTop=0;lb.scrollLeft=0;document.getElementById('lbx').focus();})});
-  function close(){lb.classList.remove('on');document.body.style.overflow='';if(last)last.focus();}
-  document.getElementById('lbx').addEventListener('click',close);
-  lb.addEventListener('click',function(e){if(e.target===lb)close()});
-  document.addEventListener('keydown',function(e){if(e.key==='Escape'&&lb.classList.contains('on'))close()});
+  /* decisions timeline */
+  var rows=[].slice.call(document.querySelectorAll('.tlx .tr')), tlx=document.getElementById('tlx'), fill=document.getElementById('tlfill');
+  if('IntersectionObserver' in window && rows.length){
+    var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting)e.target.classList.add('in')})},{rootMargin:'0px 0px -30% 0px',threshold:.15});
+    rows.forEach(function(r){io.observe(r)});
+  } else rows.forEach(function(r){r.classList.add('in')});
+  function prog(){ if(!tlx)return; var r=tlx.getBoundingClientRect(), vh=window.innerHeight; var p=Math.min(1,Math.max(0,(vh*0.6-r.top)/(r.height-80))); fill.style.height=(p*100).toFixed(1)+'%'; }
+  window.addEventListener('scroll',prog,{passive:true}); window.addEventListener('resize',prog); prog();
 })();
 </script>
 </Base>
