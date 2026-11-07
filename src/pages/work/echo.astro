@@ -79,6 +79,15 @@ section{padding-block:96px}
 .more-p{margin-top:16px}
 
 /* process strips */
+.flows2{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:20px;align-items:start}
+.flows2 figure{margin:0;display:grid;gap:12px;min-width:0}
+.fl-lab{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap}
+.fl-lab b{font:700 18px var(--display)}
+.fl-lab span{font:400 12.5px/1.5 var(--mono);color:var(--muted)}
+.fl-img{display:block;border-radius:16px;overflow:hidden;border:1px solid var(--line);background:#0d0b14;cursor:zoom-in;transition:border-color .2s}
+.fl-img:hover{border-color:#8a7cff}
+.fl-img img{display:block;width:100%;height:auto}
+@media (max-width:760px){.flows2{grid-template-columns:1fr}}
 .strips{display:grid;gap:22px}
 .strip{display:grid;grid-template-columns:150px minmax(0,1fr);gap:24px;align-items:center;padding-block:18px;border-top:1px solid var(--line)}
 .strip .lab{display:grid;gap:6px}
@@ -245,11 +254,11 @@ h3{font-size:18px!important;letter-spacing:0!important;line-height:1.25!importan
       <h2>Low-fi to mid-fi to hi-fi</h2>
       <p class="lede">We mapped every flow in grey boxes first, tested the logic, then moved to dark mid-fi screens with the companion in place before polishing the visuals.</p>
     </div>
-    <div class="strips">
-      <div class="strip"><div class="lab"><b>Lo-fi</b><span>Sign up and log in</span></div><div class="img"><img src="/media/echo/lofi-signup.jpg" alt="Five grey wireframes: welcome, sign up, filled sign up, log in, filled log in"></div></div>
-      <div class="strip"><div class="lab"><b>Lo-fi</b><span>Create a companion: name, personality, appearance, review</span></div><div class="img"><img src="/media/echo/lofi-create.jpg" alt="Five wireframes for companion creation: quick or advanced, name, personality traits, visual appearance, review"></div></div>
-      <div class="strip"><div class="lab"><b>Mid-fi</b><span>Emotional support flow with the companion in place</span></div><div class="img dark"><img src="/media/echo/midfi-chat.jpg" alt="Dark mid-fidelity screens: main page, speaking, response, side menu and tarot"></div></div>
+    <div class="flows2">
+      <figure><div class="fl-lab"><b>Lo-fi</b><span>Grey wireframes · every flow and branch</span></div><a class="fl-img" href="/media/echo/flow-lofi-full.jpg" target="_blank" rel="noopener"><img src="/media/echo/flow-lofi.jpg" alt="Lo-fi user flow in grey wireframes: welcome, log in, Google log in and sign up, then Quick Create and Advanced customization for name, personality, memory, art style, features, appearance and voice, ending in Your companion is ready" loading="lazy"></a></figure>
+      <figure><div class="fl-lab"><b>Mid-fi</b><span>Dark screens · the companion in place</span></div><a class="fl-img" href="/media/echo/flow-midfi-full.jpg" target="_blank" rel="noopener"><img src="/media/echo/flow-midfi.jpg" alt="Mid-fi user flow on dark screens with the glowing companion: 2D and AR chat modes, voice, keyboard and mood input, AR loading and low-light errors, and the daily tarot flow" loading="lazy"></a></figure>
     </div>
+    <p class="cap note">Click either flow to open it full size.</p>
   </div>
 </section>
 
