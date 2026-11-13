@@ -220,6 +220,25 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .vis .ph{box-shadow:0 20px 40px -20px #000a,0 0 0 4px var(--dark)}
 .place{background:var(--teal);color:#fff}
 .links a:hover{color:var(--mint)}
+
+/* how I got here */
+.contact .wrap.pw{display:block;margin-bottom:88px;padding-bottom:72px;border-bottom:1px solid var(--dline)}
+.path{list-style:none;margin:40px 0 0;padding:0;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:20px;position:relative}
+.path::before{content:"";position:absolute;left:6px;right:6px;top:6px;height:2px;background:linear-gradient(90deg,var(--dline),var(--teal))}
+.path li{position:relative;padding-top:30px;display:grid;gap:6px;align-content:start}
+.path li::before{content:"";position:absolute;left:0;top:0;width:14px;height:14px;border-radius:50%;background:var(--dark);border:2px solid var(--teal)}
+.path li.now::before{background:var(--mint);border-color:var(--mint);box-shadow:0 0 0 6px #B9E4E833}
+.path .yr{font:500 12px var(--font);letter-spacing:.08em;color:var(--mint)}
+.path b{font-size:17px;line-height:1.3;color:var(--dink)}
+.path p{font-size:14px;color:var(--dmuted);margin:0}
+.path-note{margin-top:36px;font-size:clamp(18px,2vw,22px);line-height:1.5;color:var(--dink);max-width:760px;border-left:3px solid var(--teal);padding-left:18px}
+@media (max-width:900px){
+  .path{grid-template-columns:1fr;gap:22px;padding-left:28px}
+  .path::before{left:6px;right:auto;top:6px;bottom:6px;width:2px;height:auto;background:linear-gradient(180deg,var(--dline),var(--teal))}
+  .path li{padding-top:0}
+  .path li::before{left:-28px;top:3px}
+  .contact .wrap.pw{margin-bottom:56px;padding-bottom:48px}
+}
 </style>
 
 <div class="strip">Open to <b>Product Designer</b> roles in Toronto · Relocating Feb 2027</div>
@@ -375,6 +394,18 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 
 <!-- 6 INFO (dark) -->
 <section class="band dark contact" id="contact">
+  <div class="wrap pw" id="path">
+    <p class="kicker">How I got here</p>
+    <h2 style="margin-top:10px">I learn by doing, and I deliver.</h2>
+    <ol class="path">
+      <li><span class="yr">2009</span><b>Law student</b><p>Bachelor of Law, Beijing Normal University. No design or tech background.</p></li>
+      <li><span class="yr">2013</span><b>Copywriter to UX</b><p>Started in tech writing copy at Dewmobile, then learned UX on the job by shipping.</p></li>
+      <li><span class="yr">Dewmobile</span><b>Product Manager</b><p>Owned the ZAPYA iOS app for a global audience, rated 4.7 on the App Store.</p></li>
+      <li><span class="yr">2018</span><b>Senior Product Manager, Tencent</b><p>Promoted to Senior PM. Each project was a new field: identity, payments, recommendation, AI. Each one shipped with results.</p></li>
+      <li class="now"><span class="yr">2025</span><b>Starting over in Canada</b><p>MS in UX Design at Laurier. Within months, helped a Toronto business launch its first AI product.</p></li>
+    </ol>
+    <p class="path-note">Every step was new to me. I give it my best, I'm not afraid to fail, and when I fall, I get back up fast.</p>
+  </div>
   <div class="wrap">
     <div><p class="kicker">Contact</p><h2 style="margin-top:10px">Let's build something people keep coming back to.</h2><p class="muted" style="margin-top:14px">Open to product designer and UI/UX designer roles.</p></div>
     <div class="links">
