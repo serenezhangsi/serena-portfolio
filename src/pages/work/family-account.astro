@@ -440,8 +440,12 @@ h3{font-size:18px!important;letter-spacing:0!important;line-height:1.25!importan
           <h3>Bind accounts, don't switch profiles</h3>
           <p>We designed two directions side by side: Netflix-style profiles inside one account, or a main account that invites and binds others. Phase 1 chose binding.</p>
           <ul><li><b>No learning cost:</b> existing WeChat and QQ login and sharing.</li><li><b>Clean data:</b> each person's history and recommendations stay their own.</li><li><b>Protects revenue:</b> every member still holds a real membership.</li></ul>
+          <p>I put about 90% of the steps on the payer's side. The elder only taps once to accept, and for elders without an account we designed passcode and QR-code login. I drew the account-relationship flowchart for back-end review, and client teams built from my high-fidelity screens.</p>
         </div>
-        <div class="tp"><div class="panel"><figure class="win"><img src="/media/family-account/dec-bind.jpg" alt="Direction 2 interaction study: the main account invites family members by WeChat, QQ, link or QR poster, then manages each bound member" loading="lazy"><figcaption>Direction 2 · bind + manage · chosen for Phase 1</figcaption></figure></div></div>
+        <div class="tp"><div class="panel">
+          <figure class="win"><a href="/media/family-account/dec-ui-flows-full.jpg" target="_blank" rel="noopener"><img src="/media/family-account/dec-ui-flows.jpg" alt="Interaction flows from both sides: the main account creates a family, manages members and sends a login invite; the member joins by WeChat or QQ login, an invite link, or a temporary passcode" loading="lazy"></a><figcaption>Main account and member views · three ways to join · tap to enlarge</figcaption></figure>
+          <figure class="win"><img src="/media/family-account/flow-bind-en.jpg" alt="Binding flowchart: a member with an account opens the invite, logs in if needed, and is bound to the host account; a member without an account logs in by family passcode or QR code, gets a new account ID and is bound" loading="lazy"><figcaption>Account binding flowchart · reviewed with back-end engineers</figcaption></figure>
+        </div></div>
       </article>
       <article class="tr" data-i="1">
         <div class="tt"><span class="tdot">02</span>
@@ -472,7 +476,9 @@ h3{font-size:18px!important;letter-spacing:0!important;line-height:1.25!importan
           <div class="rule"><b>1×<small>/ year</small></b><span>The main account can dissolve the family</span></div>
           <div class="rule"><b>1×<small>/ year</small></b><span>A member can leave</span></div>
           <div class="rule"><b>Approve</b><span>New-device logins for no-account members ask the main account first</span></div>
-        </div></div></div>
+        </div>
+        <figure class="win"><img src="/media/family-account/flow-invite-en.jpg" alt="Invite pipeline: who can invite, what they can buy, security checks on both accounts (platform safety level, ID and face verification, age and gender checks), then binding rules for free, member and multi-account users" loading="lazy"><figcaption>Invite pipeline · identity, permission, security check, binding</figcaption></figure>
+        </div></div>
       </article>
       <article class="tr end" data-i="3">
         <div class="tt"><span class="tdot">04</span>
