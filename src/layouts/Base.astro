@@ -26,7 +26,8 @@ const ogImage = Astro.site ? new URL(image, Astro.site).href : image;
       @font-face{font-family:"TencentSans";src:url("/fonts/TencentSans-W3.woff2") format("woff2");font-weight:100 500;font-style:normal;font-display:swap}
       @font-face{font-family:"TencentSans";src:url("/fonts/TencentSans-W7.woff2") format("woff2");font-weight:600 900;font-style:normal;font-display:swap}
     </style>
-  </head>
+    <script defer src="/_vercel/insights/script.js"></script>
+</head>
   <body>
     <slot />
   </body>
